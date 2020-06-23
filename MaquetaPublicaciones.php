@@ -126,7 +126,7 @@ if (!empty($_GET['filtro'])) {
 
                 <div id="section">Lista de Publicaciones:
                     <hr>
-
+                    <!-- FOREACH QUE CREA LA LISTA DE LAS PUBLICACIONES "filtro" RESIVE LOS DATOS SEGUN EL FILTRO QUE SE SELECCIONA-->
                     <?php foreach ($filtro as $publicacion) { ?>     
 
 
@@ -139,7 +139,7 @@ if (!empty($_GET['filtro'])) {
 
                                     <div class="row">
                                         <div class="col bg">
-
+                                            <!-- SE COLOCA EL AVATAR DEL USUARIO DUEÑO DE LA PUBLICACION LISTADA -->
                                             <img src="<?php
                                             if (!empty($publicacion['foto_usuario'])) {
                                                 echo $publicacion['foto_usuario'];
@@ -156,7 +156,7 @@ if (!empty($_GET['filtro'])) {
                                 <div class="col-6 bg">
                                     <div class="row row-cols-1">
                                         <div class="col bg">
-
+                                            <!-- TITULO CON LINK PARA REDIRIGIR A LA VISTA DETALLADA DE LA PUBLICACION SELECCIONADA CLIKEANDO SU TITULO -->
                                             <?php if (!empty($publicacion['id_publicacion_usuario'])) { ?>
                                                 <?php if ($publicacion['categoria_publicacion'] == "tutoria") { ?>
                                                     <div class="titulo">
@@ -173,7 +173,7 @@ if (!empty($_GET['filtro'])) {
                                             <?php } ?>
 
                                         </div>
-
+                                        <!-- INCLUYE Y NO INCLUYE -->
                                         <div class="col bg">Incluye: <?php echo $publicacion['si_incluye'] ?></div>
                                         <div class="col bg">Excluye: <?php echo $publicacion['no_incluye'] ?></div>
                                         <div class="col bg">Tipo: Tipo</div>
@@ -182,8 +182,9 @@ if (!empty($_GET['filtro'])) {
                                                 echo $publicacion['certificado_usuario'];
                                             }
                                             ?></div>
-
+                                        <!-- DESCRIPCION-->
                                         <div class="col bg">Descripcion: <?php echo $publicacion['descripcion'] ?></div>
+                                        <!-- PRECIO -->
                                         <div class="col bg">$: <?php echo $publicacion['precio'] ?></div>
 
                                     </div>
@@ -198,21 +199,138 @@ if (!empty($_GET['filtro'])) {
                                         <div id="imagen1">
 
                                             <div class="col bg">
+                                                <!-- CALIFICACION -->
+                                                <?php
+                                                if (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "tutoria")) {
 
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
+                                                    $calificacionSQL->execute();
+                                                    $sumaCalificacionUsuario = 0;
+                                                    $contadorCalificacionUsuario = 0;
+                                                    $resultadoCalificacionUsuario = 0;
+                                                    foreach ($calificacionSQL as $calificacion) {
+                                                        $sumaCalificacionUsuario += $calificacion['estrellas'];
+                                                        $contadorCalificacionUsuario++;
+                                                    }
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        $resultadoCalificacionUsuario = $sumaCalificacionUsuario / $contadorCalificacionUsuario;
+                                                        // echo $resultadoCalificacionUsuario;
+                                                    } else {
+                                                        //  echo 'Sin Calificaciones';
+                                                    }
+                                                    ConexionBD::cerrarConexion();
+                                                } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "asesoria")) {
 
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
+                                                    $calificacionSQL->execute();
+                                                    $sumaCalificacionUsuario = 0;
+                                                    $contadorCalificacionUsuario = 0;
+                                                    $resultadoCalificacionUsuario = 0;
+                                                    foreach ($calificacionSQL as $calificacion) {
+                                                        $sumaCalificacionUsuario += $calificacion['estrellas'];
+                                                        $contadorCalificacionUsuario++;
+                                                    }
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        $resultadoCalificacionUsuario = $sumaCalificacionUsuario / $contadorCalificacionUsuario;
+                                                        // echo $resultadoCalificacionUsuario;
+                                                    } else {
+                                                        //  echo 'Sin Calificaciones';
+                                                    }
+                                                    ConexionBD::cerrarConexion();
+                                                } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
 
-                                                <img src="Imagenes/Sistema/calificacionDEMO.png" width=100% alt="Puntuacion.img" class="img-responsive">
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_entidad WHERE id_entidad = ? AND id_publicacion_entidad = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
+                                                    $calificacionSQL->execute();
+                                                    $sumaCalificacionUsuario = 0;
+                                                    $contadorCalificacionUsuario = 0;
+                                                    $resultadoCalificacionUsuario = 0;
+                                                    foreach ($calificacionSQL as $calificacion) {
+                                                        $sumaCalificacionUsuario += $calificacion['estrellas'];
+                                                        $contadorCalificacionUsuario++;
+                                                    }
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        $resultadoCalificacionUsuario = $sumaCalificacionUsuario / $contadorCalificacionUsuario;
+                                                        // echo $resultadoCalificacionUsuario;
+                                                    } else {
+                                                        //  echo 'Sin Calificaciones';
+                                                    }
+                                                    ConexionBD::cerrarConexion();
+                                                } elseif (!empty($publicacion['id_publicacion_entidad'])) {
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_entidad WHERE id_entidad = ? AND id_publicacion_entidad = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_entidad']);
+                                                    $calificacionSQL->bindParam(2, $publicacion['id_publicacion_entidad']);
+                                                    $calificacionSQL->execute();
+                                                    $sumaCalificacionEntidad = 0;
+                                                    $contadorCalificacionEntidad = 0;
+                                                    $resultadoCalificacionEntidad = 0;
 
+                                                    foreach ($calificacionSQL as $calificacion) {
+                                                        $sumaCalificacionEntidad += $calificacion['estrellas'];
+                                                        $contadorCalificacionEntidad++;
+                                                    }
+                                                    if ($contadorCalificacionEntidad != 0) {
+                                                        $resultadoCalificacionEntidad = $sumaCalificacionEntidad / $contadorCalificacionEntidad;
+                                                        //   echo $resultadoCalificacionEntidad;
+                                                    } else {
+                                                        //   echo 'Sin Calificaciones';
+                                                    }
+                                                    ConexionBD::cerrarConexion();
+                                                }
+                                                ?>
+
+                                                <img src="Imagenes/Sistema/gif-estrella.gif"  width="25%" height="25%" alt="Puntuacion.img" class="img-responsive">
+                                                <?php
+                                                if ($publicacion['categoria_publicacion'] == "tutoria") {
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        ?>
+                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                    <?php } else { ?>
+                                                        <b> SIN CLASIFICACION</b>
+                                                        <?php
+                                                    }
+                                                } elseif ($publicacion['categoria_publicacion'] == "asesoria") {
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        ?>
+                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                    <?php } else { ?>
+                                                        <b> SIN CLASIFICACION</b>
+                                                        <?php
+                                                    }
+                                                } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
+                                                    if ($contadorCalificacionUsuario != 0) {
+                                                        ?>
+                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                    <?php } else { ?>
+                                                        <b> SIN CLASIFICACION</b>
+                                                        <?php
+                                                    }
+                                                } elseif ($publicacion['categoria_publicacion'] == "oportunidad") {
+                                                    if ($contadorCalificacionEntidad != 0) {
+                                                        ?>
+                                                        <b><?php echo $resultadoCalificacionEntidad; ?></b>
+                                                    <?php } else { ?>
+                                                        <b> SIN CLASIFICACION</b>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         <div id="imagen1">
                                             <div class="col bg">
+                                                <!-- SELLOS (tutoria, asesoria, oportunidad -->
                                                 <?php if ($publicacion['categoria_publicacion'] == "tutoria") { ?>
-                                                    <img src="Imagenes/Sistema/tutoria.png" alt="tutoria.img" width="50%" class="img-responsive">
+                                                    <img src="Imagenes/Sistema/tutoria.png" alt="tutoria.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } elseif ($publicacion['categoria_publicacion'] == "asesoria") { ?>
-                                                    <img src="Imagenes/Sistema/asesoria.png" alt="asesoria.img" width="50%" class="img-responsive">
+                                                    <img src="Imagenes/Sistema/asesoria.png" alt="asesoria.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } else { ?>
-                                                    <img src="Imagenes/Sistema/opportunity.png" alt="oportunidad.img" width="50%" class="img-responsive">
+                                                    <img src="Imagenes/Sistema/opportunity.png" alt="oportunidad.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } ?>
                                             </div>
                                         </div>
