@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+#contedenedor{
+    width: 1200px;
+    height: 1000px;
+    background: #D8D8D8;
+    margin: 0.5em auto;
+    padding: 0.5em;
+}
+
+#header {
+    height: 20%;
+   /* background: #A4A4A4; */
+   border-radius: 1em;
+   margin: 1em;
+}
+
+#nav{
+    height: 10%;
+    background: #424242;
+    border-radius: 1em;
+    margin: 1em;
+}
+
+#contenido{
+    height: 50%;
+    background: #ffffff;
+}
+
+#footer{
+    height: 15%;
+    background: #424242;
+    border-radius: 1em;
+    margin: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Publicaciones */
+
+#publicacion-container {
+    width: 60% !important;
+    height: 40% !important;
+   border: solid 3px;  
+   border-color: black;
+   background-color: white; 
+   border-color: transparent;
+}
+
+.publicacion-foto {
+     padding-top: 2%; 
+    padding-bottom: 2%;
+    align-self: center;
+}
+.calificacion {
+     padding-top: 2%; 
+    padding-bottom: 2%; 
+    align-self: center !important;
+    text-align: center !important;
+}
+
+.imagen1 {
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
+      border: solid 1px;
+  border-color: black;
+}
+
+.col bg{
+      border: solid 3px;
+  border-color: black;
+}
+
+.row-cols-1{
+      border: solid 1px;
+  border-color: black;
+}
+
+/*Cierre Publicaciones */
+
+
+
+
+

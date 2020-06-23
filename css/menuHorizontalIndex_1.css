@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-03-2020, 16:46:02
+    Author     : Zeiku
+*/
+/*alineacion de la barra  */
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/*tamaño y color  */
+header {
+    width: 100%;
+   /* background: #4a4a4a; */
+   background: #4a4a4a;
+}
+
+/*ocultar boton menu en pantallas grandes  */
+#btn-menu {
+    display: none;
+}
+
+/*laber del header alineacion  */
+header label {
+/* display: block; */
+display: none;
+width: 30px;
+height: 30px;
+padding: 10px;
+border-left: 1px solid #fff;
+    
+}
+
+/*cambia el icono del cursor cuando pase el puntero y cambie color  */
+header label:hover {
+    cursor: pointer;
+    background: rgba(0,0,0,0.3);
+}
+
+/* crea un flexbox y hace que link sean cajas flexibles y los coloca en fila  */
+.menu ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    /*justify-content: flex-start;*/
+}
+
+/* da tamaño al flexbox y el color de los textos  */
+.menu li {
+    border-right: 1px solid #fff;
+    /*flex-grow: 1;*/ 
+}
+
+/* preselecciona al pasar el puntero  */
+.menu li:hover {
+    background: rgba(0,0,0,0.3);
+}
+
+/* da tamaño al flexbox y el color de los textos  */
+.menu li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*mediaquery  (al llegar a 768px el menu cambia) */
+@media (max-width:768px) {
+    
+    /*leabel dentro del header   */
+    header label {
+        display: block;
+    }
+    
+    /*ajustes del menu   */
+    .menu {
+        position: absolute;
+      /*  background: #4a4a4a */
+         background: #4a4a4a;
+        width: 70%;
+        margin-left: -70%;
+        transition: all 0.5s;
+    }
+    
+    /*contenedor flex nota:flex-direction por defecto es row, aqui lo cambia  */
+    .menu ul {
+        flex-direction: column;
+    }
+    
+    /*ajustes del menu, ocultamos el menu a la izquierda   */
+    .menu li {
+        border-top: 1px solid #fff;
+    }
+    
+    /*combrueba si btn-menu esta cliqueado y si lo esta muestra el menu   
+      ~ significa que si btn-menu es clikeado busque en html la clase "menu"*/
+    #btn-menu:checked ~ .menu {
+        margin: 0;
+    }
+}
