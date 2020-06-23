@@ -35,19 +35,11 @@ function mostrar(id) {
         $("#Usuario").show();
         $("#Entidad").hide();
         $("#all").hide();
-    }
-
-    
+    }    
     </script>
-    
-    
-    
+
   </head>
   <body>
-
-
-
-
     <!-- Header Start -->
     <header>
         <div class="container">
@@ -73,7 +65,7 @@ function mostrar(id) {
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav navbar-right">
                             <li><a href="index.html">Home</a></li>
-                            <li><a href="work.html">Work</a></li>
+                            <li><a href="Registro.html">Work</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Service</a></li>
                             <li><a href="contact.html">Contact</a></li>
@@ -116,39 +108,35 @@ function mostrar(id) {
                     <ul id="portfolio-contant-active">
                     
                   
-                        <li class="mix Usuario">
-                           
+        <li class="mix Usuario">                          
                         <a href="#">
                           <img src="img/portfolio/work5.jpg" alt="">
                           <div class="overly">
                             <div class="position-center">
                               <h2>EduWeb</h2>
-                              <p>Texto Atractivo </p>
-                              
+                              <p>Texto Atractivo </p>                            
                             </div>
-                          </div>
-                          
+                          </div>                        
                         </a>
                       </li>
                     
-                      
-                         
-                      <li class="mix Usuario">
+        <li class="mix Usuario">
                       <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" required oninput="checkRut(this)"  required>
-                                                        <script src="./JavaScript/FormatoValidaRut.js"></script>
-                  </div>
+                          <script src="./JavaScript/FormatoValidaRut.js"></script>
+                   </div>
                       
-                       <div class="form-group">
+                    <div class="form-group">
                            <input type="password" id="pass" name="passwordNuevo" class="form-control" data-type="password" placeholder="Ingrese Password" required>
                     </div> 
                       
-                      <div class="form-group">
+                    <div class="form-group">
                           <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese Nombre" required>
                     </div> 
                       
-                      <div class="form-group">
+                    <div class="form-group">
                           <input id="apellidopat" name="apellidopat" type="text" class="form-control" placeholder="Ingrese Apellido Paterno" required>
                     </div>
                       
@@ -156,11 +144,9 @@ function mostrar(id) {
                     <div class="form-group">
                         <input id="apellidomat" name="apellidomat" type="text" class="form-control" placeholder="Ingrese Apellido Materno" required>
                     </div>
-                    <div class="form-group">
-                    
-                       <select id="sexo" name="sexo"  class="form-control"  required />
-                              
 
+                    <div class="form-group">                 
+                       <select id="sexo" name="sexo"  class="form-control"  required />
                           <option value="0">Seleccione su Sexo</option> 
                                 <option value="masculino">Masculino</option>
                                 <option value="femenino">Femenino</option>
@@ -170,107 +156,68 @@ function mostrar(id) {
                       
                       
                       
-                        <div class="form-group">
-                         
-
-                             <select id="pais" name="pais" class="form-control" required />
-
-
-                           <option value="0">Seleccione Pais...</option> 
+                    <div class="form-group">                
+                       <select id="pais" name="pais" class="form-control" required />
+                        <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
-
                     </div>
                       
                       
                       
                       
-                        <div class="form-group">
-                         
-
-                             <select id="region" name="region" class="form-control" required />
-                                <option value="0">Seleccione una región...</option> 
+                    <div class="form-group">                         
+                      <select id="region" name="region" class="form-control" required />
+                            <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
                                 </select>
-
                     </div>
                       
-                        <div class="form-group">
-                         
-
+                    <div class="form-group">                        
                              <select id="ciudad" name="ciudad" class="form-control" required />
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
-
                     </div>
                       
                       
                       
-                      <div class="form-group">
-                         
-
+                    <div class="form-group">                         
                             <select id="comuna" name="comuna" class="form-control" required />
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
-
                     </div>
                       
                           
-                      <div class="form-group">
-                         
-                      
-
-                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
-
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
                     </div>
                       
                       
                           
                  
                       
-                      <div class="form-group">
-                          
+                    <div class="form-group">                        
                           <input id="email" name="email" type="text" class="form-control" placeholder="Ingrese Email" required>
                     </div> 
                           
-                      <div class="form-group">
-                         
-                   
-
+                    <div class="form-group">                
                           <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Ingrese Telefono" required>
-
                     </div>
                       
                           
-                      <div class="form-group">
-                         
+                    <div class="form-group">                       
                         <label for="FotoPerfil">Foto de Perfil:</label>
                         <input type="file" id="img-uploader" class="form-control" name="imgAvatar" >
-
                     </div>
                       
                       
-                       <div class="form-group">
-                         
+                    <div class="form-group">                        
                                 <label for="Certificado">Certificado</label>
                                 <input type="file" id="img-uploader" name="imgCertificado" class="form-control" >
-
                     </div>
-                      
-                      
-                      
-                      
-                      
-                
-                      
-                      
-
-                      
-                      
-                      
-                      
+                   
                       <button class="btn btn-default" type="submit" name="RegistroUsuario.php" >Registrar</button>
 
                   </form>
@@ -278,173 +225,105 @@ function mostrar(id) {
                       
                       
                       
-                      <li class="mix Entidad">
+          <li class="mix Entidad">
                         <a href="#">
                           <img src="img/portfolio/work5.jpg" alt="">
                           <div class="overly">
                             <div class="position-center">
                               <h2>Tesla Motors</h2>
-                              <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                              
+                              <p>Labore et dolore magna aliqua. Ut enim ad </p>                            
                             </div>
                           </div>
                         </a>
                       </li>
-                      <li class="mix Entidad">
-                        <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
+
+          <li class="mix Entidad">
+                     <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
                             
                     <div class="form-group">
                         <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" required oninput="checkRut(this)"  required>
-                                                        <script src="./JavaScript/FormatoValidaRut.js"></script>
-                  </div>
+                        <script src="./JavaScript/FormatoValidaRut.js"></script>
+                    </div>
                       
-                       <div class="form-group">
+                    <div class="form-group">
                            <input type="password" id="pass" name="passwordNuevo" class="form-control" data-type="password" placeholder="Ingrese Password" required>
                     </div> 
                       
-                      <div class="form-group">
+                    <div class="form-group">
                           <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese Nombre" required>
                     </div> 
                       
-                      <div class="form-group">
+                    <div class="form-group">
                           <input id="apellidopat" name="apellidopat" type="text" class="form-control" placeholder="Ingrese Apellido Paterno" required>
                     </div>
-                      
-                      
+                                          
                     <div class="form-group">
                         <input id="apellidomat" name="apellidomat" type="text" class="form-control" placeholder="Ingrese Apellido Materno" required>
                     </div>
-                    <div class="form-group">
-                    
-                       <select id="sexo" name="sexo"  class="form-control"  required />
-                              
 
+                    <div class="form-group">                   
+                       <select id="sexo" name="sexo"  class="form-control"  required />                             
                           <option value="0">Seleccione su Sexo</option> 
                                 <option value="masculino">Masculino</option>
                                 <option value="femenino">Femenino</option>
-                                </select>
+                       </select>
                     </div>
-                      
-                      
-                      
-                      
-                        <div class="form-group">
-                         
-
-                             <select id="pais" name="pais" class="form-control" required />
-
-
+                                                                                  
+                    <div class="form-group">                        
+                        <select id="pais" name="pais" class="form-control" required />
                            <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
-                                </select>
-
-                    </div>
+                        </select>
+                    </div>                                                                
                       
-                      
-                      
-                      
-                        <div class="form-group">
-                         
-
-                             <select id="region" name="region" class="form-control" required />
-                                <option value="0">Seleccione una región...</option> 
+                    <div class="form-group">                        
+                         <select id="region" name="region" class="form-control" required />
+                            <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
-                                </select>
-
+                         </select>
                     </div>
                       
-                        <div class="form-group">
-                         
-
-                             <select id="ciudad" name="ciudad" class="form-control" required />
+                    <div class="form-group">                         
+                          <select id="ciudad" name="ciudad" class="form-control" required />
                                 <option value="0">Seleccione una region primero...</option> 
-                                </select>
-
+                          </select>
                     </div>
-                      
-                      
-                      
-                      <div class="form-group">
-                         
-
-                            <select id="comuna" name="comuna" class="form-control" required />
+                                                                
+                    <div class="form-group">                        
+                          <select id="comuna" name="comuna" class="form-control" required />
                                 <option value="0">Seleccione una ciudad primero...</option> 
-                                </select>
-
+                          </select>
+                    </div>
+                                                
+                    <div class="form-group">                                            
+                       <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
                     </div>
                       
-                          
-                      <div class="form-group">
-                         
-                      
-
-                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
-
-                    </div>
-                      
-                      
-                          
-                 
-                      
-                      <div class="form-group">
-                          
-                          <input id="email" name="email" type="text" class="form-control" placeholder="Ingrese Email" required>
+                    <div class="form-group">                        
+                       <input id="email" name="email" type="text" class="form-control" placeholder="Ingrese Email" required>
                     </div> 
                           
-                      <div class="form-group">
-                         
-                   
-
-                          <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Ingrese Telefono" required>
-
+                    <div class="form-group">                                           
+                       <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Ingrese Telefono" required>
                     </div>
-                      
-                          
-                      <div class="form-group">
-                         
+                                               
+                    <div class="form-group">                        
                         <label for="FotoPerfil">Foto de Perfil:</label>
                         <input type="file" id="img-uploader" class="form-control" name="imgAvatar" >
-
                     </div>
                       
                       
-                       <div class="form-group">
-                         
-                                <label for="Certificado">Certificado</label>
-                                <input type="file" id="img-uploader" name="imgCertificado" class="form-control" >
-
+                    <div class="form-group">                        
+                         <label for="Certificado">Certificado</label>
+                         <input type="file" id="img-uploader" name="imgCertificado" class="form-control" >
                     </div>
-                      
-                      
-                      
-                      
-                      
-                
-                      
-                      
-
-                      
-                      
-                      
-                      
+                                                                                     
                       <button class="btn btn-default" type="submit" name="RegistroUsuario.php" >Registrar</button>
 
-                  </form>
-                          
-                          
-                          
-                          
-                          
-                      </li>
-                      
-                      
-                      
-                      
-                      
-                      
-                   
+                  </form>                                                                                                      
+         </li>                                                                                                                                               
                     </ul>
                   </div>
                 </div>
@@ -452,8 +331,6 @@ function mostrar(id) {
             </div>
         </div>
     </section>
-
-  
 
   
 <!-- Call to action Start -->
@@ -490,8 +367,6 @@ function mostrar(id) {
             </div>
         </div>
     </footer>
-
-
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         
