@@ -75,7 +75,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
                 
 	<div class="wrap-input100 validate-input" data-validate="Dato Requerido">
 	<label class="label-input100" for="name">Rut</label>
-  	<input id="user" class="input100" type="text" name="user" placeholder="Ingrese su rut" required oninput="checkRut(this)" required />
+  	<input  id="user" class="input100" type="text" size="10" maxlength="10"  name="user" placeholder="Ingrese su rut" required oninput="checkRut(this)" required />
 	  <script src="./JavaScript/FormatoValidaRut.js"></script>
           <span class="focus-input100"></span>
 	</div>
