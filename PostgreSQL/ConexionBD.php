@@ -16,7 +16,7 @@
   } */
 define('NOMBRE_SERVIDOR', 'localhost');
 define('NOMBRE_USUARIO', 'postgres');
-define('PASSWORD', 'colocolo');
+define('PASSWORD', '1234');
 define('BASE_DATOS', 'PruebaBD');
 
 class ConexionBD {

@@ -28,14 +28,14 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
             //date_default_timezone_set("America/Santiago");
             $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
             $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaAvatar = "Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
+            $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
             $archivo = $_FILES['imgAvatar']['tmp_name'];
             move_uploaded_file($archivo, $rutaAvatar);
         } else {
             if ($_POST['sexo'] == "masculino") {
-                $rutaAvatar = "Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
             } else {
-                $rutaAvatar = "Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
             }
         }
 
@@ -47,7 +47,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
             //date_default_timezone_set("America/Santiago");
             $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
             $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaCertificado = "Imagenes/Certificados/" . $fechaSubida . " " . $nom_archivo;
+            $rutaCertificado = "img/Imagenes/Certificados/" . $fechaSubida . " " . $nom_archivo;
             $archivo = $_FILES['imgCertificado']['tmp_name'];
             move_uploaded_file($archivo, $rutaCertificado);
         } else {

@@ -1,5 +1,5 @@
 /*  body {
-    background: url(../imagenes/digital2.jpg);
+    background: url(../img/Imagenes/digital2.jpg);
     background-repeat: no-repeat; 
     background-size: 100% 100%; 
     background-attachment: fixed; 
@@ -29,7 +29,7 @@
    left: 65%;
    top: 35%; /*Aqui se ajusta el menu de registro para ubicarlo en el centro de la pantalla*/
    position: absolute;
-   background: url(../imagenes/blanco.jpg); 
+   background: url(../img/Imagenes/blanco.jpg); 
 }
 
 /*FORMULARIODEREGISTRO.HTML CODIGO DEL CSS*/
@@ -45,7 +45,7 @@
 }
 
 .fondopantalla{
-    background: url(../imagenes/fregistro.jpg);
+    background: url(../img/Imagenes/fregistro.jpg);
     background-repeat: no-repeat; 
     background-size: 100% 100%; 
     background-attachment: fixed; 
@@ -140,7 +140,7 @@ table{
 
 
 input#BotonAgregar{
-	background : url(../imagenes/AgregarFoto.jpg);
+	background : url(../img/Imagenes/AgregarFoto.jpg);
 
 }
 

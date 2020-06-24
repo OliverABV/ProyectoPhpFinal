@@ -284,7 +284,7 @@ if (!empty($_GET['filtro'])) {
                                                 }
                                                 ?>
 
-                                                <img src="Imagenes/Sistema/gif-estrella.gif"  width="25%" height="25%" alt="Puntuacion.img" class="img-responsive">
+                                                <img src="img/Imagenes/Sistema/gif-estrella.gif"  width="25%" height="25%" alt="Puntuacion.img" class="img-responsive">
                                                 <?php
                                                 if ($publicacion['categoria_publicacion'] == "tutoria") {
                                                     if ($contadorCalificacionUsuario != 0) {
@@ -326,11 +326,11 @@ if (!empty($_GET['filtro'])) {
                                             <div class="col bg">
                                                 <!-- SELLOS (tutoria, asesoria, oportunidad -->
                                                 <?php if ($publicacion['categoria_publicacion'] == "tutoria") { ?>
-                                                    <img src="Imagenes/Sistema/tutoria.png" alt="tutoria.img" width="50%" height="50%" class="img-responsive">
+                                                    <img src="img/Imagenes/Sistema/tutoria.png" alt="tutoria.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } elseif ($publicacion['categoria_publicacion'] == "asesoria") { ?>
-                                                    <img src="Imagenes/Sistema/asesoria.png" alt="asesoria.img" width="50%" height="50%" class="img-responsive">
+                                                    <img src="img/Imagenes/Sistema/asesoria.png" alt="asesoria.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } else { ?>
-                                                    <img src="Imagenes/Sistema/opportunity.png" alt="oportunidad.img" width="50%" height="50%" class="img-responsive">
+                                                    <img src="img/Imagenes/Sistema/opportunity.png" alt="oportunidad.img" width="50%" height="50%" class="img-responsive">
                                                 <?php } ?>
                                             </div>
                                         </div>
