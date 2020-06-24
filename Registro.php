@@ -584,24 +584,23 @@ function mostrar(id) {
     </section>
 
     <!-- footer Start -->
-    <footer>
-        <div class="container">
+        <footer>
+          <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                  <div class="footer-manu">
-                    <ul>
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Contact us</a></li>
-                      <li><a href="#">How it works</a></li>
-                      <li><a href="#">Support</a></li>
-                      <li><a href="#">Terms</a></li>
-                    </ul>
-                  </div>
-                  <p>Copyright &copy; Crafted by <a href="https://dcrazed.com/">Dcrazed</a>.</p>
+              <div class="col-md-12">
+                <div class="footer-manu">
+                  <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="#">Suporte</a></li>
+                    <li><a href="#">Terminos</a></li>
+                  </ul>
                 </div>
+                <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
+              </div>
             </div>
-        </div>
-    </footer>
+          </div>
+        </footer>    
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         
