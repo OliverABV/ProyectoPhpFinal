@@ -1,3 +1,174 @@
+  <?php
+//habilitar BD
+
+include_once './PostgreSQL/ConexionBD.php';
+
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");
+$consultaSQL->execute();
+$cboRegionUsuario = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
+$cboRegionEntidad = $cboRegionUsuario;
+ConexionBD::cerrarConexion();
+
+$message = '';
+//comrpobar que campos tengan datos
+if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['nombre']) && !empty($_POST['apellidopat']) && !empty($_POST['apellidomat']) && !empty($_POST['sexo']) && !empty($_POST['pais']) && !empty($_POST['region']) && !empty($_POST['ciudad']) && !empty($_POST['comuna']) && !empty($_POST['fecha_nac']) && !empty($_POST['email']) && !empty($_POST['telefono'])) {
+
+    //verificar que ya no exista el RUT en la BD
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
+    $consultaSQL->bindParam(1, $_POST['rut']);
+    $consultaSQL->execute();
+
+    if ($consultaSQL->fetchColumn() == 0) {
+        ConexionBD::cerrarConexion();
+        //echo "<script>alert('ENTRO EN SI');</script>";
+        //echo '<script>alert (" Ha respondido '.$acumulador.' respuestas afirmativas");</script>';
+        //verifica si se incluye o no avatar
+        if (!empty($_FILES['imgAvatar']['name'])) {
+            $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
+            $nom_archivo = $_POST['rut'] . "." . $extencion;
+
+            //date_default_timezone_set("America/Santiago");
+            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+            $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
+            $archivo = $_FILES['imgAvatar']['tmp_name'];
+            move_uploaded_file($archivo, $rutaAvatar);
+        } else {
+            if ($_POST['sexo'] == "masculino") {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
+            } else {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
+            }
+        }
+
+   
+//verifica si se incluye o no certificado
+        if (!empty($_FILES['imgCertificado']['name'])) {
+            $extencion = pathinfo($_FILES['imgCertificado']['name'], PATHINFO_EXTENSION);
+            $nom_archivo = $_POST['rut'] . "." . $extencion;
+
+            //date_default_timezone_set("America/Santiago");
+            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+            $rutaCertificado = "img/Imagenes/Certificados/" . $fechaSubida . " " . $nom_archivo;
+            $archivo = $_FILES['imgCertificado']['tmp_name'];
+            move_uploaded_file($archivo, $rutaCertificado);
+        } else {
+            $rutaCertificado = "Sin Certificado";
+        }
+        //crear la query para almacenar los datos
+        $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO usuario2 (rut_usuario, password_usuario, nombre_usuario, apellidopat_usuario, apellidomat_usuario, sexo_usuario, pais_usuario, id_region, id_ciudad, id_comuna, fechanac_usuario, email_usuario, telefono_usuario, Foto_usuario, certificado_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $consultaSQL->bindParam(1, $_POST['rut']);
+        $password = password_hash($_POST['passwordNuevo'], PASSWORD_BCRYPT);
+        $consultaSQL->bindParam(2, $password);
+        $consultaSQL->bindParam(3, $_POST['nombre']);
+        $consultaSQL->bindParam(4, $_POST['apellidopat']);
+        $consultaSQL->bindParam(5, $_POST['apellidomat']);
+        $consultaSQL->bindParam(6, $_POST['sexo']);
+        $consultaSQL->bindParam(7, $_POST['pais']);
+        $consultaSQL->bindParam(8, $_POST['region']);
+        $consultaSQL->bindParam(9, $_POST['ciudad']);
+        $consultaSQL->bindParam(10, $_POST['comuna']);
+        $consultaSQL->bindParam(11, $_POST['fecha_nac']);
+        $consultaSQL->bindParam(12, $_POST['email']);
+        $consultaSQL->bindParam(13, $_POST['telefono']);
+        $consultaSQL->bindParam(14, $rutaAvatar);
+        $consultaSQL->bindParam(15, $rutaCertificado);
+
+
+        if ($consultaSQL->execute()) {
+
+            echo "<script>alert('USUARIO REGISTRADO');</script>";
+        } else {
+
+            echo "<script>alert('ERROR EN REGISTRO');</script>";
+        }
+        ConexionBD::cerrarConexion();
+    } else {
+        // si el rut ya existe ejecutar esto
+        ConexionBD::cerrarConexion();
+        echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
+    }
+}
+ConexionBD::cerrarConexion();
+// Conexion Entidad
+include_once './PostgreSQL/ConexionBD.php';
+
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");
+$consultaSQL->execute();
+$cboRegion = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
+ConexionBD::cerrarConexion();
+$message = '';
+//comrpobar que campos tengan datos
+if (!empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['passwordNuevoEnt2']) && !empty($_POST['razonSocial']) && !empty($_POST['nombreComercial']) && !empty($_POST['rol']) && !empty($_POST['pais']) && !empty($_POST['region']) && !empty($_POST['ciudad']) && !empty($_POST['comuna']) && !empty($_POST['calle']) && !empty($_POST['numero']) && !empty($_POST['piso']) && !empty($_POST['telefono'])) {
+
+    //verificar que ya no exista el RUT en la BD
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_entidad) FROM entidad WHERE rut_entidad = ?");
+    $consultaSQL->bindParam(1, $_POST['rut']);
+    $consultaSQL->execute();
+
+    if ($consultaSQL->fetchColumn() == 0) {
+        ConexionBD::cerrarConexion();
+        //echo "<script>alert('ENTRO EN SI');</script>";
+        //echo '<script>alert (" Ha respondido '.$acumulador.' respuestas afirmativas");</script>';
+        //verifica si se incluye o no certificado
+        if (!empty($_FILES['imgFotoEntidad']['name'])) {
+            $extencion = pathinfo($_FILES['imgFotoEntidad']['name'], PATHINFO_EXTENSION);
+            $nom_archivo = $_POST['rut'] . "." . $extencion;
+
+            //date_default_timezone_set("America/Santiago");
+            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+            $ruta = "img/Imagenes/FotosPerfiles/Entidades/" . $fechaSubida . " " . $nom_archivo;
+            $archivo = $_FILES['imgFotoEntidad']['tmp_name'];
+            move_uploaded_file($archivo, $ruta);
+        } else {
+            $ruta = "Sin Foto";
+        }
+        //crear la query para almacenar los datos
+        $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO entidad (rut_entidad, email_entidad, password_entidad, razon_social_entidad, nombre_comercial_entidad, rol_entidad, pais_entidad, id_region, id_ciudad, id_comuna, calle_entidad, numero_entidad, piso_entidad, telefono_entidad, foto_entidad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $consultaSQL->bindParam(1, $_POST['rut']);
+        $consultaSQL->bindParam(2, $_POST['email']);
+        $password = password_hash($_POST['passwordNuevoEnt2'], PASSWORD_BCRYPT);
+        $consultaSQL->bindParam(3, $password);
+        $consultaSQL->bindParam(4, $_POST['razonSocial']);
+        $consultaSQL->bindParam(5, $_POST['nombreComercial']);
+        $consultaSQL->bindParam(6, $_POST['rol']);
+        $consultaSQL->bindParam(7, $_POST['pais']);
+        $consultaSQL->bindParam(8, $_POST['region']);
+        $consultaSQL->bindParam(9, $_POST['ciudad']);
+        $consultaSQL->bindParam(10, $_POST['comuna']);
+        $consultaSQL->bindParam(11, $_POST['calle']);
+        $consultaSQL->bindParam(12, $_POST['numero']);
+        $consultaSQL->bindParam(13, $_POST['piso']);
+        $consultaSQL->bindParam(14, $_POST['telefono']);
+        $consultaSQL->bindParam(15, $ruta);
+
+
+        if ($consultaSQL->execute()) {
+
+            echo "<script>alert('USUARIO REGISTRADO');</script>";
+        } else {
+
+            echo "<script>alert('ERROR EN REGISTRO');</script>";
+        }
+        ConexionBD::cerrarConexion();
+    } else {
+        // si el rut ya existe ejecutar esto
+        ConexionBD::cerrarConexion();
+        echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
+    }
+}
+ConexionBD::cerrarConexion();
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html class="no-js">
   <head>
@@ -27,6 +198,70 @@
     <script src="js/jquery.counterup.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+
+       <!-- js Usuario -->
+    <script language="javascript">
+            $(document).ready(function () {
+                $("#regionUsuario").change(function () {
+
+                    $('#comunaUsuario').find('option').remove().end().append('<option selected value="0">Seleccione una ciudad primero...</option>');
+
+                    $("#regionUsuario option:selected").each(function () {
+                        id_region = $(this).val();
+                        $.post("./PostgreSQL/LLenarCiudad.php", {id_region: id_region}, function (data) {
+                            $("#ciudadUsuario").html(data);
+                        });
+                    });
+                })
+            });
+
+            $(document).ready(function () {
+                $("#ciudadUsuario").change(function () {
+                    $("#ciudadUsuario option:selected").each(function () {
+                        id_ciudad = $(this).val();
+                        $.post("./PostgreSQL/LLenarComuna.php", {id_ciudad: id_ciudad}, function (data) {
+                            $("#comunaUsuario").html(data);
+                        });
+                    });
+                })
+            });
+
+
+        </script>
+
+               <!-- js Entidad -->
+    <script language="javascript">
+            $(document).ready(function () {
+                $("#regionEntidad").change(function () {
+
+                    $('#comunaEntidad').find('option').remove().end().append('<option selected value="0">Seleccione una ciudad primero...</option>');
+
+                    $("#regionEntidad option:selected").each(function () {
+                        id_region = $(this).val();
+                        $.post("./PostgreSQL/LLenarCiudad.php", {id_region: id_region}, function (data) {
+                            $("#ciudadEntidad").html(data);
+                        });
+                    });
+                })
+            });
+
+            $(document).ready(function () {
+                $("#ciudadEntidad").change(function () {
+                    $("#ciudadEntidad option:selected").each(function () {
+                        id_ciudad = $(this).val();
+                        $.post("./PostgreSQL/LLenarComuna.php", {id_ciudad: id_ciudad}, function (data) {
+                            $("#comunaEntidad").html(data);
+                        });
+                    });
+                })
+            });
+
+
+        </script>
+    
+
+
+
     
     <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
@@ -121,8 +356,8 @@ function mostrar(id) {
                       </li>
                     
         <li class="mix Usuario">
-                      <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
-
+                      <form action="Registro.php" method="POST" enctype="multipart/form-data">
+                     
                     <div class="form-group">
                         <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" required oninput="checkRut(this)"  required>
                           <script src="./JavaScript/FormatoValidaRut.js"></script>
@@ -157,7 +392,7 @@ function mostrar(id) {
                       
                       
                     <div class="form-group">                
-                       <select id="pais" name="pais" class="form-control" required />
+                       <select id="paisUsuario" name="pais" class="form-control" required />
                         <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
@@ -167,16 +402,16 @@ function mostrar(id) {
                       
                       
                     <div class="form-group">                         
-                      <select id="region" name="region" class="form-control" required />
+                      <select id="regionUsuario" name="regionUsuario" class="form-control" required />
                             <option value="0">Seleccione una región...</option> 
-                                <?php foreach ($cboRegion as $dato) { ?>
+                                <?php foreach ($cboRegionUsuario as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
                                 </select>
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudad" name="ciudad" class="form-control" required />
+                             <select id="ciudadUsuario" name="ciudadUsuario" class="form-control" required />
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -184,7 +419,7 @@ function mostrar(id) {
                       
                       
                     <div class="form-group">                         
-                            <select id="comuna" name="comuna" class="form-control" required />
+                            <select id="comunaUsuario" name="comunaUsuario" class="form-control" required />
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
@@ -238,7 +473,10 @@ function mostrar(id) {
                       </li>
 
           <li class="mix Entidad">
-                     <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
+                     <form action="Registro.php" method="POST" enctype="multipart/form-data">
+                     <script>
+                     
+                     </script>
                             
                     <div class="form-group">
                         <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" required oninput="checkRut(this)"  required>
@@ -266,31 +504,33 @@ function mostrar(id) {
                     </div> 
 
                     <div class="form-group">                        
-                        <select id="pais" name="pais" class="form-control" required />
+                        <select id="paisEntidad" name="pais" class="form-control" required />
                            <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                         </select>
                     </div>                                                                
                       
-                    <div class="form-group">                        
-                         <select id="region" name="region" class="form-control" required />
+                    <div class="form-group">                         
+                      <select id="regionEntidad" name="regionEntidad" class="form-control" required />
                             <option value="0">Seleccione una región...</option> 
-                                <?php foreach ($cboRegion as $dato) { ?>
+                                <?php foreach ($cboRegionEntidad as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
-                         </select>
+                                </select>
                     </div>
                       
-                    <div class="form-group">                         
-                          <select id="ciudad" name="ciudad" class="form-control" required />
-                                <option value="0">Seleccione una region primero...</option> 
-                          </select>
-                    </div>
-                                                                
                     <div class="form-group">                        
-                          <select id="comuna" name="comuna" class="form-control" required />
+                             <select id="ciudadEntidad" name="ciudadEntidad" class="form-control" required />
+                                <option value="0">Seleccione una region primero...</option> 
+                                </select>
+                    </div>
+                      
+                      
+                      
+                    <div class="form-group">                         
+                            <select id="comunaEntidad" name="comunaEntidad" class="form-control" required />
                                 <option value="0">Seleccione una ciudad primero...</option> 
-                          </select>
+                                </select>
                     </div>
                                        
                     <div class="form-group">                                            
