@@ -12,12 +12,14 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
     $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
 
     $message = '';
-    ConexionBD::cerrarConexion();
+	ConexionBD::cerrarConexion();
+	//preguntamos si es un USUARIO y si es asi creamos la $_SESSION que se almacena como OBJETO
     if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_usuario']))) {
         $_SESSION['inicioSesion'] = $resultadoSQL;
         echo "ESTE ES UN USUARIO";
         header('Location: ./MaquetaPublicaciones.php');
     } else {
+		//si no es un usuario preguntamos ahora si es una entidad
         $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM entidad WHERE rut_entidad = ?");
         $consultaSQL->bindParam(1, $_POST['user']);
         $consultaSQL->execute();
@@ -26,12 +28,13 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
 
         $message = '';
-
+		//verificamos si es una entidad y si es asi creamos la $_SESSION que se almacena como OBJETO
         if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_entidad']))) {
             $_SESSION['inicioSesion'] = $resultadoSQL;
             echo "ESTE ES UNA ENTIDAD";
             header('Location: ./MaquetaPublicaciones.php');
         } else {
+			//Si no se encontro nada en usuario y luego nada en entidad se niega el acceso
             $message = "USUARIO O ENTIDAD NO EXISTE";
             echo "USUARIO O ENTIDAD NO EXISTE";
         }
