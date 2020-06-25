@@ -141,7 +141,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
                       <i class="fa fa-envelope-o"></i>Email: Edu-web@gmail.com
                     </li>
                     <li>
-                      <i class="fa fa-phone"></i>Phone:+569 25672975
+                      <i class="fa fa-phone"></i>Telefono: +569 25672975
                     </li>
                   </ul>
 
