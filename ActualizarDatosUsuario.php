@@ -241,7 +241,7 @@ and open the template in the editor.
                             </div>
 
 
-                            //ESTA ADVERTENCIA AUN NO ESTA PROGRAMADA
+                            <!-- ESTA ADVERTENCIA AUN NO ESTA PROGRAMADA -->
                             <label>NOTA:  Por Razones de Seguridad tu Nombre y Apellidos solo podran ser Actualizados una sola vez por Año </label>
 
                             <div class="group">
