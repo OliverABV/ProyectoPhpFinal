@@ -147,15 +147,14 @@ and open the template in the editor.
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
-<?php include ('headerUsuario.php'); ?> 
-<?php include ('SideBarPro.php'); ?> 
+
 
         <link rel="stylesheet" href="estilos.css">
-
         <link rel="stylesheet" href="css/ActualizarDatos.css">
 
         <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
 
+        //SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA 
         <script language="javascript">
             $(document).ready(function () {
                 $("#regionUsuario").change(function () {
@@ -181,8 +180,6 @@ and open the template in the editor.
                     });
                 })
             });
-
-
         </script>
     </head>
     <body>
@@ -192,7 +189,6 @@ and open the template in the editor.
 
 
         <form action="ActualizarDatosUsuario.php" method="POST" enctype="multipart/form-data">
-
 
             <div class="login-wrap">
                 <div class="login-html">
@@ -245,7 +241,7 @@ and open the template in the editor.
                             </div>
 
 
-
+                            //ESTA ADVERTENCIA AUN NO ESTA PROGRAMADA
                             <label>NOTA:  Por Razones de Seguridad tu Nombre y Apellidos solo podran ser Actualizados una sola vez por Año </label>
 
                             <div class="group">
@@ -277,13 +273,12 @@ and open the template in the editor.
                                 </select>
 
                                 <script>
-                                    $(document).ready();
-                                    {
-<?php if ($_SESSION['inicioSesion']['sexo_usuario'] == "masculino") { ?>
+                                    $(document).ready();{
+                                        <?php if ($_SESSION['inicioSesion']['sexo_usuario'] == "masculino") { ?>
                                             sexoUsuario.selectedIndex = 1;
-<?php } else { ?>
+                                        <?php } else { ?>
                                             sexoUsuario.selectedIndex = 2;
-<?php } ?>
+                                        <?php } ?>
                                     }
                                 </script>
 
@@ -313,7 +308,7 @@ and open the template in the editor.
 
                                 <select id="regionUsuario" name="region">
                                     <option value="0">Seleccione una región...</option> 
-<?php foreach ($cboRegion as $dato) { ?>
+                                        <?php foreach ($cboRegion as $dato) { ?>
                                         <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                     <?php } ?>
                                 </select>
@@ -431,11 +426,6 @@ and open the template in the editor.
                             <label>NOTA: Aqui Puedes Incluir Nuevamente Un Certificado Por Si El Anterior Fue Rechazado, Tambien Puedes Subir Otros Certificados Que Tengas Por Si Tienes
                                 Mas De Uno
                             </label>     
-
-
-
-
-
 
                             <div class="group">
                                 <input type="submit" class="button" name="RegistroUsuario.php" value="Actualizar">
