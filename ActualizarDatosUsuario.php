@@ -154,7 +154,7 @@ and open the template in the editor.
 
         <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
 
-        //SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA 
+        <!--SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA -->
         <script language="javascript">
             $(document).ready(function () {
                 $("#regionUsuario").change(function () {
