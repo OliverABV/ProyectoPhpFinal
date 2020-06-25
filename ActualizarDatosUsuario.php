@@ -7,17 +7,24 @@ if (!isset($_SESSION['inicioSesion'])) {
 //habilitar BD
 include_once './PostgreSQL/ConexionBD.php';
 
+
+
 //prepara el combobox region
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");
 $consultaSQL->execute();
 $cboRegion = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
-$region = $_POST['region'];
-echo $region;
+//CODIGO TEMPORTAL PARA EL if ($region == "5") 
+$region = "";
+if (!empty($_POST['region'])) {
+    $region = $_POST['region'];
+};
 
-//comrpobar que campos tengan datos  ESTO AUN NO ESTA DEFINIDO, ES UNO PROVISORIO SOLO FUNCIONARA SI ELIJES LA 5 REGION
-if ($_POST['region'] == 5) {
+
+
+//comprobar que campos tengan datos  ESTO AUN NO ESTA DEFINIDO, ES UNO PROVISORIO SOLO FUNCIONARA SI ELIJES LA 5 REGION
+if ($region == "5") {
     echo $iniciar;
     //verificar que ya que exista el RUT en la BD
     $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
@@ -29,25 +36,25 @@ if ($_POST['region'] == 5) {
         //verifica si se incluye o no avatar
         if (!empty($_FILES['imgAvatar']['name'])) {
 
-          //ESTE IF CON EL COMANDO UNLINK ELIMINA EL ARCHIVO DEL SERVIDOR, SE LE ENTREGA LA DIRECCION LOCAL DE LA IMAGEN
-          if(unlink($_SESSION['inicioSesion']['foto_usuario'])){
-            $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
-            $nom_archivo = $_SESSION['inicioSesion']['rut_usuario'] . "." . $extencion;
+            //ESTE IF CON EL COMANDO UNLINK ELIMINA EL ARCHIVO DEL SERVIDOR, SE LE ENTREGA LA DIRECCION LOCAL DE LA IMAGEN
+            if (unlink($_SESSION['inicioSesion']['foto_usuario'])) {
+                $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
+                $nom_archivo = $_SESSION['inicioSesion']['rut_usuario'] . "." . $extencion;
 
-            //date_default_timezone_set("America/Santiago");
-            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
-            $archivo = $_FILES['imgAvatar']['tmp_name'];
-            move_uploaded_file($archivo, $rutaAvatar);
-          }
+                //date_default_timezone_set("America/Santiago");
+                $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+                $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
+                $archivo = $_FILES['imgAvatar']['tmp_name'];
+                move_uploaded_file($archivo, $rutaAvatar);
+            }
         } else {
-          if ($_POST['sexo'] == "masculino") {
-              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
-          } else {
-              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
-          }
-      }
+            if ($_POST['sexo'] == "masculino") {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
+            } else {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
+            }
+        }
 
         //verifica si se incluye o no certificado
         if (!empty($_FILES['imgCertificado']['name'])) {
@@ -103,8 +110,16 @@ if ($_POST['region'] == 5) {
 
 
         if ($consultaSQL->execute()) {
-
+            ConexionBD::cerrarConexion();
             echo "<script>alert('USUARIO ACTUALIZADO');</script>";
+            //ACTUALIZAR LA SESSION
+            $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2 WHERE rut_usuario = ?");
+            $consultaSQL->bindParam(1, $_SESSION['inicioSesion']['rut_usuario']);
+            $consultaSQL->execute();
+            $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['inicioSesion'] = $resultadoSQL; //recreamos la seccion con los datos actualizados
+            header('Location: ./ActualizarDatosUsuario.php');
+            ConexionBD::cerrarConexion();
         } else {
 
             echo "<script>alert('ERROR EN ACTUALIZAR');</script>";
@@ -116,7 +131,6 @@ if ($_POST['region'] == 5) {
         echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
     }
 }
-//ConexionBD::cerrarConexion();
 ?>
 <!DOCTYPE html>
 <!--
@@ -133,8 +147,8 @@ and open the template in the editor.
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
-        <?php include ('headerUsuario.php'); ?> 
-        <?php include ('SideBarPro.php'); ?> 
+<?php include ('headerUsuario.php'); ?> 
+<?php include ('SideBarPro.php'); ?> 
 
         <link rel="stylesheet" href="estilos.css">
 
@@ -254,22 +268,22 @@ and open the template in the editor.
 
                                 <label for="sexo" class="label">Sexo</label>
 
-                                <select id="sexoUsuario" name="sexo"  required />
-                                <br />
+                                <select id="sexoUsuario" name="sexo"  required>
+                                    <br />
 
-                                <option value="seleccionar">seleccionar...</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
+                                    <option value="seleccionar">seleccionar...</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
                                 </select>
 
                                 <script>
                                     $(document).ready();
                                     {
-                                      <?php if ($_SESSION['inicioSesion']['sexo_usuario'] == "masculino") { ?>
+<?php if ($_SESSION['inicioSesion']['sexo_usuario'] == "masculino") { ?>
                                             sexoUsuario.selectedIndex = 1;
-                                      <?php } else { ?>
+<?php } else { ?>
                                             sexoUsuario.selectedIndex = 2;
-                                      <?php } ?>
+<?php } ?>
                                     }
                                 </script>
 
@@ -281,11 +295,11 @@ and open the template in the editor.
 
                                 <label for="pais" class="label">Pais</label>
 
-                                <select id="pais" name="pais" required />
+                                <select id="pais" name="pais" required>
 
 
 
-                                <option value="Chile">Chile</option>
+                                    <option value="Chile">Chile</option>
                                 </select>
 
 
@@ -298,10 +312,10 @@ and open the template in the editor.
                                 <label for="region" class="label">Selecciona Region</label>
 
                                 <select id="regionUsuario" name="region">
-                                <option value="0">Seleccione una región...</option> 
-                                <?php foreach ($cboRegion as $dato) { ?>
-                                    <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
-                                <?php } ?>
+                                    <option value="0">Seleccione una región...</option> 
+<?php foreach ($cboRegion as $dato) { ?>
+                                        <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
+                                    <?php } ?>
                                 </select>
 
                                 <script>
@@ -320,17 +334,17 @@ and open the template in the editor.
                                         });
 
                                         $("#ciudadUsuario option:selected").ready(function () {
-                                          var dato = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
+                                            var dato = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
                                             id_ciudad = dato;
                                             $.post("./PostgreSQL/LLenarComuna.php", {id_ciudad: id_ciudad}, function (data) {
-                                            $("#comunaUsuario").html(data);
+                                                $("#comunaUsuario").html(data);
                                             });
                                         });
 
                                     }
 
 
-                                              
+
                                 </script>
                             </div>
 
@@ -343,7 +357,7 @@ and open the template in the editor.
                                 <label for="ciudad" class="label">Ciudad</label>
 
                                 <select id="ciudadUsuario" name="ciudad">
-                                <option value="0">Seleccione una region primero...</option> 
+                                    <option value="0">Seleccione una region primero...</option> 
                                 </select>
 
 
@@ -356,7 +370,7 @@ and open the template in the editor.
                                 <label for="comuna" class="label">Comuna</label>
 
                                 <select id="comunaUsuario" name="comuna">
-                                <option value="0">Seleccione una ciudad primero...</option> 
+                                    <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
 
                             </div>
@@ -367,7 +381,7 @@ and open the template in the editor.
 
                                 <label for="Fecha_Nacimiento" class="label">Fecha Nacimiento</label>
 
-                                <input type="date" class="form-control" id="email" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
+                                <input type="date" class="form-control" id="email" name="fecha_nac" placeholder="Ingrese su Fecha_nac" value="<?php echo $_SESSION['inicioSesion']['fechanac_usuario']; ?>" required />
 
                             </div>
 
@@ -399,7 +413,7 @@ and open the template in the editor.
 
                                 <input type="file" id="img-uploader" name="imgAvatar">
 
-                                <img class="rounded-circle" src="<?php echo $_SESSION['inicioSesion']['foto_usuario']?>" width="50" height="50">
+                                <img class="rounded-circle" src="<?php echo $_SESSION['inicioSesion']['foto_usuario'] ?>" width="50" height="50">
 
                             </div> 
 
@@ -432,11 +446,6 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-
-
-
-
-
 
         </form>
 

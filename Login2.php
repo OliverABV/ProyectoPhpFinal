@@ -11,7 +11,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
     //obtenemos los resultados como un array, si no llega nada se resive el bolean false
     $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
 
-    $message = '';
+
 	ConexionBD::cerrarConexion();
 	//preguntamos si es un USUARIO y si es asi creamos la $_SESSION que se almacena como OBJETO
     if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_usuario']))) {
@@ -26,8 +26,8 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         $total = $consultaSQL->rowCount();
         //obtenemos los resultados como un array, si no llega nada se resive el bolean false
         $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
+		ConexionBD::cerrarConexion();
 
-        $message = '';
 		//verificamos si es una entidad y si es asi creamos la $_SESSION que se almacena como OBJETO
         if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_entidad']))) {
             $_SESSION['inicioSesion'] = $resultadoSQL;
