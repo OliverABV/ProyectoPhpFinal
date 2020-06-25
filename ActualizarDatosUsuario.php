@@ -142,17 +142,14 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-
-
+ 
 
         <link rel="stylesheet" href="estilos.css">
         <link rel="stylesheet" href="css/ActualizarDatos.css">
 
-        <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script language="javascript" src="js/jquery-3.3.1.min.js"></script>
+        
+
 
         <!--SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA -->
         <script language="javascript">
