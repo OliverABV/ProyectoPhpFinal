@@ -174,9 +174,6 @@ and open the template in the editor.
     <body>
 
 
-
-
-
         <form action="ActualizarDatosUsuario.php" method="POST" enctype="multipart/form-data">
 
 
