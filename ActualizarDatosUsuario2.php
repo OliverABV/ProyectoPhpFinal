@@ -1,11 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['inicioSesion'])) {
-    header('Location: ./Login.php');
+    header('Location: ./Login2.php');
 }
 
 //habilitar BD
 include_once './PostgreSQL/ConexionBD.php';
+
+
 
 //prepara el combobox region
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");
@@ -13,12 +15,17 @@ $consultaSQL->execute();
 $cboRegion = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
-$region = $_POST['region'];
-echo $region;
+//CODIGO TEMPORTAL PARA EL if ($region == "5") 
+$region = "";
+if (!empty($_POST['region'])) {
+    $region = $_POST['region'];
+};
 
-//comrpobar que campos tengan datos  ESTO AUN NO ESTA DEFINIDO, ES UNO PROVISORIO SOLO FUNCIONARA SI ELIJES LA 5 REGION
-if ($_POST['region'] == 5) {
-    echo $iniciar;
+
+
+//comprobar que campos tengan datos  ESTO AUN NO ESTA DEFINIDO, ES UNO PROVISORIO SOLO FUNCIONARA SI ELIJES LA 5 REGION
+if ($region == "5") {
+  
     //verificar que ya que exista el RUT en la BD
     $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
     $consultaSQL->bindParam(1, $_SESSION['inicioSesion']['rut_usuario']);
@@ -29,25 +36,25 @@ if ($_POST['region'] == 5) {
         //verifica si se incluye o no avatar
         if (!empty($_FILES['imgAvatar']['name'])) {
 
-          //ESTE IF CON EL COMANDO UNLINK ELIMINA EL ARCHIVO DEL SERVIDOR, SE LE ENTREGA LA DIRECCION LOCAL DE LA IMAGEN
-          if(unlink($_SESSION['inicioSesion']['foto_usuario'])){
-            $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
-            $nom_archivo = $_SESSION['inicioSesion']['rut_usuario'] . "." . $extencion;
+            //ESTE IF CON EL COMANDO UNLINK ELIMINA EL ARCHIVO DEL SERVIDOR, SE LE ENTREGA LA DIRECCION LOCAL DE LA IMAGEN
+            if (unlink($_SESSION['inicioSesion']['foto_usuario'])) {
+                $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
+                $nom_archivo = $_SESSION['inicioSesion']['rut_usuario'] . "." . $extencion;
 
-            //date_default_timezone_set("America/Santiago");
-            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
-            $archivo = $_FILES['imgAvatar']['tmp_name'];
-            move_uploaded_file($archivo, $rutaAvatar);
-          }
+                //date_default_timezone_set("America/Santiago");
+                $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+                $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
+                $archivo = $_FILES['imgAvatar']['tmp_name'];
+                move_uploaded_file($archivo, $rutaAvatar);
+            }
         } else {
-          if ($_POST['sexo'] == "masculino") {
-              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
-          } else {
-              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
-          }
-      }
+            if ($_POST['sexo'] == "masculino") {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
+            } else {
+                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
+            }
+        }
 
         //verifica si se incluye o no certificado
         if (!empty($_FILES['imgCertificado']['name'])) {
@@ -66,7 +73,6 @@ if ($_POST['region'] == 5) {
         //crear la query para almacenar los datos
         $consultaSQL = ConexionBD::abrirConexion()->prepare("UPDATE usuario2 
         SET 
-        password_usuario = ?, 
         nombre_usuario = ?, 
         apellidopat_usuario = ?, 
         apellidomat_usuario = ?, 
@@ -83,28 +89,33 @@ if ($_POST['region'] == 5) {
         WHERE 
         id_usuario = ?");
 
-
-        $password = password_hash($_POST['passwordNuevo'], PASSWORD_BCRYPT);
-        $consultaSQL->bindParam(1, $password);
-        $consultaSQL->bindParam(2, $_POST['nombre']);
-        $consultaSQL->bindParam(3, $_POST['apellidopat']);
-        $consultaSQL->bindParam(4, $_POST['apellidomat']);
-        $consultaSQL->bindParam(5, $_POST['sexo']);
-        $consultaSQL->bindParam(6, $_POST['pais']);
-        $consultaSQL->bindParam(7, $_POST['region']);
-        $consultaSQL->bindParam(8, $_POST['ciudad']);
-        $consultaSQL->bindParam(9, $_POST['comuna']);
-        $consultaSQL->bindParam(10, $_POST['fecha_nac']);
-        $consultaSQL->bindParam(11, $_POST['email']);
-        $consultaSQL->bindParam(12, $_POST['telefono']);
-        $consultaSQL->bindParam(13, $rutaAvatar);
-        $consultaSQL->bindParam(14, $rutaCertificado);
-        $consultaSQL->bindParam(15, $_SESSION['inicioSesion']['id_usuario']);
+        $consultaSQL->bindParam(1, $_POST['nombre']);
+        $consultaSQL->bindParam(2, $_POST['apellidopat']);
+        $consultaSQL->bindParam(3, $_POST['apellidomat']);
+        $consultaSQL->bindParam(4, $_POST['sexo']);
+        $consultaSQL->bindParam(5, $_POST['pais']);
+        $consultaSQL->bindParam(6, $_POST['region']);
+        $consultaSQL->bindParam(7, $_POST['ciudad']);
+        $consultaSQL->bindParam(8, $_POST['comuna']);
+        $consultaSQL->bindParam(9, $_POST['fecha_nac']);
+        $consultaSQL->bindParam(10, $_POST['email']);
+        $consultaSQL->bindParam(11, $_POST['telefono']);
+        $consultaSQL->bindParam(12, $rutaAvatar);
+        $consultaSQL->bindParam(13, $rutaCertificado);
+        $consultaSQL->bindParam(14, $_SESSION['inicioSesion']['id_usuario']);
 
 
         if ($consultaSQL->execute()) {
-
+            ConexionBD::cerrarConexion();
             echo "<script>alert('USUARIO ACTUALIZADO');</script>";
+            //ACTUALIZAR LA SESSION
+            $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2 WHERE rut_usuario = ?");
+            $consultaSQL->bindParam(1, $_SESSION['inicioSesion']['rut_usuario']);
+            $consultaSQL->execute();
+            $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['inicioSesion'] = $resultadoSQL; //recreamos la seccion con los datos actualizados
+            header('Location: ./ActualizarDatosUsuario2.php');
+            ConexionBD::cerrarConexion();
         } else {
 
             echo "<script>alert('ERROR EN ACTUALIZAR');</script>";
@@ -116,9 +127,7 @@ if ($_POST['region'] == 5) {
         echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
     }
 }
-//ConexionBD::cerrarConexion();
 ?>
-
 <!DOCTYPE html>
 <html class="no-js">
   <head>
@@ -147,17 +156,24 @@ if ($_POST['region'] == 5) {
     <script src="js/plugins.js"></script>
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
+
+
   
     <script src="js/main.js"></script>
 
+  <!-- script no se borra -->
+ 
+        <script language="javascript" src="JavaScript/jquery-3.1.1.min.js"></script>
 
 
-    
-    
-    <script language="javascript">
+
+     <!-- SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA -->
+        <script language="javascript">
             $(document).ready(function () {
                 $("#regionUsuario").change(function () {
+
                     $('#comunaUsuario').find('option').remove().end().append('<option selected value="0">Seleccione una ciudad primero...</option>');
+
                     $("#regionUsuario option:selected").each(function () {
                         id_region = $(this).val();
                         $.post("./PostgreSQL/LLenarCiudad.php", {id_region: id_region}, function (data) {
@@ -166,6 +182,7 @@ if ($_POST['region'] == 5) {
                     });
                 })
             });
+
             $(document).ready(function () {
                 $("#ciudadUsuario").change(function () {
                     $("#ciudadUsuario option:selected").each(function () {
@@ -177,7 +194,6 @@ if ($_POST['region'] == 5) {
                 })
             });
         </script>
-    
     
     
     
@@ -211,8 +227,7 @@ if ($_POST['region'] == 5) {
                     <ul class="nav navbar-nav navbar-right">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
-                      <li>
-                            <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
+                      <li><a href="#"> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
@@ -262,24 +277,19 @@ if ($_POST['region'] == 5) {
              
                       <div class="form-group">
                     <label for="">Nombre:</label>
-                          <input id="nombre" name="nombre" type="text" class="form-control" value="<?php echo $_SESSION['inicioSesion']['nombre_usuario']; ?>" required>
+                          <input id="nombre" name="nombre" type="text" size="15" maxlength="15" class="form-control" value="<?php echo $_SESSION['inicioSesion']['nombre_usuario']; ?>" required>
                     </div> 
                       
                       <div class="form-group">
                           <label for="">Apellido Paterno:</label>
-                          <input id="apellidopat" name="apellidopat" type="text" class="form-control" value="<?php echo $_SESSION['inicioSesion']['apellidopat_usuario']; ?>" required >
+                          <input id="apellidopat" name="apellidopat" type="text" size="20" maxlength="20" class="form-control" value="<?php echo $_SESSION['inicioSesion']['apellidopat_usuario']; ?>" required >
                     </div>
 
                     <label>Por Razones de Seguridad tu Nombre y Apellidos solo podran ser Actualizados una sola vez por Año </label>
                       
                     <div class="form-group">
-                       <label for="">Apellido Paterno:</label>
-                        <input id="apellidomat" name="apellidomat" type="text" class="form-control" value="<?php echo $_SESSION['inicioSesion']['apellidomat_usuario']; ?>" required>
-                    </div>
-
-                    <div class="form-group">     
-                    <label for="">Contraseña:</label>              
-                    <input id="passwordNuevo" name="passwordNuevo" class="form-control" type="password">
+                       <label for="">Apellido Materno:</label>
+                        <input id="apellidomat" name="apellidomat" type="text" size="20" maxlength="20" class="form-control" value="<?php echo $_SESSION['inicioSesion']['apellidomat_usuario']; ?>" required>
                     </div>
                       
                   <div class="form-group">
@@ -308,71 +318,81 @@ if ($_POST['region'] == 5) {
                       
                         <div class="form-group"> 
                         <label for="">Seleccione Pais:</label>                       
-                             <select id="pais" name="pais" class="form-control" required />
+                             <select id="pais" name="pais" class="form-control">
                            <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
+                                <script>
+                                    $(document).ready();{
+                                        <?php if ($_SESSION['inicioSesion']['pais_usuario'] =="Chile") { ?>
+                                            pais.selectedIndex = 1;
+                                        <?php } else { ?>
+                                            pais.selectedIndex = 0;
+                                        <?php } ?>
+                                    }
+                                </script>
                       </div>
                                                                                      
                 <div class="form-group">                        
                     <label for="region">Selecciona Región:</label>
                          <select id="regionUsuario" name="region" class="form-control">
                          <option value="0">Seleccione una región...</option> 
-                            <?php foreach ($cboRegion as $dato) { ?>
-                         <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
-                            <?php } ?>
-                        </select>
+                                        <?php foreach ($cboRegion as $dato) { ?>
+                                        <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
+                                    <?php } ?>
+                                </select>
 
                                 <script>
                                     $(document).ready();
-                                        {
-                                           regionUsuario.selectedIndex = <?php echo $_SESSION['inicioSesion']['id_region'] ?>;
-                                           $("#regionUsuario option:selected").each(function () {
-                                           id_region = $(this).val();
-                                           $.post("./PostgreSQL/LLenarCiudad.php", {id_region: id_region}, function (data) {
-                                           $("#ciudadUsuario").html(data);
-                                           ciudadUsuario.selectedIndex = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
-                                                     });
-                                                });
+                                    {
+                                        regionUsuario.selectedIndex = <?php echo $_SESSION['inicioSesion']['id_region'] ?>;
 
-                                            $("#ciudadUsuario option:selected").ready(function () {
-                                           var dato = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
+                                        $("#regionUsuario option:selected").each(function () {
+                                            id_region = $(this).val();
+                                            $.post("./PostgreSQL/LLenarCiudad.php", {id_region: id_region}, function (data) {
+                                                $("#ciudadUsuario").html(data);
+
+                                                ciudadUsuario.selectedIndex = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
+                                            });
+                                        });
+                                        $("#ciudadUsuario option:selected").ready(function () {
+                                            var dato = <?php echo $_SESSION['inicioSesion']['id_ciudad'] ?>;
                                             id_ciudad = dato;
                                             $.post("./PostgreSQL/LLenarComuna.php", {id_ciudad: id_ciudad}, function (data) {
-                                            $("#comunaUsuario").html(data);
-                                                       });
-                                                  });
-
-                                         }           
+                                                $("#comunaUsuario").html(data);
+                                            });
+                                        });
+                                    }
                                 </script>
                         </div>
                       
                         <div class="form-group">  
                             <label for="">Ciudad:</label>                      
-                             <select id="ciudadUsuario" name="ciudadUsuario" class="form-control" required />
+                             <select id="ciudadUsuario" name="ciudadUsuario" class="form-control">
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
-                    </div>
+                       </div>
                                                                 
                       <div class="form-group">  
                           <label for="">Comuna:</label>                      
-                            <select id="comunaUsuario" name="comunaUsuario" class="form-control" required />
+                            <select id="comunaUsuario" name="comunaUsuario" class="form-control">
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>                                              
                       <div class="form-group">                                             
                            <label for="">Fecha de Nacimiento:</label>
-                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac">
-                    </div>
+                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" value="<?php echo $_SESSION['inicioSesion']['fechanac_usuario']; ?>">                
+                              </div>
                                                                                                      
                       <div class="form-group">
                           <label for="">Correo:</label>
-                          <input id="email" name="email" type="text" class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario']; ?>">
+                          <input id="email" name="email" type="text" size="50" maxlength="50" class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario']; ?>">
                       </div> 
                           
                       <div class="form-group">                                           
                             <label for="">Telefono:</label>
-                          <input id="telefono" name="telefono" type="text" class="form-control" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario']; ?>">
+                            <label for="">Ejemplo: 946771128</label>
+                          <input id="telefono" name="telefono" type="text" size="9" maxlength="9"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario']; ?>" oninput="soloNumeros(this)">
                           <script src="./JavaScript/SoloNumeros.js"></script>
                     </div>
                       
