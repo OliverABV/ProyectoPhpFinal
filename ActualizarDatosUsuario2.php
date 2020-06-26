@@ -140,12 +140,14 @@ if ($region == "5") {
     
     <!-- CSS -->
     <link rel="stylesheet" href="css2/owl.carousel.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css2/bootstrap.min.css">
     <link rel="stylesheet" href="css2/font-awesome.min.css">
     <link rel="stylesheet" href="css2/style.css">
     <link rel="stylesheet" href="css2/ionicons.min.css">
     <link rel="stylesheet" href="css2/animate.css">
     <link rel="stylesheet" href="css2/responsive.css">
+    
     
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -156,6 +158,7 @@ if ($region == "5") {
     <script src="js/plugins.js"></script>
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
+    
 
 
   
@@ -221,19 +224,21 @@ if ($region == "5") {
                   <span></span>
                 </a>
               </div>
+              <!-- HEADER -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <div class="row">
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
-                      <li><a href="#"> <?php
+                      <li><a class="collapse navbar-collapse" href="#"> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
                                     echo' ';
-                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                } else {
+                                    ?><li><a href="#"> <?php echo '<img align="center" class="rounded-circle !important " src="' . $avatar . '" width="50" height="50">'; ?></a>
+                        </li>
+                              <?php  } else {
                                     $avatar = $_SESSION['inicioSesion']['foto_entidad'];
                                     echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
                                     echo ' ';
