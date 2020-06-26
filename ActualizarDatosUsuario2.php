@@ -17,8 +17,8 @@ ConexionBD::cerrarConexion();
 
 //CODIGO TEMPORTAL PARA EL if ($region == "5") 
 $region = "";
-if (!empty($_POST['region'])) {
-    $region = $_POST['region'];
+if (!empty($_POST['regionUsuario'])) {
+    $region = $_POST['regionUsuario'];
 };
 
 
@@ -94,9 +94,9 @@ if ($region == "5") {
         $consultaSQL->bindParam(3, $_POST['apellidomat']);
         $consultaSQL->bindParam(4, $_POST['sexo']);
         $consultaSQL->bindParam(5, $_POST['pais']);
-        $consultaSQL->bindParam(6, $_POST['region']);
-        $consultaSQL->bindParam(7, $_POST['ciudad']);
-        $consultaSQL->bindParam(8, $_POST['comuna']);
+        $consultaSQL->bindParam(6, $_POST['regionUsuario']);
+        $consultaSQL->bindParam(7, $_POST['ciudadUsuario']);
+        $consultaSQL->bindParam(8, $_POST['comunaUsuario']);
         $consultaSQL->bindParam(9, $_POST['fecha_nac']);
         $consultaSQL->bindParam(10, $_POST['email']);
         $consultaSQL->bindParam(11, $_POST['telefono']);
@@ -236,8 +236,8 @@ if ($region == "5") {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
                                     echo' ';
-                                    echo '<img class="rounded-circle !important" style="    margin-top: -30px !important;
-                                    position: fixed;" src="' . $avatar . '" width="50" height="50">';
+                                    echo '<img class="rounded-circle !important" style="    margin-top: -15px !important;
+                                    position: absolute;" src="' . $avatar . '" width="50" height="50">';
                                 } else {
                                     $avatar = $_SESSION['inicioSesion']['foto_entidad'];
                                     echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
@@ -246,7 +246,7 @@ if ($region == "5") {
                                 }
                                 ?>  </a>
                         </li>
-                       <li><a href="#">Mi Cuenta</a></li>
+                       <li style ="margin-left: 10px"><a href="#">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
                  
@@ -340,7 +340,7 @@ if ($region == "5") {
                                                                                      
                 <div class="form-group">                        
                     <label for="region">Selecciona Región:</label>
-                         <select id="regionUsuario" name="region" class="form-control">
+                         <select id="regionUsuario" name="regionUsuario" class="form-control">
                          <option value="0">Seleccione una región...</option> 
                                         <?php foreach ($cboRegion as $dato) { ?>
                                         <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>

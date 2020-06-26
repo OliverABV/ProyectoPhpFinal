@@ -9,6 +9,9 @@ if (!isset($_SESSION['inicioSesion'])) {
 
 $id_usuario = $_SESSION['inicioSesion']['id_usuario'];
 $categoriaPublicacion = "tutoria";
+if(!empty($_POST['txtTelefonoOpc'])){
+$telefonoOpcional = "Sin Telefono Opcional";
+}
 echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
 include_once './PostgreSQL/ConexionBD.php';
 
@@ -19,7 +22,7 @@ ConexionBD::cerrarConexion();
 
 
 // CAMBIOS
-if (!empty($_POST['txtNamePost'])) {
+if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!empty($_POST['txtIncluye'])) && (!empty($_POST['txtNoIncluye'])) && (!empty($_POST['txtPrecio'])) ) {
     echo "<script>alert('ENTRO EN IF');</script>";
     $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
