@@ -2,7 +2,7 @@
 
 include_once '../PostgreSQL/ConexionBD.php';
 $region = $_POST['id_region'];
-$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_ciudad, nombre_ciudad FROM ciudad WHERE id_region = ?");
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_ciudad, nombre_ciudad FROM ciudad WHERE id_region = ? ORDER BY nombre_ciudad ASC");
 $consultaSQL->bindParam(1, $region);
 //$consultaSQL->setFetchMode(PDO::FETCH_ASSOC);
 $consultaSQL->execute();
