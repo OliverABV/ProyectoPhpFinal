@@ -109,22 +109,37 @@ if (!empty($_GET['filtro'])) {
 
                 </div>
             </header>
-
-
-
-            <nav>
-
-            </nav>
+            <div>
+            <?php include('MenuLateral.php'); ?>
+            </div>
 
         </div>
 
 
-
-        <div id="contenedor"> 
-
+        <!-- El contenedor Contiene Todo lo que biene despues del header con una anchura difinida simpre del 90% sea el tamaño que esta pagian tenga
+    -->
+        <div id="contenedor" style="
+                        width: 90%;
+                        background: ;
+                        margin: auto;
+                        " > 
+            <!--  el contenido es el cuadro lateral izquierdo para llenar con weas-->
             <div id="contenido"> 
-
-                <div id="section">Lista de Publicaciones:
+                <div class="lateral" style="
+                        width: 25%;
+                        height: 100%;
+                        margin: left;
+                        position: absolute;
+                        " ></div>
+                        
+            <!-- esto contiene la grilla-->
+                <div id="section" style="
+                                            background:;
+                                            width: 50%;
+                                            height: 50%;
+                                            margin: auto;
+                                        ">
+                                        Lista de Publicaciones:
                     <hr>
                     <!-- FOREACH QUE CREA LA LISTA DE LAS PUBLICACIONES "filtro" RESIVE LOS DATOS SEGUN EL FILTRO QUE SE SELECCIONA-->
                     <?php foreach ($filtro as $publicacion) { ?>     
@@ -346,83 +361,10 @@ if (!empty($_GET['filtro'])) {
                     <?php } ?>
                 </div>   
                 <!-- BARRA LATERAL -->
-
-                <?php include('MenuLateral.php'); ?>
-
-                <div class="wrap">
-
-
-
-                </div>
-
-
+             <?php // include('MenuLateral.php'); ?> 
             </div>        
 
         </div>
-        <div id="footer"> 
-            <?php include('footer.php'); ?>
-
-        </div>     
     </body>
-
-    <div id="rateYo"></div>
-    <br />
-    <div class="counter">
-        <label id="valoracion"></label>
-
-    </div>
-    <br />
-    <button id="getRating" >Get Rating</button>
-    <button id="setRating" >cargar valoracion</button>
-
-    <script>
-        $(function () {
-
-            $("#rateYo").rateYo({
-
-                starWidth: "40px"
-
-            });
-
-        });
-
-        // Getter
-        var starWidth = $("#rateYo").rateYo("option", "starWidth"); //returns 40px
-     
-        // Setter
-        $("#rateYo").rateYo("option", "starWidth", "40px"); //returns a jQuery Element
-
-
-    </script>
-
-    <script>
-        $(function () {
-
-            var $rateYo = $("#rateYo").rateYo();
-
-            $("#getRating").click(function () {
-
-                /* get rating */
-                var rating = $rateYo.rateYo("rating");
-
-                window.alert("Its " + rating + " Yo!");
-            });
-
-            $("#setRating").click(function () {
-
-                /* set rating */
-                var rating = 4;
-                $rateYo.rateYo("rating", rating);
-            });
-        });
-    </script>
-
-    <script>$(function () {
-
-            $("#rateYo").rateYo()
-                    .on("rateyo.set", function (e, data) {
-                        document.getElementById('valoracion').innerHTML = 'Has valorado con: ' + data.rating + ' Estrellas';
-                        //alert("The rating is set to " + data.rating + "!");
-                    });
-        });</script>
+   
 </html>
