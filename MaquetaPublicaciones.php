@@ -69,18 +69,14 @@ if (!empty($_GET['filtro'])) {
 
             <header>
                 <div class="inner_header">
-                    <div class="logo_container">
-                        <h1>Edu<span>Web</span></h1>
-                    </div>
-
                     <ul class="navigation">
 
-                        <li><a href="index.php">Inicio</a></li>  
-                        <li><a href="index.php">Acerca De</a></li>  
-                        <li><a href="index.php">Publicaciones</a></li>  
-                        <li><a href="index.php">Contacto</a></li> 
-
-                        <li>
+                        <nav class="navbar navbar-light bg-light">
+                        <a><img src="img/logo.png" alt=""></a>
+                        <a href="index.php">Inicio</a>
+                        <a href="index.php">Acerca De</a>
+                        <a href="index.php">Publicaciones</a>
+                        <a href="index.php">Contacto</a>
                             <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
@@ -94,16 +90,9 @@ if (!empty($_GET['filtro'])) {
                                     echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
                                 }
                                 ?>  </a>
-                        </li>
-
-                        <li >
                             <a href="#">Mi Cuenta </a>
-                        </li>
-
-                        <li>
                             <a href="CerrarSesion.php">Cerrar Sesion</a>
-
-                        </li>
+                        </nav>
 
                     </ul>
 
