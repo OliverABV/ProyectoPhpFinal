@@ -2,13 +2,13 @@
 session_start();
 if (!isset($_SESSION['inicioSesion'])) {
     header('Location: ./Login.php');
-
+    
 
 //$_SESSION['inicioSesion']['nombre_usuario'])
 }
 
 $id_usuario = $_SESSION['inicioSesion']['id_usuario'];
-$categoriaPublicacion = "tutoria";
+$categoriaPublicacion = "oportunidad";
 echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
 include_once './PostgreSQL/ConexionBD.php';
 
@@ -17,11 +17,12 @@ $consultaSQL->execute();
 $cboRegion = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
+$message = '';
 
 // CAMBIOS
 if (!empty($_POST['txtNamePost'])) {
     echo "<script>alert('ENTRO EN IF');</script>";
-    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_entidad (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_entidad, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $consultaSQL->bindParam(1, $_POST['txtNamePost']);
     $consultaSQL->bindParam(2, $_POST['txtDescripcion']);
@@ -54,7 +55,7 @@ if (!empty($_POST['txtNamePost'])) {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tutoria</title>
+    <title>Oportunidad</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -175,8 +176,8 @@ if (!empty($_POST['txtNamePost'])) {
             <div class="row">
               <div class="col-md-12">
                 <div class="block">
-                  <h1>Tutoria</h1>
-                  <p>Crea tu publicación de tutoria</p>
+                  <h1>Oportunidad Laboral</h1>
+                  <p>Crea tu publicación de Oportunidad Laboral</p>
                 </div>
               </div>
             </div>
@@ -188,7 +189,7 @@ if (!empty($_POST['txtNamePost'])) {
             <div class="row">
               <div class="col-md-6 col-sm-12">
                 <div class="block">
-                  <form action="PublicacionTutoria.php" method="POST" enctype="multipart/form-data">
+                  <form action="PublicacionOportunidad.php" method="POST" enctype="multipart/form-data">
                   <h3>Publicaci&oacute;n</h3> 
 
                     <div class="form-group">
@@ -310,8 +311,9 @@ if (!empty($_POST['txtNamePost'])) {
                                         </td>
                                         <td>
                                              <label for=""> $2000</label>
-                                        </td>
+                                        </td>                                      
                                     </tr>
+
                                     <tr>
                                         <td> <input type="radio" name="rbTipo" value="Bronce90"/> <label for="">Bronce 90</label></td>
                                         <td>  <label for="">90 Dias</label> </td>
@@ -344,7 +346,7 @@ if (!empty($_POST['txtNamePost'])) {
                       
                                      
                       
-                      <button class="btn btn-default" type="submit" name="PublicacionTutoria.php" >Publicar</button>
+                      <button class="btn btn-default" type="submit" name="PublicacionOportunidad.php" >Publicar</button>
 
                   </form>
                 </div>

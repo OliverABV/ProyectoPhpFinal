@@ -19,7 +19,7 @@ ConexionBD::cerrarConexion();
 
 
 // CAMBIOS
-if (!empty($_POST['txtNamePost'])) {
+ if (!empty($_POST['txtNamePost'])) {
     echo "<script>alert('ENTRO EN IF');</script>";
     $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -54,7 +54,7 @@ if (!empty($_POST['txtNamePost'])) {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tutoria</title>
+    <title>Asesoría</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -175,8 +175,8 @@ if (!empty($_POST['txtNamePost'])) {
             <div class="row">
               <div class="col-md-12">
                 <div class="block">
-                  <h1>Tutoria</h1>
-                  <p>Crea tu publicación de tutoria</p>
+                  <h1>Asesoría</h1>
+                  <p>Crea tu publicación de Asesoría</p>
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ if (!empty($_POST['txtNamePost'])) {
             <div class="row">
               <div class="col-md-6 col-sm-12">
                 <div class="block">
-                  <form action="PublicacionTutoria.php" method="POST" enctype="multipart/form-data">
+                  <form action="PublicacionAsesoria.php" method="POST" enctype="multipart/form-data">
                   <h3>Publicaci&oacute;n</h3> 
 
                     <div class="form-group">
@@ -265,7 +265,7 @@ if (!empty($_POST['txtNamePost'])) {
                       
                        <div class="row">
                             <div class="col-sm-12">
-                            <table class="table table-hover table-condensed table-bordered">
+                                <table class="table table-hover table-condensed table-bordered">
                                     <tr>
                                         <td><label for="">Tipo</label></td>
                                         <td> <label for="">Duraci&oacute;n</label> </td>
@@ -324,6 +324,9 @@ if (!empty($_POST['txtNamePost'])) {
                                         <td>
                                                 <label for="">$1000</label>  
                                         </td>
+                                          
+
+
                                     </tr>
                                     <tr>
                                         <td> <input type="radio" name="rbTipo" value="Gratis" checked /> <label for="">Gratis</label></td>
@@ -333,6 +336,7 @@ if (!empty($_POST['txtNamePost'])) {
                                         </td>
                                         <td>  
                                              <label for="">Máxima</label>  
+
                                         </td>
                                         <td> 
                                              <label for="">Gratis</label>  
@@ -344,7 +348,7 @@ if (!empty($_POST['txtNamePost'])) {
                       
                                      
                       
-                      <button class="btn btn-default" type="submit" name="PublicacionTutoria.php" >Publicar</button>
+                      <button class="btn btn-default" type="submit" name="PublicacionAsesoria.php" >Publicar</button>
 
                   </form>
                 </div>
