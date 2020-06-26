@@ -236,9 +236,9 @@ if ($region == "5") {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
                                     echo' ';
-                                    ?><li><a href="#"> <?php echo '<img align="center" class="rounded-circle !important " src="' . $avatar . '" width="50" height="50">'; ?></a>
-                        </li>
-                              <?php  } else {
+                                    echo '<img class="rounded-circle !important" style="    margin-top: -15px !important;
+                                    position: fixed;" src="' . $avatar . '" width="50" height="50">';
+                                } else {
                                     $avatar = $_SESSION['inicioSesion']['foto_entidad'];
                                     echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
                                     echo ' ';
@@ -246,7 +246,7 @@ if ($region == "5") {
                                 }
                                 ?>  </a>
                         </li>
-                       <li><a href="#">Mi Cuenta</a></li>
+                       <li style ="margin-left: 10px"><a href="#">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
                  

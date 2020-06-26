@@ -9,6 +9,9 @@ if (!isset($_SESSION['inicioSesion'])) {
 
 $id_usuario = $_SESSION['inicioSesion']['id_usuario'];
 $categoriaPublicacion = "tutoria";
+if(!empty($_POST['txtTelefonoOpc'])){
+$telefonoOpcional = "Sin Telefono Opcional";
+}
 echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
 include_once './PostgreSQL/ConexionBD.php';
 
@@ -17,10 +20,9 @@ $consultaSQL->execute();
 $cboRegion = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
-$message = '';
 
 // CAMBIOS
-if (!empty($_POST['txtNamePost'])) {
+if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!empty($_POST['txtIncluye'])) && (!empty($_POST['txtNoIncluye'])) && (!empty($_POST['txtPrecio'])) ) {
     echo "<script>alert('ENTRO EN IF');</script>";
     $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -210,23 +212,23 @@ if (!empty($_POST['txtNamePost'])) {
 
                     <h3>Tu Ubicacion</h3>
                     <div class="form-group">                
-                       <select id="pais" name="pais" class="form-control" required />
+                       <select id="pais" name="pais" class="form-control">
                         <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
                     </div>                    
                       
                     <div class="form-group">                         
-                      <select id="region" name="region" class="form-control" required />
+                      <select id="region" name="region" class="form-control">
                             <option value="0">Seleccione una región...</option> 
-                                <?php foreach ($cboRegionUsuario as $dato) { ?>
+                                <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
                                 </select>
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudad" name="ciudad" class="form-control" required />
+                             <select id="ciudad" name="ciudad" class="form-control">
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -234,7 +236,7 @@ if (!empty($_POST['txtNamePost'])) {
                       
                       
                     <div class="form-group">                         
-                            <select id="comuna" name="comuna" class="form-control" required />
+                            <select id="comuna" name="comuna" class="form-control">
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
