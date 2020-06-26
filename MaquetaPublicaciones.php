@@ -62,6 +62,35 @@ if (!empty($_GET['filtro'])) {
         <script src="JavaScript/jquery.min.js"></script>
         <script src="JavaScript/jquery.rateyo.min.js"></script>
 
+
+ <!-- CSS -->
+ <link rel="stylesheet" href="css2/owl.carousel.css">
+    <link rel="stylesheet" href="css2/bootstrap.min.css">
+    <link rel="stylesheet" href="css2/font-awesome.min.css">
+    <link rel="stylesheet" href="css2/style.css">
+    <link rel="stylesheet" href="css2/ionicons.min.css">
+    <link rel="stylesheet" href="css2/animate.css">
+    <link rel="stylesheet" href="css2/responsive.css">
+
+    <link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/alertify.css">
+        <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/themes/default.css">
+
+    <!-- Js -->
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/min/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.js"></script>
+
+    <script src="js/main.js"></script>
+
+
+
+
     </head>
     <body>
 
@@ -98,6 +127,21 @@ if (!empty($_GET['filtro'])) {
 
                 </div>
             </header>
+
+ <!-- Slider Start -->
+ <section id="global-header">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="block">
+                  <h1>Publicaciones</h1>
+                  <p>Ve todas las publicaciones</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
             <div>
             <?php include('MenuLateral.php'); ?>
             </div>
@@ -124,9 +168,11 @@ if (!empty($_GET['filtro'])) {
             <!-- esto contiene la grilla-->
                 <div id="section" style="
                                             background:;
-                                            width: 50%;
+                                            width: 70%;
                                             height: 50%;
                                             margin: auto;
+                                            
+                                            
                                         ">
                                         Lista de Publicaciones:
                     <hr>
@@ -354,6 +400,42 @@ if (!empty($_GET['filtro'])) {
             </div>        
 
         </div>
+
+ <!-- Call to action Start -->
+ <section id="call-to-action">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="block">
+                  <h2>We design delightful digital experiences.</h2>
+                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
+                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+    <!-- footer Start -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-manu">
+              <ul>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="#">Suporte</a></li>
+                <li><a href="#">Terminos</a></li>
+              </ul>
+            </div>
+            <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
+          </div>
+        </div>
+      </div>
+    </footer>    
+        
+
+
     </body>
    
 </html>

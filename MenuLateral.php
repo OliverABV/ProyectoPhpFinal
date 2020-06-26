@@ -20,7 +20,6 @@ and open the template in the editor.
         <div id="sidemenu" class="menu-expanded">
             <!-- Header-->
             <div id="header">
-                <div id="title"><span>EduWeb</span></div>
                 <div id="menu-btn">
                     <div class="btn-hamburger"></div>
                     <div class="btn-hamburger"></div>

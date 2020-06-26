@@ -120,11 +120,6 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="js/google-map-init.js"></script>
-
-
     <script src="js/main.js"></script>
 
     
@@ -157,11 +152,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
 
 
         </script>
-    
-    
-    
-    
-    
+
 
   </head>
   <body>
@@ -210,8 +201,8 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
             <div class="row">
               <div class="col-md-12">
                 <div class="block">
-                  <h1>Drop Us A Note</h1>
-                  <p>Don’t just take our word for it. Check out some of our latest work.</p>
+                  <h1>Registro</h1>
+                  <p>Registrate como usuario</p>
                 </div>
               </div>
             </div>
