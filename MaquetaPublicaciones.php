@@ -109,22 +109,37 @@ if (!empty($_GET['filtro'])) {
 
                 </div>
             </header>
-
-
-
-            <nav>
-
-            </nav>
+            <div>
+            <?php include('MenuLateral.php'); ?>
+            </div>
 
         </div>
 
 
-
-        <div id="contenedor"> 
-
+        <!-- El contenedor Contiene Todo lo que biene despues del header con una anchura difinida simpre del 90% sea el tamaño que esta pagian tenga
+    -->
+        <div id="contenedor" style="
+                        width: 90%;
+                        background: ;
+                        margin: auto;
+                        " > 
+            <!--  el contenido es el cuadro lateral izquierdo para llenar con weas-->
             <div id="contenido"> 
-
-                <div id="section">Lista de Publicaciones:
+                <div class="lateral" style="
+                        width: 25%;
+                        height: 100%;
+                        margin: left;
+                        position: absolute;
+                        " ></div>
+                        
+            <!-- esto contiene la grilla-->
+                <div id="section" style="
+                                            background:;
+                                            width: 50%;
+                                            height: 50%;
+                                            margin: auto;
+                                        ">
+                                        Lista de Publicaciones:
                     <hr>
                     <!-- FOREACH QUE CREA LA LISTA DE LAS PUBLICACIONES "filtro" RESIVE LOS DATOS SEGUN EL FILTRO QUE SE SELECCIONA-->
                     <?php foreach ($filtro as $publicacion) { ?>     
@@ -346,18 +361,10 @@ if (!empty($_GET['filtro'])) {
                     <?php } ?>
                 </div>   
                 <!-- BARRA LATERAL -->
-
-                <?php include('MenuLateral.php'); ?>
-
-                <div class="wrap">
-
-
-
-                </div>
-
-
+             <?php // include('MenuLateral.php'); ?> 
             </div>        
 
         </div>
-  
     </body>
+   
+</html>
