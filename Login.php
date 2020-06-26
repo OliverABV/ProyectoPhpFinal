@@ -16,7 +16,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
     if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_usuario']))) {
         $_SESSION['inicioSesion'] = $resultadoSQL;
         echo "ESTE ES UN USUARIO";
-        header('Location: ./MaquetaPublicaciones.php');
+        header('Location: ./indexUsuario.php');
     } else {
         $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM entidad WHERE rut_entidad = ?");
         $consultaSQL->bindParam(1, $_POST['user']);
@@ -30,7 +30,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_entidad']))) {
             $_SESSION['inicioSesion'] = $resultadoSQL;
             echo "ESTE ES UNA ENTIDAD";
-            header('Location: ./MaquetaPublicaciones.php');
+            header('Location: ./indexUsuario.php');
         } else {
             $message = "USUARIO O ENTIDAD NO EXISTE";
           //  echo "USUARIO O ENTIDAD NO EXISTE";
@@ -97,9 +97,8 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
                     <ul class="nav navbar-nav navbar-right">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
-                      <li><a href="Registro.php">Publicaciones</a></li>
-                      <li><a href="RegistroUsuario.php">Empezar</a></li>
-                      <li><a href="#">Registro Entidad</a></li>
+                      <li><a href="RegistroUsuario.php">Registrar Usuario</a></li>
+                      <li><a href="#">Registrar Empreza</a></li>
                       <li><a href="contacto.html">Contacto</a></li>
                       <li><a href="#">Iniciar Sesion</a></li>
 
@@ -185,20 +184,21 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             </div>
           </div>
         </section>
-        <!-- Call to action Start -->
-        <section id="call-to-action">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h2>We design delightful digital experiences.</h2>
-                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-                </div>
-              </div>
+          <!-- Call to action Start -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>Creemos en ti y en tu futuro</h2>
+              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                 grandes posibilidades de proyección laboral.</p>
+              <a class="btn btn-default btn-call-to-action" href="RegistroUsuario.php">Empezar</a>
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
         <!-- footer Start -->
         <footer>
           <div class="container">

@@ -156,44 +156,46 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
 
   </head>
   <body>
-    <!-- Header Start -->
-    <header>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <!-- header Nav Start -->
-            <nav class="navbar navbar-default">
-              <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="index.html">
-                    <img src="img/logo.png" alt="Logo">
-                  </a>
-                </div>
+     <!-- Header Start -->
+  <header>
+    <div class="container" style="
+    margin-left: 0; margin-right: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- header Nav Start -->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">EduWeb</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>       
+                  <span></span>
+                </a>
+              </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav navbar-right">
-                   <li><a href="index.html">Inicio</a></li>
-                    <li><a href="work.html">Publicaciones</a></li>
-                    <li><a href="RegistroUsuario.php">Empezar</a></li>
-                    <li><a href="#">Registro Entidad</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="#">Iniciar Sesion</a></li>
-                 
+                  <div class="row">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
+                      <li><a href="index.html">Inicio</a></li>
+                      <li><a href="RegistroUsuario.php">Registrar Usuario</a></li>
+                      <li><a href="RegistroEntidad.php">Registrar Empresa</a></li>
+                      <li><a href="contacto.html">Contacto</a></li>
+                      <li><a href="Login.php">Iniciar Sesion</a></li>
+
+                  </div>
                   </ul>
                 </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-              </nav>
-            </div>
+              </div><!-- /.container-fluid -->
+            </nav>
           </div>
         </div>
-        </header><!-- header close -->
+      </div>
+    </header><!-- header close -->
         
         <!-- Slider Start -->
         <section id="global-header">
@@ -361,17 +363,16 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                   <form>
                     <div class="form-group-2">
                         
-                        
-                        <h2>Stop By For A visit</h2>
+                    <h2>Ubicación</h2>
                   <ul class="address-block">
                     <li>
-                      <i class="fa fa-map-marker"></i>North Main Street,Brooklyn Australia
+                      <i class="fa fa-map-marker"></i>Providencia #4562
                     </li>
                     <li>
-                      <i class="fa fa-envelope-o"></i>Email: contact@mail.com
+                      <i class="fa fa-envelope-o"></i>Email: Edu-web@gmail.com
                     </li>
                     <li>
-                      <i class="fa fa-phone"></i>Phone:+88 01672 506 744
+                      <i class="fa fa-phone"></i>Telefono: +569 25672975
                     </li>
                   </ul>
 
@@ -381,16 +382,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                     </li>
                     <li>
                       <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-dribbble"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-behance"></i></a>
-                    </li>
+                    </li>                  
                     <li>
                       <a href="#"><i class="fa fa-twitter"></i></a>
                     </li>
@@ -406,39 +398,39 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
           
           </div>
         </section>
-        <!-- Call to action Start -->
-        <section id="call-to-action">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h2>We design delightful digital experiences.</h2>
-                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-                </div>
-              </div>
+       <!-- Call to action Start -->
+  <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>Creemos en ti y en tu futuro</h2>
+              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                 grandes posibilidades de proyección laboral.</p>
             </div>
           </div>
-        </section>
-        <!-- footer Start -->
-        <footer>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="footer-manu">
-                  <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact us</a></li>
-                    <li><a href="#">How it works</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Terms</a></li>
-                  </ul>
-                </div>
-                <p>Copyright &copy; Crafted by <a href="https://dcrazed.com/">Dcrazed</a>.</p>
-              </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- footer Start -->
+     <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-manu">
+              <ul>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="#">Suporte</a></li>
+                <li><a href="#">Terminos</a></li>
+              </ul>
             </div>
+            <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
           </div>
-        </footer>
+        </div>
+      </div>
+    </footer>    
         
         
         

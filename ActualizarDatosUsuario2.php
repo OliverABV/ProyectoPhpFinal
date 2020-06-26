@@ -230,7 +230,7 @@ if ($region == "5") {
                   <div class="row">
                     <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
-                      <li><a href="index.html">Inicio</a></li>
+                      <li><a href="indexUsuario.php" style ="margin: auto" >Inicio</a></li>
                       <li><a class="collapse navbar-collapse" href="#"> <?php
                                   if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
@@ -246,7 +246,7 @@ if ($region == "5") {
                                 }
                                 ?>  </a>
                         </li>
-                       <li style ="margin-left: 10px"><a href="#">Mi Cuenta</a></li>
+                       <li><a href="#">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
                  
@@ -462,20 +462,21 @@ if ($region == "5") {
           
           </div>
         </section>
-        <!-- Call to action Start -->
-        <section id="call-to-action">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h2>We design delightful digital experiences.</h2>
-                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-                </div>
-              </div>
+          <!-- Call to action Start -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>Creemos en ti y en tu futuro</h2>
+              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                 grandes posibilidades de proyección laboral.</p>
+              <a class="btn btn-default btn-call-to-action" href="RegistroUsuario.php">Empezar</a>
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
       <!-- footer Start -->
     <footer>
       <div class="container">

@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['inicioSesion'])) {
+    header('Location: ./Login.php');
+
+
+//$_SESSION['inicioSesion']['nombre_usuario'])
+}
+?>
+
 <!DOCTYPE html>
 <html class="no-js">
   <head>
@@ -33,7 +43,11 @@
   </head>
   <body>
     <!-- Header Start -->
-  <header>
+  <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " > >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
@@ -57,14 +71,31 @@
                   <div class="row">
                     <ul class="nav navbar-nav navbar-right">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
-                      <li><a href="index.html">Inicio</a></li>
-                      <li><a href="RegistroUsuario.php">Registrar Usuario</a></li>
-                      <li><a href="RegistroEntidad.php">Registrar Empresa</a></li>
-                      <li><a href="contacto.html">Contacto</a></li>
-                      <li><a href="Login.php">Iniciar Sesion</a></li>
+                      <li><a href="indexUsuario.php">Inicio</a></li>
+                      <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
+                      <li><a href="PublicacionTutoria.php">Crear Publicación</a></li>
 
+                      <li>
+                            <a href="#"> <?php
+                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
+                                    $avatar = $_SESSION['inicioSesion']['foto_usuario'];
+                                    echo $_SESSION['inicioSesion']['nombre_usuario'];
+                                    echo' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                } else {
+                                    $avatar = $_SESSION['inicioSesion']['foto_entidad'];
+                                    echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
+                                    echo ' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                }
+                                ?>  </a>
+                        </li>
+                       <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
+                        <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
+
+                 
+                   </ul>
                   </div>
-                  </ul>
                 </div><!-- /.navbar-collapse -->
               </div><!-- /.container-fluid -->
             </nav>

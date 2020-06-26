@@ -9,7 +9,7 @@ if (!isset($_SESSION['inicioSesion'])) {
 
 $id_usuario = $_SESSION['inicioSesion']['id_usuario'];
 $categoriaPublicacion = "tutoria";
-echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
+//echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
 include_once './PostgreSQL/ConexionBD.php';
 
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");

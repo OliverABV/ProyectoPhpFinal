@@ -12,7 +12,7 @@ $categoriaPublicacion = "tutoria";
 if(!empty($_POST['txtTelefonoOpc'])){
 $telefonoOpcional = "Sin Telefono Opcional";
 }
-echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
+//echo '<script>alert ("Prueba Id_usuario: ' . $id_usuario . '");</script>';
 include_once './PostgreSQL/ConexionBD.php';
 
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT id_region, nombre_region FROM region");
@@ -23,7 +23,7 @@ ConexionBD::cerrarConexion();
 
 // CAMBIOS
 if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!empty($_POST['txtIncluye'])) && (!empty($_POST['txtNoIncluye'])) && (!empty($_POST['txtPrecio'])) ) {
-    echo "<script>alert('ENTRO EN IF');</script>";
+  //  echo "<script>alert('ENTRO EN IF');</script>";
     $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $consultaSQL->bindParam(1, $_POST['txtNamePost']);
@@ -117,8 +117,12 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
         </script>
   </head>
   <body>
-     <!-- Header Start -->
-  <header>
+  <!-- Header Start -->
+  <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " > >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
@@ -142,9 +146,12 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                   <div class="row">
                     <ul class="nav navbar-nav navbar-right">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
-                      <li><a href="index.html">Inicio</a></li>
+                      <li><a href="indexUsuario.php">Inicio</a></li>
+                      <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
+                      <li><a href="CrearPublicacion.php">Crear Publicación</a></li>
+
                       <li>
-                            <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
+                            <a href="#"> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
@@ -247,11 +254,11 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                       </div>   
                     
                       <div class="form-group">                                               
-                        <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" name="txtTelefono" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" readonly="readonly">
+                        <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" name="txtTelefono" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" >
                       </div>
                                                                                                                               
                       <div class="form-group">                          
-                      <label for="">Correo: </label>  <input type="text" id="txtEmail" name="txtEmail"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>" readonly="readonly">
+                      <label for="">Correo: </label>  <input type="text" id="txtEmail" name="txtEmail"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>" >
                     </div> 
                           
                       <div class="form-group">                                          
@@ -393,20 +400,21 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
           
           </div>
         </section>
-        <!-- Call to action Start -->
-        <section id="call-to-action">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h2>We design delightful digital experiences.</h2>
-                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-                </div>
-              </div>
+         <!-- Call to action Start -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>Creemos en ti y en tu futuro</h2>
+              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                 grandes posibilidades de proyección laboral.</p>
+              <a class="btn btn-default btn-call-to-action" href="RegistroUsuario.php">Empezar</a>
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
     <!-- footer Start -->
     <footer>
       <div class="container">

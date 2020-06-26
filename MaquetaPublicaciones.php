@@ -62,19 +62,15 @@ if (!empty($_GET['filtro'])) {
         <script src="JavaScript/jquery.min.js"></script>
         <script src="JavaScript/jquery.rateyo.min.js"></script>
 
-
- <!-- CSS -->
- <link rel="stylesheet" href="css2/owl.carousel.css">
-    <link rel="stylesheet" href="css2/bootstrap.min.css">
-    <link rel="stylesheet" href="css2/font-awesome.min.css">
+<!-- CSS -->
     <link rel="stylesheet" href="css2/style.css">
-    <link rel="stylesheet" href="css2/ionicons.min.css">
     <link rel="stylesheet" href="css2/animate.css">
     <link rel="stylesheet" href="css2/responsive.css">
+    <link rel="stylesheet" href="css2/animate.css">
+    <link rel="stylesheet" href="css2/ionicons.min.css">
+    <link rel="stylesheet" href="css2/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/alertify.css">
-        <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/themes/default.css">
+
 
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -88,9 +84,6 @@ if (!empty($_GET['filtro'])) {
 
     <script src="js/main.js"></script>
 
-
-
-
     </head>
     <body>
 
@@ -101,11 +94,10 @@ if (!empty($_GET['filtro'])) {
                     <ul class="navigation">
 
                         <nav class="navbar navbar-light bg-light">
-                        <a><img src="img/logo.png" alt=""></a>
-                        <a href="index.php">Inicio</a>
-                        <a href="index.php">Acerca De</a>
-                        <a href="index.php">Publicaciones</a>
-                        <a href="index.php">Contacto</a>
+                        <a><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></a>
+                        <a href="indexUsuario.php">Inicio</a>
+                      <a href="MaquetaPublicaciones.php">Publicaciones</a>
+                      <a href="PublicacionTutoria.php">Crear Publicación</a>
                             <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
@@ -127,6 +119,10 @@ if (!empty($_GET['filtro'])) {
 
                 </div>
             </header>
+            <div>
+            </div>
+
+        </div>
 
  <!-- Slider Start -->
  <section id="global-header">
@@ -135,25 +131,18 @@ if (!empty($_GET['filtro'])) {
               <div class="col-md-12">
                 <div class="block">
                   <h1>Publicaciones</h1>
-                  <p>Ve todas las publicaciones</p>
+                  <p>Revisa todas las Publicaciones</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
-            <div>
-            <?php include('MenuLateral.php'); ?>
-            </div>
-
-        </div>
-
-
         <!-- El contenedor Contiene Todo lo que biene despues del header con una anchura difinida simpre del 90% sea el tamaño que esta pagian tenga
     -->
+    <?php include('MenuLateral.php'); ?>
+
         <div id="contenedor" style="
                         width: 90%;
-                        background: ;
                         margin: auto;
                         " > 
             <!--  el contenido es el cuadro lateral izquierdo para llenar con weas-->
@@ -167,12 +156,9 @@ if (!empty($_GET['filtro'])) {
                         
             <!-- esto contiene la grilla-->
                 <div id="section" style="
-                                            background:;
-                                            width: 70%;
+                                            width: 80%;
                                             height: 50%;
                                             margin: auto;
-                                            
-                                            
                                         ">
                                         Lista de Publicaciones:
                     <hr>
@@ -394,29 +380,31 @@ if (!empty($_GET['filtro'])) {
                         </div>
                         <hr>
                     <?php } ?>
+                    
                 </div>   
                 <!-- BARRA LATERAL -->
              <?php // include('MenuLateral.php'); ?> 
             </div>        
 
         </div>
-
- <!-- Call to action Start -->
- <section id="call-to-action">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h2>We design delightful digital experiences.</h2>
-                  <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-                  <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
-                </div>
-              </div>
+   
+  <!-- Call to action Start -->
+  <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h2>Creemos en ti y en tu futuro</h2>
+              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                 grandes posibilidades de proyección laboral.</p>
             </div>
           </div>
-        </section>
-    <!-- footer Start -->
-    <footer>
+        </div>
+      </div>
+    </section>
+
+     <!-- footer Start -->
+     <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -433,9 +421,7 @@ if (!empty($_GET['filtro'])) {
         </div>
       </div>
     </footer>    
-        
-
-
+  
     </body>
    
 </html>
