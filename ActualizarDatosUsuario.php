@@ -142,8 +142,18 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+<<<<<<< HEAD
  
 
+=======
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+
+
+>>>>>>> 566b42aa2aa05b28a007a35c831f801ff515bb01
         <link rel="stylesheet" href="estilos.css">
         <link rel="stylesheet" href="css/ActualizarDatos.css">
 
@@ -151,7 +161,11 @@ and open the template in the editor.
         
 
 
+<<<<<<< HEAD
         <!--SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA -->
+=======
+        //SCRIPT QUE LLENA LOS COMBOBOX CIUDAD Y COMUNA - PRIMERO EL DE CIUDAD LUEGO DE ELEGIR REGION Y LUEGO EL DE COMUNA SEGUN LA CIUDAD ESCOGIDA 
+>>>>>>> 566b42aa2aa05b28a007a35c831f801ff515bb01
         <script language="javascript">
             $(document).ready(function () {
                 $("#regionUsuario").change(function () {
@@ -238,7 +252,11 @@ and open the template in the editor.
                             </div>
 
 
+<<<<<<< HEAD
                             <!-- ESTA ADVERTENCIA AUN NO ESTA PROGRAMADA -->
+=======
+                            //ESTA ADVERTENCIA AUN NO ESTA PROGRAMADA
+>>>>>>> 566b42aa2aa05b28a007a35c831f801ff515bb01
                             <label>NOTA:  Por Razones de Seguridad tu Nombre y Apellidos solo podran ser Actualizados una sola vez por Año </label>
 
                             <div class="group">

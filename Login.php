@@ -1,9 +1,49 @@
+<?php
+session_start();
+include_once './PostgreSQL/ConexionBD.php'; // llamamos la clase conexion
+//verifica que los campos este vacios
+if (!empty($_POST['user']) && !empty($_POST['pass'])) {
+    //preparamos la consulta a la vez que llamamos la conexion
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2 WHERE rut_usuario = ?");
+    $consultaSQL->bindParam(1, $_POST['user']);
+    $consultaSQL->execute();
+    $total = $consultaSQL->rowCount();
+    //obtenemos los resultados como un array, si no llega nada se resive el bolean false
+    $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
+
+    $message = '';
+    ConexionBD::cerrarConexion();
+    if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_usuario']))) {
+        $_SESSION['inicioSesion'] = $resultadoSQL;
+        echo "ESTE ES UN USUARIO";
+        header('Location: ./MaquetaPublicaciones.php');
+    } else {
+        $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM entidad WHERE rut_entidad = ?");
+        $consultaSQL->bindParam(1, $_POST['user']);
+        $consultaSQL->execute();
+        $total = $consultaSQL->rowCount();
+        //obtenemos los resultados como un array, si no llega nada se resive el bolean false
+        $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
+
+        $message = '';
+
+        if (($total > 0) && (password_verify($_POST['pass'], $resultadoSQL['password_entidad']))) {
+            $_SESSION['inicioSesion'] = $resultadoSQL;
+            echo "ESTE ES UNA ENTIDAD";
+            header('Location: ./MaquetaPublicaciones.php');
+        } else {
+            $message = "USUARIO O ENTIDAD NO EXISTE";
+          //  echo "USUARIO O ENTIDAD NO EXISTE";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html class="no-js">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Space Template</title>
+    <title>Login</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,17 +67,11 @@
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="js/google-map-init.js"></script>
-
-
     <script src="js/main.js"></script>
-
 
   </head>
   <body>
-    <!-- Header Start -->
+     <!-- Header Start -->
   <header>
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
@@ -67,7 +101,7 @@
                       <li><a href="RegistroUsuario.php">Empezar</a></li>
                       <li><a href="#">Registro Entidad</a></li>
                       <li><a href="contacto.html">Contacto</a></li>
-                      <li><a href="Login.php">Iniciar Sesion</a></li>
+                      <li><a href="#">Iniciar Sesion</a></li>
 
                   </div>
                   </ul>
@@ -85,8 +119,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="block">
-                  <h1>Contáctanos</h1>
-                  <p>Comunícate con nosotros, envíanos tus comentarios o sugerencias </p>
+                  <h1>Ingresa</h1>
+                  <p>No te pierdas las ultimas publicaciones y noticias de la Educación</p>
                 </div>
               </div>
             </div>
@@ -98,34 +132,7 @@
             <div class="row">
               <div class="col-md-6 col-sm-12">
                 <div class="block">
-                  <form>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese Nombre">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese Correo">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese su Motivo">
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                  <form>
-                    <div class="form-group-2">
-                      <textarea class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
-                    </div>
-                    <button class="btn btn-default" type="submit">Envia un Mensaje</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div id="contact-box" class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                  <h2>Ubicación</h2>
+                <h2>Ubicación</h2>
                   <ul class="address-block">
                     <li>
                       <i class="fa fa-map-marker"></i>Providencia #4562
@@ -138,14 +145,13 @@
                     </li>
                   </ul>
 
-
                   <ul class="social-icons">
                     <li>
                       <a href="#"><i class="fa fa-google"></i></a>
                     </li>
                     <li>
                       <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>                   
+                    </li>                                                     
                     <li>
                       <a href="#"><i class="fa fa-twitter"></i></a>
                     </li>
@@ -155,11 +161,27 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                 
+              <div class="col-md-6 col-sm-12">                  
+              <div class="block">
+              <form action="Login.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group" validate-input" data-validate="Dato Requerido">
+                      <input type="text" id="user" name="user" class="form-control" size="10" maxlength="10" placeholder="Ingrese su Rut" required oninput="checkRut(this)" required />
+	                   <script src="./JavaScript/FormatoValidaRut.js"></script>
+                    </div>
+                    <div class="form-group" validate-input" data-validate="Dato Requerido">
+                      <input type="password" id="pass" name="pass" class="form-control" placeholder="Ingrese Contraseña" data-type="password" required />                      
+                    </div> 
+                    <button class="btn btn-default" type="submit" name="Login.php" >Ingresar</button>    
+                  </form>
                 </div>
               </div>
+            </div>
+            <div id="contact-box" class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="block">
+               
+                </div>
+              </div>             
             </div>
           </div>
         </section>
@@ -177,23 +199,23 @@
             </div>
           </div>
         </section>
-     <!-- footer Start -->
-     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="footer-manu">
-              <ul>
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="#">Suporte</a></li>
-                <li><a href="#">Terminos</a></li>
-              </ul>
+        <!-- footer Start -->
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="footer-manu">
+                  <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="#">Suporte</a></li>
+                    <li><a href="#">Terminos</a></li>
+                  </ul>
+                </div>
+                <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
+              </div>
             </div>
-            <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
           </div>
-        </div>
-      </div>
-    </footer>                            
+        </footer>                       
       </body>
     </html>
