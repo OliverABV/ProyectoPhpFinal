@@ -232,11 +232,15 @@ if ($region == "5") {
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
                       <li><a class="collapse navbar-collapse" href="#"> <?php
-                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
+                                  if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
                                     echo' ';
+<<<<<<< HEAD
                                     echo '<img class="rounded-circle !important" style="    margin-top: -15px !important;
+=======
+                                    echo '<img class="rounded-circle !important" style="    margin-top: -30px !important;
+>>>>>>> ac21b198b1f828e6dbf1ddbb486608e21153d600
                                     position: fixed;" src="' . $avatar . '" width="50" height="50">';
                                 } else {
                                     $avatar = $_SESSION['inicioSesion']['foto_entidad'];
