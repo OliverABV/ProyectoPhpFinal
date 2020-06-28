@@ -1,28 +1,9 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
-require './PHPMailer/src/Exception.php';
-require './PHPMailer/src/PHPMailer.php';
-require './PHPMailer/src/SMTP.php';
-
+//require_once 'PHP-Mail/ConexionPHPMail.php';
 
 
 if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunto']) && !empty($_POST['mensaje'])){
-
-  //MANDAR CORREO VERSION WEB HOSTING SI TIENE LA FUNCION MAIL ACTIVADA
-
-  $nombre = $_POST['nombre'];
-$correo = $_POST['correo'];
-$asunto = $_POST['asunto'];
-$mensaje = $_POST['mensaje'];
-
-$carta = "De: $nombre \n";
-$carta .= "Correo: $correo \n";
-$carta .= "Asunto: $asunto \n";
-$carta .= "Mensaje: $mensaje \n";
-
-//mail($correo, $asunto, $carta);
 
 //VERSION LOCALHOST
 
@@ -131,7 +112,7 @@ $carta .= "Mensaje: $mensaje \n";
             <div class="row">
               <div class="col-md-6 col-sm-12">
                 <div class="block">
-                <form action="contacto.php" method="POST" enctype="multipart/form-data">
+                <form action="./PHP-Mail/ConexionPHPMail.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                       <input type="text" class="form-control" placeholder="Ingrese su Nombre" name="nombre">
                     </div>
