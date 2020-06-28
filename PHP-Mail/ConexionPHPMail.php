@@ -25,8 +25,7 @@ try {
 
     //Recipients
     $mail->setFrom('noreply@eduWeb.com', 'EdduWeb');
-    $mail->addAddress($correoUsuario);    
-    //$mail->addAddress('bjarat.90@gmail.com');              // Name is optional
+    $mail->addAddress($correoUsuario); // Name is optional
     $mail->addReplyTo('noreply@eduWeb.com', 'EdduWeb');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
@@ -34,8 +33,8 @@ try {
     // Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-    echo("<script>console.log('PHP: ".$data."');</script>");
-    echo("<script>console.log('mail pasa por aca');</script>");
+    //echo("<script>console.log('PHP: ".$data."');</script>");
+    //echo("<script>console.log('mail pasa por aca');</script>");
    
 
     // Content
@@ -45,10 +44,10 @@ try {
     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo("<script>console.log('mail pasa por aca2);</script>");
+    //echo("<script>console.log('mail pasa por aca2);</script>");
     echo 'su correo ha sido enviado con exito';
 } catch (Exception $e) {
-    echo "su mensaje a fallado error codigo: {$mail->ErrorInfo}";
+    //echo "su mensaje a fallado error codigo: {$mail->ErrorInfo}";
 }
 header('Location: ../contacto.php');
 
