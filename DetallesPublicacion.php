@@ -95,7 +95,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
         
         <!-- Slider Start -->
         <section id="global-header">
-          <div class="container">
+          <div class="container">          
             <div class="row">
               <div class="col-md-12">
                 <div class="block">
@@ -108,74 +108,108 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
         </section>
         <!-- contact form start -->
         <section id="contact-form">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                <form action="./PHP-Mail/ConexionPHPMail.php" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese su Nombre" name="nombre">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese su Correo" name="correo">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ingrese su Asunto" name="asunto">
-                    </div>
-                  
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                  
-                    <div class="form-group-2">
-                      <textarea class="form-control" rows="3" placeholder="Ingrese su Mensaje" name="mensaje"></textarea>
-                    </div>
-                    <br />
-                    <button class="btn btn-default" type="submit">Envia un Mensaje</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div id="contact-box" class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                  <h2>Ubicación</h2>
-                  <ul class="address-block">
-                    <li>
-                      <i class="fa fa-map-marker"></i>Providencia #4562
-                    </li>
-                    <li>
-                      <i class="fa fa-envelope-o"></i>Email: Edu-web@gmail.com
-                    </li>
-                    <li>
-                      <i class="fa fa-phone"></i>Telefono: +569 25672975
-                    </li>
-                  </ul>
+          <div class="container">            
+              <div class="conetenedor">  
+                <div class="row">
+      <div  class="column1" >
+   
+     <img src="img/foto.jpg" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">
+    
+     <h2 style= "padding-top:5px ;">Datos:</h2>  
+     <label for="">Nombre:</label> <label for="">asdasdasdsas</label> <br>
+     <label for="">Edad:</label> <label for="">asdasd</label> <br>
+     <label for="">Residencia:</label> <label for="">asdasd</label> <br>
+     <label for="">Disponibilidad:</label> <label for="">asdasd</label> <br>
+     <br>
+     <label for="">Calificación:</label>
+       <br><br><br>
+      <h2>Descripción</h2> <label for="">Aca va la info</label>
+    
+</div>
+<div  class="column2" style="background-color:#bbb;">
+ <h1>Titulo Publicaciones</h1>
+
+      <h5>Tipo de Clases Ofrecidads:</h5> <label for=""></label>
+      <h5>Incluye:</h5> <label for=""></label>
+      <h5>Excluye:</h5> <label for=""></label>
+      <h5>Valor Hora:</h5><label for=""></label>
+      <button class="btn btn-default" type="submit" name="" >Solicitar</button>
+</div>
+          </div>
+<div class="row">
+
+    <div  class="column3" style="background-color:#bbb;">
+       <h2>Deseas Preguntar algo?</h2>
+       <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+       border-radius: 4px;">
+       <button class="btn btn-default" type="submit" name="" >Preguntar</button>
+     
+       <h3>Preguntas de otros usuarios:</h3>
+    </div>
+    <div  class="column4" style="background-color:#bbb;">
+      <h1>Comentarios de otros usuarios:</h1>
+      </div>
+
+</div>
+
+<style>
+  .conetenedor{
+	margin-left:2%;
+	margin-right:2%;
+}
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+.column1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+  height: 600px;
+  width:50%;
+  border: solid;
+  
+}
+
+.column2 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+  height: 600px;
+  width:50%;
+  border: solid;
+}
+
+.column3 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+  height: 300px;
+  width:50%;
+  border: solid;
+}
+
+.column4 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 10px;
+  height: 300px;
+  width:50%;
+  border: solid;
+}
 
 
-                  <ul class="social-icons">
-                    <li>
-                      <a href="#"><i class="fa fa-google"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>                   
-                    <li>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                  </ul>
-                </div>
+
+
+
+</style>
+         
               </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="block">
-                 
-                </div>
-              </div>
-            </div>
           </div>
         </section>
        <!-- Call to action Start -->
