@@ -41,10 +41,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="js/google-map-init.js"></script>
-
+  
 
     <script src="js/main.js"></script>
 
@@ -108,7 +105,6 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
         </section>
         <!-- contact form start -->
         <section id="contact-form">
-          <div class="container">            
               <div class="conetenedor">  
                 <div class="row">
       <div  class="column1" >
@@ -126,14 +122,16 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
       <h2>Descripción</h2> <label for="">Aca va la info</label>
     
 </div>
-<div  class="column2" style="background-color:#bbb;">
- <h1>Titulo Publicaciones</h1>
+<div  class="column2" >
+ <h2>Titulo Publicaciones</h2>
 
-      <h5>Tipo de Clases Ofrecidads:</h5> <label for=""></label>
-      <h5>Incluye:</h5> <label for=""></label>
-      <h5>Excluye:</h5> <label for=""></label>
-      <h5>Valor Hora:</h5><label for=""></label>
-      <button class="btn btn-default" type="submit" name="" >Solicitar</button>
+      <label for="">Tipo de Clases Ofrecidas:</label> <label for=""></label> <br>
+      <label for="">Incluye:</label> <label for=""></label> <br>
+      <label for="">Excluye:</label> <label for=""></label> <br>
+      <label for="">Valor Hora:</label> <label for=""></label> <br>
+      <br><br>
+      <button class="btn btn-default" type="submit" name="" style="margin-left:35%">Solicitar</button>
+      <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
 </div>
           </div>
 <div class="row">
@@ -154,8 +152,8 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
 
 <style>
   .conetenedor{
-	margin-left:2%;
-	margin-right:2%;
+	margin-left:15%;
+	margin-right:15%;
 }
 
 .row {
@@ -167,10 +165,11 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
   -ms-flex: 1;
   flex: 1;
   padding: 10px;
-  height: 600px;
+  height: 550px;
   width:50%;
-  border: solid;
-  
+  border: solid;  
+  margin-right: 15px;
+
 }
 
 .column2 {
@@ -178,7 +177,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
   -ms-flex: 1;
   flex: 1;
   padding: 10px;
-  height: 600px;
+  height: 550px;
   width:50%;
   border: solid;
 }
@@ -191,6 +190,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
   height: 300px;
   width:50%;
   border: solid;
+  margin-top: 15px;
 }
 
 .column4 {
