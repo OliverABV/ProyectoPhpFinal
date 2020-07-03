@@ -7,12 +7,35 @@ include_once './PostgreSQL/ConexionBD.php';
 $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 
+//<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.fecha_pregunta_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
+U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
+FROM preguntas_publicacion AS PU 
+NATURAL JOIN usuario2 AS U
+WHERE id_publicacion_usuario = ?
+ORDER BY fecha_pregunta_publicacion DESC;");
+$consultaSQL->bindParam(1, $idPublicacion);
+$consultaSQL->execute();
+$listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
+ConexionBD::cerrarConexion();
+
+//<!-- TERMINO OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
+
 $detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario 
-INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario
-INNER JOIN region ON publicacion_usuario.id_region = region.id_region
-INNER JOIN ciudad ON publicacion_usuario.id_ciudad = ciudad.id_ciudad
-INNER JOIN comuna ON publicacion_usuario.id_comuna = comuna.id_comuna
+NATURAL JOIN usuario2
+NATURAL JOIN region
+NATURAL JOIN ciudad
+NATURAL JOIN comuna
 WHERE id_publicacion_usuario = ?;");
+
+/*
+  SELECT * FROM publicacion_usuario
+  INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario
+  INNER JOIN region ON publicacion_usuario.id_region = region.id_region
+  INNER JOIN ciudad ON publicacion_usuario.id_ciudad = ciudad.id_ciudad
+  INNER JOIN comuna ON publicacion_usuario.id_comuna = comuna.id_comuna
+  WHERE id_publicacion_usuario = ?;
+ */
 
 $detallesPublicacion->bindParam(1, $idPublicacion);
 $detallesPublicacion->execute();
@@ -122,7 +145,12 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 <div class="row">
                     <div  class="column1" >
 
+<<<<<<< HEAD
                         <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">                        
+=======
+                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">
+
+>>>>>>> be01b938369c2c33bc9dbf3d309ab2699ec6f34f
                         <h2 style= "padding-top:5px ;">Datos:</h2>  
                         <label for="">Nombre:</label> <label for=""><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></label> <br>
 
@@ -189,11 +217,40 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     <div  class="column3" style="background-color:#bbb;">
                         <h2>Deseas Preguntar algo?</h2>
-                        <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
-                               border-radius: 4px;">
-                        <button class="btn btn-default" type="submit" name="" >Preguntar</button>
 
+                        <!-- FORMULARIO PARA CREAR LA PREGUNTA -->
+                        <form action="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
+                            <input type="text" id="txtPregunta" name="txtPregunta" value="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+                                   border-radius: 4px;">
+                                   <?php
+                                   if (!empty($_POST['txtPregunta'])) {
+                                       //echo "<script>alert('ENTRO EN SI');</script>";
+                                       $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+                                       //$fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+                                       $fechaSubida = date_format($fechaCompleta, "d-m-Y");
+                                       $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO Preguntas_publicacion (id_publicacion_usuario, id_usuario, fecha_pregunta_publicacion, pregunta_publicacion) VALUES (?, ?, ?, ?)");
+                                       $consultaSQL->bindParam(1, $idPublicacion);
+                                       $consultaSQL->bindParam(2, $_SESSION['inicioSesion']['id_usuario']);
+                                       $consultaSQL->bindParam(3, $fechaSubida);
+                                       $consultaSQL->bindParam(4, $_POST['txtPregunta']);
+                                       //echo '<script>alert ("Fecha '.$idPublicacion.' ");</script>';
+                                       if ($consultaSQL->execute()) {
+
+                                           echo "<script>alert('PREGUNTA REALIZADA');</script>";
+                                       } else {
+
+                                           echo "<script>alert('ERROR AL CREAR LA PREGUNTA');</script>";
+                                       }
+                                       ConexionBD::cerrarConexion();
+                                   }
+                                   ?>
+                            <button class="btn btn-default" type="submit" name="" >Preguntar</button>
+                        </form>
+                        <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
+
+                        <!-- LLENADO DE OTRAS PREGUNTAS -->
                         <h3>Preguntas de otros usuarios:</h3>
+<<<<<<< HEAD
                         <hr class="line">
                        <div class="contenedor-comentarios">
                              <div class="comentarios">
@@ -245,12 +302,59 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     </div>
 
+=======
+                        <table border="1">
+<?php foreach ($listaPreguntas as $lista) { ?>
+                                <tr>
+                                    <th rowspan="2"><img src="<?php echo $lista['foto_usuario']; ?>" alt=""  style="float:left; width:50%; height:50%; padding-top:30px; padding-right:15px; "></th>
+                                    <th><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></th>
+                                    <th>Fecha Pregunta: <?php echo $lista['fecha_pregunta_publicacion']; ?></th>
+                                </tr>
+                                <th colspan="2">Pregunta: <?php echo $lista['pregunta_publicacion']; ?></th>
+                                <tr>
+                                    <th>Fecha Respuesta: <?php
+                                        if (!empty($lista['fecha_respuesta_publicacion'])) {
+                                            echo $lista['fecha_respuesta_publicacion'];
+                                        } else {
+                                            echo 'aun no hay fecha';
+                                        }
+                                        ?></th>
+                                    <th colspan="2">Respuesta: <?php
+                                    if (!empty($lista['respuesta_publicacion'])) {
+                                        echo $lista['respuesta_publicacion'];
+                                    } else {
+                                        echo 'aun no hay respuesta';
+                                    }
+                                    ?></th>
+
+                                </tr>
+<?php } ?>
+                        </table>
+                        <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
+                    </div>
+                    <!-- LLENADO DE COMENTARIOS -->
+>>>>>>> be01b938369c2c33bc9dbf3d309ab2699ec6f34f
                     <div  class="column4" style="background-color:#bbb;">
                         <h1>Comentarios de otros usuarios:</h1>
+                        <table border="1">
+                            <tr>
+                                <th rowspan="2"><img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:50%; height:50%; padding-top:30px; padding-right:15px; "></th>
+                                <th><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></th>
+                                <th><img src="img/Imagenes/Sistema/gif-estrella.gif"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive"><?php if ($contadorCalificacionUsuario != 0) { ?>
+                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+<?php } else { ?>
+                                        <b> SIN CLASIFICACION</b>
+<?php } ?></th>
+                            </tr>
+                            <th colspan="2">Fecha Comentario:</th>
+                            <tr>
+                                <th colspan="3">COMENTARIO</th>
+
+                            </tr>
+                        </table>
                     </div>
-
+                    <!-- TERMINO LLENADO DE COMENTARIOS -->
                 </div>
-
                 <style>
                     .conetenedor{
                         margin-left:15%;
