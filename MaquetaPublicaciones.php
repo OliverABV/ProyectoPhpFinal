@@ -62,27 +62,27 @@ if (!empty($_GET['filtro'])) {
         <script src="JavaScript/jquery.min.js"></script>
         <script src="JavaScript/jquery.rateyo.min.js"></script>
 
-<!-- CSS -->
-    <link rel="stylesheet" href="css2/style.css">
-    <link rel="stylesheet" href="css2/animate.css">
-    <link rel="stylesheet" href="css2/responsive.css">
-    <link rel="stylesheet" href="css2/animate.css">
-    <link rel="stylesheet" href="css2/ionicons.min.css">
-    <link rel="stylesheet" href="css2/font-awesome.min.css">
+        <!-- CSS -->
+        <link rel="stylesheet" href="css2/style.css">
+        <link rel="stylesheet" href="css2/animate.css">
+        <link rel="stylesheet" href="css2/responsive.css">
+        <link rel="stylesheet" href="css2/animate.css">
+        <link rel="stylesheet" href="css2/ionicons.min.css">
+        <link rel="stylesheet" href="css2/font-awesome.min.css">
 
 
 
-    <!-- Js -->
-    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/min/waypoints.min.js"></script>
-    <script src="js/jquery.counterup.js"></script>
+        <!-- Js -->
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/min/waypoints.min.js"></script>
+        <script src="js/jquery.counterup.js"></script>
 
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
 
     </head>
     <body>
@@ -94,10 +94,10 @@ if (!empty($_GET['filtro'])) {
                     <ul class="navigation">
 
                         <nav class="navbar navbar-light bg-light">
-                        <a><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></a>
-                        <a href="indexUsuario.php">Inicio</a>
-                      <a href="MaquetaPublicaciones.php">Publicaciones</a>
-                      <a href="PublicacionTutoria.php">Crear Publicación</a>
+                            <a><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></a>
+                            <a href="indexUsuario.php">Inicio</a>
+                            <a href="MaquetaPublicaciones.php">Publicaciones</a>
+                            <a href="PublicacionTutoria.php">Crear Publicación</a>
                             <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
@@ -124,43 +124,43 @@ if (!empty($_GET['filtro'])) {
 
         </div>
 
- <!-- Slider Start -->
- <section id="global-header">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="block">
-                  <h1>Publicaciones</h1>
-                  <p>Revisa todas las Publicaciones</p>
+        <!-- Slider Start -->
+        <section id="global-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block">
+                            <h1>Publicaciones</h1>
+                            <p>Revisa todas las Publicaciones</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </section>
         <!-- El contenedor Contiene Todo lo que biene despues del header con una anchura difinida simpre del 90% sea el tamaño que esta pagian tenga
-    -->
-    <?php include('MenuLateral.php'); ?>
+        -->
+        <?php include('MenuLateral.php'); ?>
 
         <div id="contenedor" style="
-                        width: 90%;
-                        margin: auto;
-                        " > 
+             width: 90%;
+             margin: auto;
+             " > 
             <!--  el contenido es el cuadro lateral izquierdo para llenar con weas-->
             <div id="contenido"> 
                 <div class="lateral" style="
-                        width: 25%;
-                        height: 100%;
-                        margin: left;
-                        position: absolute;
-                        " ></div>
-                        
-            <!-- esto contiene la grilla-->
+                     width: 25%;
+                     height: 100%;
+                     margin: left;
+                     position: absolute;
+                     " ></div>
+
+                <!-- esto contiene la grilla-->
                 <div id="section" style="
-                                            width: 80%;
-                                            height: 50%;
-                                            margin: auto;
-                                        ">
-                                        Lista de Publicaciones:
+                     width: 80%;
+                     height: 50%;
+                     margin: auto;
+                     ">
+                    Lista de Publicaciones:
                     <hr>
                     <!-- FOREACH QUE CREA LA LISTA DE LAS PUBLICACIONES "filtro" RESIVE LOS DATOS SEGUN EL FILTRO QUE SE SELECCIONA-->
                     <?php foreach ($filtro as $publicacion) { ?>     
@@ -196,10 +196,10 @@ if (!empty($_GET['filtro'])) {
                                             <?php if (!empty($publicacion['id_publicacion_usuario'])) { ?>
                                                 <?php if ($publicacion['categoria_publicacion'] == "tutoria") { ?>
                                                     <div class="titulo">
-                                                        Titulo: <?php echo "<a class='publicacion' href=DetallesTuroria.php?id=" . $publicacion['id_publicacion_usuario'] . ">" . $publicacion['titulo'] . "</a>"; ?>
+                                                        Titulo: <?php echo "<a class='publicacion' href=DetallesPublicacion.php?id=" . $publicacion['id_publicacion_usuario'] . ">" . $publicacion['titulo'] . "</a>"; ?>
                                                     </div>
                                                 <?php } elseif ($publicacion['categoria_publicacion'] == "asesoria") { ?>
-                                                    Titulo:  <?php echo "<a class='publicacion' href=DetallesAsesoria.php?id=" . $publicacion['id_publicacion_usuario'] . ">" . $publicacion['titulo'] . "</a>"; ?>
+                                                    Titulo:  <?php echo "<a class='publicacion' href=DetallesPublicacion.php?id=" . $publicacion['id_publicacion_usuario'] . ">" . $publicacion['titulo'] . "</a>"; ?>
                                                 <?php } elseif ($publicacion['categoria_publicacion'] == "oportunidad") { ?>
                                                     Titulo: <?php echo "<a class='publicacion' href=DetallesOportunidad.php?id=" . $publicacion['id_publicacion_usuario'] . ">" . $publicacion['titulo'] . "</a>"; ?>
                                                 <?php } ?>
@@ -380,48 +380,48 @@ if (!empty($_GET['filtro'])) {
                         </div>
                         <hr>
                     <?php } ?>
-                    
+
                 </div>   
                 <!-- BARRA LATERAL -->
-             <?php // include('MenuLateral.php'); ?> 
+                <?php // include('MenuLateral.php'); ?> 
             </div>        
 
         </div>
-   
-  <!-- Call to action Start -->
-  <section id="call-to-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="block">
-              <h2>Creemos en ti y en tu futuro</h2>
-              <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
-                 grandes posibilidades de proyección laboral.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-     <!-- footer Start -->
-     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="footer-manu">
-              <ul>
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="#">Suporte</a></li>
-                <li><a href="#">Terminos</a></li>
-              </ul>
+        <!-- Call to action Start -->
+        <section id="call-to-action">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block">
+                            <h2>Creemos en ti y en tu futuro</h2>
+                            <p>Edu-Web ofrece la posibilidad de insertar laboralmente a jóvenes estudiantes en un área de gran demanda de profesionales y con
+                                grandes posibilidades de proyección laboral.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
-          </div>
-        </div>
-      </div>
-    </footer>    
-  
+        </section>
+
+        <!-- footer Start -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer-manu">
+                            <ul>
+                                <li><a href="#">Sobre Nosotros</a></li>
+                                <li><a href="contacto.html">Contacto</a></li>
+                                <li><a href="#">Suporte</a></li>
+                                <li><a href="#">Terminos</a></li>
+                            </ul>
+                        </div>
+                        <p>Copyright &copy; Crafted by <a href="">Diego Malagueño, Bastian Jara</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>    
+
     </body>
-   
+
 </html>
