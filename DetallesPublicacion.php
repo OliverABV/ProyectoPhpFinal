@@ -121,7 +121,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 <div class="row">
                     <div  class="column1" >
 
-                        <img src="img/foto.jpg" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">
+                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">
 
                         <h2 style= "padding-top:5px ;">Datos:</h2>  
                         <label for="">Nombre:</label> <label for=""><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></label> <br>
