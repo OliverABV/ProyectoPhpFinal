@@ -1,15 +1,11 @@
 <?php
-
-//require_once 'PHP-Mail/ConexionPHPMail.php';
-
-
-if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunto']) && !empty($_POST['mensaje'])){
-
-//VERSION LOCALHOST
-
-
-
+session_start();
+if (!isset($_SESSION['inicioSesion'])) {
+    header('Location: ./Login.php');
 }
+
+$idPublicacion = $_GET['id'];
+echo $idPublicacion;
 ?>
 
 <!DOCTYPE html>
