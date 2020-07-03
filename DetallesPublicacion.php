@@ -12,7 +12,8 @@ $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.fecha_pregunta_p
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM preguntas_publicacion AS PU 
 NATURAL JOIN usuario2 AS U
-WHERE id_publicacion_usuario = ?;");
+WHERE id_publicacion_usuario = ?
+ORDER BY fecha_pregunta_publicacion DESC;");
 $consultaSQL->bindParam(1, $idPublicacion);
 $consultaSQL->execute();
 $listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
