@@ -320,7 +320,7 @@ if (!empty($_GET['filtro'])) {
                                                 }
                                                 ?>
 
-                                                <img src="img/Imagenes/Sistema/gif-estrella.gif"  width="25%" height="25%" alt="Puntuacion.img" class="img-responsive">
+                                                <img src="img/Imagenes/Sistema/estrella.png"  width="25%" height="25%" alt="Puntuacion.img" class="img-responsive">
                                                 <?php
                                                 if ($publicacion['categoria_publicacion'] == "tutoria") {
                                                     if ($contadorCalificacionUsuario != 0) {

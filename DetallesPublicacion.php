@@ -206,7 +206,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         ?>
                         <br>
                         <label for="">Calificación:</label>
-                        <img src="img/Imagenes/Sistema/gif-estrella.gif"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive">
+                        <img src="img/Imagenes/Sistema/estrella.png"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive">
                         <?php if ($contadorCalificacionUsuario != 0) { ?>
                             <b><?php echo $resultadoCalificacionUsuario; ?></b>
                         <?php } else { ?>
