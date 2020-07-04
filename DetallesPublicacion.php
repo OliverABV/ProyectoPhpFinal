@@ -86,45 +86,66 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
     </head>
     <body>
         <!-- Header Start -->
-        <header>
-            <div class="container" style="margin-left: 0; margin-right: 0;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- header Nav Start -->
-                        <nav class="navbar navbar-default">
-                            <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                        <span class="sr-only">EduWeb</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>       
-                                    <span></span>
-                                    </a>
-                                </div>
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <div class="row">
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
-                                            <li><a href="index.html">Inicio</a></li>
-                                            <li><a href="Registro.php">Publicaciones</a></li>
-                                            <li><a href="RegistroUsuario.php">Empezar</a></li>
-                                            <li><a href="#">Registro Entidad</a></li>
-                                            <li><a href="contacto.html">Contacto</a></li>
-                                            <li><a href="Login.php">Iniciar Sesion</a></li>
+  <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " > >
+    <div class="container" style="
+    margin-left: 0; margin-right: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- header Nav Start -->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">EduWeb</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>       
+                  <span></span>
+                </a>
+              </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <div class="row">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
+                      <li><a href="indexUsuario.php">Inicio</a></li>
+                      <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
+                      <li><a href="PublicacionTutoria.php">Crear Publicación</a></li>
 
-                                    </div>
-                                    </ul>
-                                </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header><!-- header close -->
+                      <li>
+                            <a href="#"> <?php
+                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
+                                    $avatar = $_SESSION['inicioSesion']['foto_usuario'];
+                                    echo $_SESSION['inicioSesion']['nombre_usuario'];
+                                    echo' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                } else {
+                                    $avatar = $_SESSION['inicioSesion']['foto_entidad'];
+                                    echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
+                                    echo ' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                }
+                                ?>  </a>
+                        </li>
+                       <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
+                        <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
+
+                 
+                   </ul>
+                  </div>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header><!-- header close -->
 
         <!-- Slider Start -->
         <section id="global-header">
@@ -204,13 +225,13 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <label for="">Excluye:</label> <?php echo $datosPublicacion['no_incluye'] ?> <label for=""></label> <br>
                         <label for="">Valor Hora:</label> <?php echo $datosPublicacion['precio'] ?> <label for=""></label> <br>
                         <br><br>
-                        <button class="btn btn-default" type="submit" name="" style="margin-left:35%">Solicitar</button>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:15%">Solicitar</button>
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
                     </div>
                 </div>
                 <div class="row">
 
-                    <div  class="column3" style="background-color:#bbb;">
+                    <div  class="column3" >
                         <h2>Deseas Preguntar algo?</h2>
                         <form action="DetallesPublicacion_copy.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
                             <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
@@ -260,10 +281,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                         </div>
                                         <p>
                                             <?php echo $lista['pregunta_publicacion']; ?>
-                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    
+                                            
                                         </p>
                                         <div class="footer-comentario">
                                             <h5 class="request">Responder</h5>
@@ -301,7 +320,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         height: 550px;
                         width:50%;
-                        border: solid;  
+                        background: skyblue;
 
                     }
 
@@ -312,7 +331,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         height: 550px;
                         width:50%;
-                        border: solid;
+                        background: skyblue;
                     }
 
                     .column3 {
@@ -322,7 +341,6 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         height: 1700px;
                         width: 100%;
-                        border: solid;
                     }
 
                     .line{
@@ -340,7 +358,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     }                  
 
                     .photo-perfil{
-                        width: 200px;
+                        width: 100px;
                         height: 82px;
                         border-radius: 50%;
                         overflow: hidden;
@@ -372,6 +390,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     .info-comentarios p{
                         padding: 20px;
+                        width: 580px;
+                        height: 125px;
                     }
 
                     .footer-comentario{
