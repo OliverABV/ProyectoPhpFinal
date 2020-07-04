@@ -90,7 +90,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                                 }
                                 ?>  </a>
                         </li>
-                       <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
+                       <li><a href="ActualizarDatosUsuario.php">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
                  

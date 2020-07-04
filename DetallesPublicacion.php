@@ -52,7 +52,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Space Template</title>
+        <title>Detalles</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -65,6 +65,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
         <link rel="stylesheet" href="css2/ionicons.min.css">
         <link rel="stylesheet" href="css2/animate.css">
         <link rel="stylesheet" href="css2/responsive.css">
+        <link rel="stylesheet" href="css/comentarios.css">
+
 
         <!-- Js -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -85,8 +87,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
     <body>
         <!-- Header Start -->
         <header>
-            <div class="container" style="
-                 margin-left: 0; margin-right: 0;">
+            <div class="container" style="margin-left: 0; margin-right: 0;">
                 <div class="row">
                     <div class="col-md-12">
                         <!-- header Nav Start -->
@@ -144,8 +145,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 <div class="row">
                     <div  class="column1" >
 
-                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">
-
+                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">                        
                         <h2 style= "padding-top:5px ;">Datos:</h2>  
                         <label for="">Nombre:</label> <label for=""><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></label> <br>
 
@@ -212,10 +212,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     <div  class="column3" style="background-color:#bbb;">
                         <h2>Deseas Preguntar algo?</h2>
-
-                        <!-- FORMULARIO PARA CREAR LA PREGUNTA -->
-                        <form action="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
-                            <input type="text" id="txtPregunta" name="txtPregunta" value="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+                        <form action="DetallesPublicacion_copy.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
+                            <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;">
                                    <?php
                                    if (!empty($_POST['txtPregunta'])) {
@@ -245,57 +243,47 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
                         <h3>Preguntas de otros usuarios:</h3>
-                        <table border="1">
-<?php foreach ($listaPreguntas as $lista) { ?>
-                                <tr>
-                                    <th rowspan="2"><img src="<?php echo $lista['foto_usuario']; ?>" alt=""  style="float:left; width:50%; height:50%; padding-top:30px; padding-right:15px; "></th>
-                                    <th><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></th>
-                                    <th>Fecha Pregunta: <?php echo $lista['fecha_pregunta_publicacion']; ?></th>
-                                </tr>
-                                <th colspan="2">Pregunta: <?php echo $lista['pregunta_publicacion']; ?></th>
-                                <tr>
-                                    <th>Fecha Respuesta: <?php
-                                        if (!empty($lista['fecha_respuesta_publicacion'])) {
-                                            echo $lista['fecha_respuesta_publicacion'];
-                                        } else {
-                                            echo 'aun no hay fecha';
-                                        }
-                                        ?></th>
-                                    <th colspan="2">Respuesta: <?php
-                                    if (!empty($lista['respuesta_publicacion'])) {
-                                        echo $lista['respuesta_publicacion'];
-                                    } else {
-                                        echo 'aun no hay respuesta';
-                                    }
-                                    ?></th>
-
-                                </tr>
-<?php } ?>
-                        </table>
+                        <?php foreach ($listaPreguntas as $lista) { ?>
+                            <hr class="line">
+                            <div class="contenedor-comentarios">
+                                <div class="comentarios">
+                                    <div class="photo-perfil">
+                                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
+                                    </div>
+                                    <div class="info-comentarios" >
+                                        <div class="header-comentario">
+                                            <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
+                                            <h5><?php 
+                                            $date = date_create($lista['fecha_pregunta_publicacion']);
+                                            echo date_format($date, 'd-m-Y');
+                                            ?></h5>
+                                        </div>
+                                        <p>
+                                            <?php echo $lista['pregunta_publicacion']; ?>
+                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                        </p>
+                                        <div class="footer-comentario">
+                                            <h5 class="request">Responder</h5>
+                                            <label class=""></label>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
+
+
                     </div>
-                    <!-- LLENADO DE COMENTARIOS -->
+
                     <div  class="column4" style="background-color:#bbb;">
                         <h1>Comentarios de otros usuarios:</h1>
-                        <table border="1">
-                            <tr>
-                                <th rowspan="2"><img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:50%; height:50%; padding-top:30px; padding-right:15px; "></th>
-                                <th><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></th>
-                                <th><img src="img/Imagenes/Sistema/gif-estrella.gif"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive"><?php if ($contadorCalificacionUsuario != 0) { ?>
-                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
-<?php } else { ?>
-                                        <b> SIN CLASIFICACION</b>
-<?php } ?></th>
-                            </tr>
-                            <th colspan="2">Fecha Comentario:</th>
-                            <tr>
-                                <th colspan="3">COMENTARIO</th>
-
-                            </tr>
-                        </table>
                     </div>
-                    <!-- TERMINO LLENADO DE COMENTARIOS -->
+
                 </div>
+
                 <style>
                     .conetenedor{
                         margin-left:15%;
@@ -309,19 +297,18 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     .column1 {
                         -webkit-flex: 1;
                         -ms-flex: 1;
-                        flex: 1;
+                        flex: 0.8;
                         padding: 10px;
                         height: 550px;
                         width:50%;
                         border: solid;  
-                        margin-right: 15px;
 
                     }
 
                     .column2 {
                         -webkit-flex: 1;
                         -ms-flex: 1;
-                        flex: 1;
+                        flex: 0.7;
                         padding: 10px;
                         height: 550px;
                         width:50%;
@@ -331,12 +318,73 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     .column3 {
                         -webkit-flex: 1;
                         -ms-flex: 1;
-                        flex: 1;
+                        flex: 1.4;
                         padding: 10px;
-                        height: 300px;
-                        width:50%;
+                        height: 1700px;
+                        width: 100%;
                         border: solid;
-                        margin-top: 15px;
+                    }
+
+                    .line{
+                        width: 630px;
+                        height: 2px;
+                        border-style: none;
+                        background: #c21919;
+                        margin-top: 10px;
+                    }
+                    .contenedor-comentarios{
+                        margin-top: 20px;
+                    }
+                    .comentarios{
+                        display: flex;
+                    }                  
+
+                    .photo-perfil{
+                        width: 200px;
+                        height: 82px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                    }                    
+                    .photo-perfil img{
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .info-comentarios{
+                        margin-left: 20px;
+                        background: #e6e6e6;
+                        transition:  all 300ms;
+                        margin-top: 10px;
+                    }
+
+                    .info-comentarios:hover{
+
+                        border-bottom: 2px solid black; 
+                    }
+
+                    .header-comentario{
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px;
+                        background: #019CDE;
+                        color: white;
+                    }
+
+                    .info-comentarios p{
+                        padding: 20px;
+                    }
+
+                    .footer-comentario{
+                        width: 100%;
+                        background: white;
+                        padding: 10px;
+                        color: #5f5f5f;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .footer-comentario{
+                        font-size: 15px;
+                        cursor: pointer;
                     }
 
                     .column4 {
