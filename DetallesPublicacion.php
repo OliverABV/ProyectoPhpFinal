@@ -166,7 +166,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 <div class="row">
                     <div  class="column1" >
 
-                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:250px; padding-top:30px; padding-right:15px; ">                        
+                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt=""  style="float:left; width:250px; height:270px; padding-top:30px; padding-right:15px; ">                        
                         <h2 style= "padding-top:5px ;">Datos:</h2>  
                         <label for="">Nombre:</label> <label for=""><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></label> <br>
 
@@ -205,13 +205,13 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         ConexionBD::cerrarConexion();
                         ?>
                         <br>
-                        <label for="">Calificación:</label>
-                        <img src="img/Imagenes/Sistema/estrella.png"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive">
+                        <label >Calificación:  <img src="img/Imagenes/Sistema/estrella.png"  width="5%" height="5%" alt="Puntuacion.img" class="img-responsive">
                         <?php if ($contadorCalificacionUsuario != 0) { ?>
                             <b><?php echo $resultadoCalificacionUsuario; ?></b>
                         <?php } else { ?>
                             <b> SIN CLASIFICACION</b>
-                        <?php } ?>
+                        <?php } ?> </label>
+                       
                         <!-- TERMINO CALIFICACION -->
                         <br><br><br>
                         <h2>Descripción</h2> <label for=""><?php echo $datosPublicacion['descripcion'] ?></label>
@@ -228,12 +228,53 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <button class="btn btn-default" type="submit" name="" style="margin-left:15%">Solicitar</button>
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
                     </div>
+                    
                 </div>
+                   
+                <div class="row">
+                    
+                <div  class="column4">
+                    
+                        <!-- LLENADO DE OTRAS PREGUNTAS -->
+                        <h3>Comentarios de otros usuarios:</h3>
+                        <?php foreach ($listaPreguntas as $lista) { ?>
+                            <hr class="line">
+                            <div class="contenedor-comentarios">
+                                <div class="comentarios">
+                                    <div class="photo-perfil">
+                                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
+                                    </div>
+                                    <div class="info-comentarios" >
+                                        <div class="header-comentario">
+                                            <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
+                                            <h5><?php 
+                                            $date = date_create($lista['fecha_pregunta_publicacion']);
+                                            echo date_format($date, 'd-m-Y');
+                                            ?></h5>
+                                        </div>
+                                        <p>
+                                            <?php echo $lista['pregunta_publicacion']; ?>
+                                    
+                                            
+                                        </p>
+                                        <div class="footer-comentario">
+                                            <h5 class="request">Responder</h5>
+                                            <label class=""></label>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
+                    </div>
+                </div>
+                <hr class="line2">
+
                 <div class="row">
 
                     <div  class="column3" >
                         <h2>Deseas Preguntar algo?</h2>
-                        <form action="DetallesPublicacion_copy.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
+                        <form action="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
                             <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;">
                                    <?php
@@ -297,11 +338,9 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     </div>
 
-                    <div  class="column4" style="background-color:#bbb;">
-                        <h1>Comentarios de otros usuarios:</h1>
-                    </div>
 
                 </div>
+  
 
                 <style>
                     .conetenedor{
@@ -344,7 +383,15 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     }
 
                     .line{
-                        width: 630px;
+                        width: 80%;
+                        height: 2px;
+                        border-style: none;
+                        background: #c21919;
+                        margin-top: 10px;
+                    }
+
+                    .line2{
+                        width: 100%;
                         height: 2px;
                         border-style: none;
                         background: #c21919;
@@ -355,6 +402,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     }
                     .comentarios{
                         display: flex;
+                        margin-left: 180px;
                     }                  
 
                     .photo-perfil{
@@ -386,6 +434,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         background: #019CDE;
                         color: white;
+                        width: 800px;
                     }
 
                     .info-comentarios p{
@@ -412,9 +461,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         -ms-flex: 1;
                         flex: 1;
                         padding: 10px;
-                        height: 300px;
-                        width:50%;
-                        border: solid;
+                        height: 1700px;
+                        width:100%;
                     }
 
 
