@@ -13,7 +13,8 @@ U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM preguntas_publicacion AS PU 
 NATURAL JOIN usuario2 AS U
 WHERE id_publicacion_usuario = ?
-ORDER BY fecha_pregunta_publicacion DESC;");
+ORDER BY fecha_pregunta_publicacion DESC");
+
 $consultaSQL->bindParam(1, $idPublicacion);
 $consultaSQL->execute();
 $listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
@@ -90,7 +91,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         width: 90%;
                          float: rigth;
                         margin: auto;
-                        " > >
+                        " >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
@@ -233,11 +234,11 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     <div  class="column3" >
                         <h2>Deseas Preguntar algo?</h2>
-                        <form action="DetallesPublicacion_copy.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
-                            <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+                        <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
+                            <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;">
                                    <?php
-                                   if (!empty($_POST['txtPregunta'])) {
+                                   if (!empty($pregunta)) {
                                        //echo "<script>alert('ENTRO EN SI');</script>";
                                        $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
                                        //$fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
@@ -246,11 +247,13 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                        $consultaSQL->bindParam(1, $idPublicacion);
                                        $consultaSQL->bindParam(2, $_SESSION['inicioSesion']['id_usuario']);
                                        $consultaSQL->bindParam(3, $fechaSubida);
-                                       $consultaSQL->bindParam(4, $_POST['txtPregunta']);
+                                       $consultaSQL->bindParam(4, $pregunta);
                                        //echo '<script>alert ("Fecha '.$idPublicacion.' ");</script>';
                                        if ($consultaSQL->execute()) {
 
                                            echo "<script>alert('PREGUNTA REALIZADA');</script>";
+                                           isset($pregunta);
+                                           //header('Location: ./DetallesPublicacion.php?id=' .$fechaSubida);
                                        } else {
 
                                            echo "<script>alert('ERROR AL CREAR LA PREGUNTA');</script>";
