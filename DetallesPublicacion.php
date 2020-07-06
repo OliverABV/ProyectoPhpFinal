@@ -236,7 +236,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <h2>Deseas Preguntar algo?</h2>
                         <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
                             <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
-                                   border-radius: 4px;">
+                                   border-radius: 4px;" required>
                                    <?php
                                    if (!empty($pregunta)) {
                                        //echo "<script>alert('ENTRO EN SI');</script>";

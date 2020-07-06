@@ -31,6 +31,8 @@ $pregunta = $_POST['txtPregunta'];
                                            echo "<script>alert('ERROR AL CREAR LA PREGUNTA');</script>";
                                        }
                                        ConexionBD::cerrarConexion();
+                                   }else{
+                                    header('Location: ./DetallesPublicacion.php?id=' .$idPublicacion);
                                    }
                                    ?>
                         
