@@ -74,6 +74,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
     <link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/alertify.css">
         <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/themes/default.css">
+        <link rel="stylesheet" href="css/textarea.css">
 
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -214,7 +215,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                     </div> 
                       
                     <div class="form-group-2">
-                      <textarea name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
+                      <textarea style="overflow:auto;resize:none" name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
                     </div>
 
                     <h3>Tu Ubicación</h3>

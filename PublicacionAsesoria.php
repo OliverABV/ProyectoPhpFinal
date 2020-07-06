@@ -204,7 +204,7 @@ ConexionBD::cerrarConexion();
                     </div> 
                       
                     <div class="form-group-2">
-                      <textarea name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
+                      <textarea style="overflow:auto;resize:none" name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
                     </div>
 
                     <h3>Tu Ubicación</h3>

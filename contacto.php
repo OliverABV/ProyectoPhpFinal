@@ -129,7 +129,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
                 <div class="block">
                   
                     <div class="form-group-2">
-                      <textarea class="form-control" rows="3" placeholder="Ingrese su Mensaje" name="mensaje"></textarea>
+                      <textarea style="overflow:auto;resize:none" class="form-control" rows="3" placeholder="Ingrese su Mensaje" name="mensaje"></textarea>
                     </div>
                     <br />
                     <button class="btn btn-default" type="submit">Envia un Mensaje</button>

@@ -1,7 +1,0 @@
-textarea{
-    margin-right:10px;
-}
-/* Este css bloquea el textarea*/
-#bloquearResize{
-    resize:none;
-}

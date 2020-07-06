@@ -68,7 +68,6 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
         <link rel="stylesheet" href="css2/animate.css">
         <link rel="stylesheet" href="css2/responsive.css">
         <link rel="stylesheet" href="css/comentarios.css">
-        <link rel="stylesheet" href="css/textarea.css">
 
 
         <!-- Js -->
@@ -279,24 +278,20 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
                                             <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
-                                            <h5>Pregunta: <?php
+                                            <h5><?php 
                                             $date = date_create($lista['fecha_pregunta_publicacion']);
                                             echo date_format($date, 'd-m-Y');
                                             ?></h5>
                                         </div>
+                                        <p>
+                                            <?php echo $lista['pregunta_publicacion']; ?>
+                                    
                                             
-                                            <textarea style="overflow:auto;resize:none" class="form-control" id="textPregunta" name="textPregunta" rows="3" cols="70" class="pane"><?php echo $lista['pregunta_publicacion']; ?></textarea>
-                                        <div class="header-comentario">
-                                            <h4></h4>
-                                            <h5>Respuesta: <?php if(!is_null($lista['fecha_respuesta_publicacion'])){
-                                            $date = date_create($lista['fecha_respuesta_publicacion']);
-                                            echo date_format($date, 'd-m-Y');
-                                            }else{
-                                                echo 'aun sin respuesta';
-                                            }?></h5>
-
+                                        </p>
+                                        <div class="footer-comentario">
+                                            <h5 class="request">Responder</h5>
+                                            <label class=""></label>   
                                         </div>
-                                        <textarea style="overflow:auto;resize:none" class="form-control" id="textRespuesta" name="textRespuesta" rows="3" cols="70" class="pane"><?php echo $lista['respuesta_publicacion']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -425,6 +420,9 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         width:50%;
                         border: solid;
                     }
+
+
+
 
 
                 </style>
