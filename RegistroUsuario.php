@@ -15,8 +15,8 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
     $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
     $consultaSQL->bindParam(1, $_POST['rut']);
     $consultaSQL->execute();
-
-    if ($consultaSQL->fetchColumn() == 0) {
+    $total = $consultaSQL->fetch();
+    if ($total['count'] == 0) {
         ConexionBD::cerrarConexion();
         //echo "<script>alert('ENTRO EN SI');</script>";
         //echo '<script>alert (" Ha respondido '.$acumulador.' respuestas afirmativas");</script>';

@@ -24,7 +24,7 @@ ConexionBD::cerrarConexion();
 // CAMBIOS
 if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!empty($_POST['txtIncluye'])) && (!empty($_POST['txtNoIncluye'])) && (!empty($_POST['txtPrecio'])) ) {
   //  echo "<script>alert('ENTRO EN IF');</script>";
-    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario_dueno_publicacion, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $consultaSQL->bindParam(1, $_POST['txtNamePost']);
     $consultaSQL->bindParam(2, $_POST['txtDescripcion']);

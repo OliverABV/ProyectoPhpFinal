@@ -9,7 +9,7 @@ include_once './PostgreSQL/ConexionBD.php';
 $publicacionesDatosSQL = ConexionBD::abrirConexion()->prepare("(SELECT publicacion_usuario.*, usuario2.foto_usuario, usuario2.certificado_usuario
 FROM publicacion_usuario 
 INNER JOIN usuario2
-ON publicacion_usuario.id_usuario = usuario2.id_usuario)
+ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario)
 UNION
 (SELECT publicacion_entidad.*, entidad.foto_entidad, entidad.nombre_comercial_entidad
 FROM publicacion_entidad 
@@ -19,10 +19,10 @@ ORDER BY fecha_registro");
 $publicacionesDatosSQL->execute();
 ConexionBD::cerrarConexion();
 
-$publicacionesTutoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario WHERE categoria_publicacion = 'tutoria'");
+$publicacionesTutoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario WHERE categoria_publicacion = 'tutoria'");
 $publicacionesTutoriaSQL->execute();
 ConexionBD::cerrarConexion();
-$publicacionesAsesoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario WHERE categoria_publicacion = 'asesoria'");
+$publicacionesAsesoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario WHERE categoria_publicacion = 'asesoria'");
 $publicacionesAsesoriaSQL->execute();
 ConexionBD::cerrarConexion();
 $publicacionesOportunidadSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_entidad INNER JOIN entidad ON publicacion_entidad.id_entidad = entidad.id_entidad WHERE categoria_publicacion = 'oportunidad'");

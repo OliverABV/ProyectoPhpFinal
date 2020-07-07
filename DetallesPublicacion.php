@@ -45,7 +45,7 @@ $datosPublicacion = $detallesPublicacion->fetch(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
 //variables que se ocupan mas abajo
-$idDueñoPublicacion = $datosPublicacion['id_usuario'];
+$idDueñoPublicacion = $datosPublicacion['id_usuario_dueno_publicacion'];
 $nacimiento = $datosPublicacion['fechanac_usuario'];
 ?>
 
@@ -236,10 +236,10 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     <div  class="column3" >
                         <h2>Deseas Preguntar algo?</h2>
-                        <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
+                        <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>" method="POST" enctype="multipart/form-data">
                             <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;" required>
-                                   <?php
+                                   <?php /*
                                    if (!empty($pregunta)) {
                                        //echo "<script>alert('ENTRO EN SI');</script>";
                                        $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
@@ -262,7 +262,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                        }
                                        ConexionBD::cerrarConexion();
                                    }
-                                   ?>
+                                   */?>
                             <button class="btn btn-default" type="submit" name="" >Preguntar</button>
                         </form>
                         <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
@@ -274,11 +274,11 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             <div class="contenedor-comentarios">
                                 <div class="comentarios">
                                     <div class="photo-perfil">
-                                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
+                                        <img src="<?php echo $lista['foto_usuario']; ?>" alt="">
                                     </div>
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
-                                            <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
+                                            <h4><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
                                             <h5>Pregunta: <?php
                                             $date = date_create($lista['fecha_pregunta_publicacion']);
                                             echo date_format($date, 'd-m-Y');

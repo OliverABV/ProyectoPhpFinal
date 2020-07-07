@@ -7,6 +7,7 @@ include_once './PostgreSQL/ConexionBD.php';
 $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 $pregunta = $_POST['txtPregunta'];
+$dueño = $_GET['dueño'];
 
 
                                   
@@ -15,11 +16,12 @@ $pregunta = $_POST['txtPregunta'];
                                        $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
                                        $fechaSubida = date_format($fechaCompleta, "d-m-Y H:i:s.u");
                                        //$fechaSubida = date_format($fechaCompleta, "d-m-Y");
-                                       $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO Preguntas_publicacion (id_publicacion_usuario, id_usuario, fecha_pregunta_publicacion, pregunta_publicacion) VALUES (?, ?, ?, ?)");
+                                       $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO Preguntas_publicacion (id_publicacion_usuario, id_usuario_pregunta, fecha_pregunta_publicacion, pregunta_publicacion, id_usuario_dueno_publicacion) VALUES (?, ?, ?, ?, ?)");
                                        $consultaSQL->bindParam(1, $idPublicacion);
                                        $consultaSQL->bindParam(2, $_SESSION['inicioSesion']['id_usuario']);
                                        $consultaSQL->bindParam(3, $fechaSubida);
                                        $consultaSQL->bindParam(4, $pregunta);
+                                       $consultaSQL->bindParam(5, $dueño);
                                        //echo '<script>alert ("Fecha '.$idPublicacion.' ");</script>';
                                        if ($consultaSQL->execute()) {
 

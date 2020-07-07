@@ -6,13 +6,12 @@ if (!isset($_SESSION['inicioSesion'])) {
 include_once './PostgreSQL/ConexionBD.php';
 
 //<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACIONES DEL USUARIO -->
-$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PU.id_usuario, PU.fecha_pregunta_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
-PUS.titulo,
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PUS.titulo, PU.id_usuario_pregunta, PU.fecha_pregunta_publicacion, PU.id_usuario_dueno_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM preguntas_publicacion AS PU 
-NATURAL JOIN usuario2 AS U
+INNER JOIN usuario2 AS U ON PU.id_usuario_pregunta = U.id_usuario
 NATURAL JOIN publicacion_usuario AS PUS
-WHERE PU.id_usuario = ?
+WHERE PU.id_usuario_dueno_publicacion = ?
 ORDER BY fecha_pregunta_publicacion DESC");
 
 $consultaSQL->bindParam(1, $_SESSION['inicioSesion']['id_usuario']);
