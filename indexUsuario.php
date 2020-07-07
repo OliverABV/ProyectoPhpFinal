@@ -47,7 +47,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                         width: 90%;
                          float: rigth;
                         margin: auto;
-                        " > >
+                        " >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
