@@ -239,8 +239,8 @@ if (!empty($_GET['filtro'])) {
                                                 <?php
                                                 if (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "tutoria")) {
 
-                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;
@@ -259,8 +259,8 @@ if (!empty($_GET['filtro'])) {
                                                     ConexionBD::cerrarConexion();
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "asesoria")) {
 
-                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;
@@ -280,7 +280,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
 
                                                     $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_entidad WHERE id_entidad = ? AND id_publicacion_entidad = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;

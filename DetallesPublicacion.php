@@ -188,7 +188,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                         <!-- CALIFICACION -->
                         <?php
-                        $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
+                        $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
                         $calificacionSQL->bindParam(1, $idDueñoPublicacion);
                         $calificacionSQL->bindParam(2, $idPublicacion);
                         $calificacionSQL->execute();
