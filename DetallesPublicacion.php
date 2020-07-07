@@ -25,7 +25,7 @@ ConexionBD::cerrarConexion();
 //<!-- TERMINO OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
 
 //<!-- OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
-$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_dueno_comentario_usuario, PU.id_publicacion_usuario, PU.fecha_comentario, PU.comentario, PU.estrellas, PU.id_usuario_dueno_publicacion,
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_dueno_comentario_usuario, PU.id_publicacion_usuario, PU.fecha_comentario, PU.titulo, PU.comentario, PU.estrellas, PU.id_usuario_dueno_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM calificacion_publicacion_usuario AS PU 
 INNER JOIN usuario2 AS U ON PU.id_dueno_comentario_usuario = U.id_usuario
@@ -336,9 +336,18 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
                                             <h4><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
+                                            <h4> / <?php echo $lista['titulo']; ?></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <h4></h4>
+                                            <img src="img/Imagenes/Sistema/estrella.png" width="10%" height="10%"><?php echo $lista['estrellas']; ?>
 
-                                            <h5><img src="img/Imagenes/Sistema/estrella.png" width="20%" height="20%"></h5>
-                                            <h5><?php echo $lista['estrellas']; ?></h5>
                                         </div>
                                             
                                             <textarea disabled style="overflow:auto;resize:none" class="form-control" id="textComentario" name="textComentario" rows="3" cols="70" class="pane"><?php echo $lista['comentario']; ?></textarea>
