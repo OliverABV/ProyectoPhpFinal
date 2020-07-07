@@ -8,11 +8,12 @@ $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 
 //<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
-$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.fecha_pregunta_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PUS.titulo, PU.id_usuario_pregunta, PU.fecha_pregunta_publicacion, PU.id_usuario_dueno_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM preguntas_publicacion AS PU 
-NATURAL JOIN usuario2 AS U
-WHERE id_publicacion_usuario = ?
+INNER JOIN usuario2 AS U ON PU.id_usuario_pregunta = U.id_usuario
+NATURAL JOIN publicacion_usuario AS PUS
+WHERE PU.id_publicacion_usuario = ?
 ORDER BY fecha_pregunta_publicacion DESC
 LIMIT 5");
 
