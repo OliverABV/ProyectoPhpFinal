@@ -45,6 +45,7 @@ ConexionBD::cerrarConexion();
 //variables que se ocupan mas abajo
 $idDueñoPublicacion = $datosPublicacion['id_usuario'];
 $nacimiento = $datosPublicacion['fechanac_usuario'];
+
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +78,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
         <script src="js/plugins.js"></script>
         <script src="js/min/waypoints.min.js"></script>
         <script src="js/jquery.counterup.js"></script>
+        <script src="JavaScript/expandComentario.js"></script>
 
 
 
@@ -253,7 +255,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                             ?></h5>
                                         </div>
                                         <p>
-                                            <?php echo $lista['pregunta_publicacion']; ?>
+                                            <?php echo $lista['pregunta_publicacion']." ";  ?>
                                     
                                             
                                         </p>
@@ -275,7 +277,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     <div  class="column3" >
                         <h2>Deseas Preguntar algo?</h2>
                         <form action="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
-                            <input type="text" id="" name="" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+                            <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;">
                                    <?php
                                    if (!empty($_POST['txtPregunta'])) {
@@ -308,7 +310,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <?php foreach ($listaPreguntas as $lista) { ?>
                             <hr class="line">
                             <div class="contenedor-comentarios">
-                                <div class="comentarios">
+                                <div class="comentarios" >
+                                    <div class="expandMoreContent" id="showMoreContent1" >
                                     <div class="photo-perfil">
                                         <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
                                     </div>
@@ -320,21 +323,28 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                             echo date_format($date, 'd-m-Y');
                                             ?></h5>
                                         </div>
-                                        <p>
-                                            <?php echo $lista['pregunta_publicacion']; ?>
-                                    
+                                        <p> 
+                                            
+                                            <?php
+                                            echo $lista['pregunta_publicacion']; ?>
                                             
                                         </p>
+                                      
                                         <div class="footer-comentario">
                                             <h5 class="request">Responder</h5>
                                             <label class=""></label>   
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
+                            
                         <?php } ?>
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
-
+                        <div class="expandMoreHolder" >
+                                        <span expand-more data-hidentext="Mostrar Menos" data-showtext="Mostrar Mas" data-target="showMoreContent1"
+                                        class="btn-expand-more"> Mostrar Mas</span>
+                                  </div>
 
                     </div>
 
@@ -359,7 +369,6 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         height: 550px;
                         width:50%;
-                        background: skyblue;
 
                     }
 
@@ -370,7 +379,6 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         height: 550px;
                         width:50%;
-                        background: skyblue;
                     }
 
                     .column3 {
@@ -403,7 +411,30 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     .comentarios{
                         display: flex;
                         margin-left: 180px;
-                    }                  
+                     
+                    }   
+                    .expandMoreContent{
+                        height: 250px;
+                        overflow: hidden;
+                        transition: height 0.5s ease-in-out;
+                        position: relative;
+                    }
+
+                    .expandMoreContent.expand-active{
+                        height: auto;
+                        transition: height 0.5s ease-in-out;
+                    }
+
+                    .expandMoreHolder{
+                        height: 40px;
+                        padding: 15px 0;
+                        text-align: center;
+                    }
+
+                    .btn-expand-more{
+                        cursor: pointer;
+                        border: 1px solid rgba(0, 0, 0, 0.2)
+                    }
 
                     .photo-perfil{
                         width: 100px;
@@ -455,6 +486,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         font-size: 15px;
                         cursor: pointer;
                     }
+
+                  
 
                     .column4 {
                         -webkit-flex: 1;
