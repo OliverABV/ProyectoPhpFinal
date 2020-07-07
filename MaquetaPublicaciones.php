@@ -325,7 +325,7 @@ if (!empty($_GET['filtro'])) {
                                                 if ($publicacion['categoria_publicacion'] == "tutoria") {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -333,7 +333,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif ($publicacion['categoria_publicacion'] == "asesoria") {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -341,7 +341,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -349,7 +349,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif ($publicacion['categoria_publicacion'] == "oportunidad") {
                                                     if ($contadorCalificacionEntidad != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionEntidad; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionEntidad, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php

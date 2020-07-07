@@ -24,6 +24,22 @@ ConexionBD::cerrarConexion();
 
 //<!-- TERMINO OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
 
+//<!-- OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_dueno_comentario_usuario, PU.id_publicacion_usuario, PU.fecha_comentario, PU.comentario, PU.estrellas, PU.id_usuario_dueno_publicacion,
+U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
+FROM calificacion_publicacion_usuario AS PU 
+INNER JOIN usuario2 AS U ON PU.id_dueno_comentario_usuario = U.id_usuario
+WHERE PU.id_publicacion_usuario = ?
+ORDER BY fecha_comentario DESC
+LIMIT 5");
+
+$consultaSQL->bindParam(1, $idPublicacion);
+$consultaSQL->execute();
+$listaComentarios = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
+ConexionBD::cerrarConexion();
+
+//<!-- TERMINO OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
+
 $detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario 
 NATURAL JOIN usuario2
 NATURAL JOIN region
@@ -212,7 +228,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <label for="">Calificación:</label>
                         <img src="img/Imagenes/Sistema/estrella.png"  width="10%" height="10%" alt="Puntuacion.img" class="img-responsive">
                         <?php if ($contadorCalificacionUsuario != 0) { ?>
-                            <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                            <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                         <?php } else { ?>
                             <b> SIN CLASIFICACION</b>
                         <?php } ?>
@@ -308,7 +324,31 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     </div>
 
                     <div  class="column4" style="background-color:#bbb;">
-                        <h1>Comentarios de otros usuarios:</h1>
+                        <!-- LLENADO DE COMENTARIOS -->
+                        <h3>Comentarios de otros usuarios:</h3>
+                        <?php foreach ($listaComentarios as $lista) { ?>
+                            <hr class="line">
+                            <div class="contenedor-comentarios">
+                                <div class="comentarios">
+                                    <div class="photo-perfil">
+                                        <img src="<?php echo $lista['foto_usuario']; ?>" alt="">
+                                    </div>
+                                    <div class="info-comentarios" >
+                                        <div class="header-comentario">
+                                            <h4><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
+
+                                            <h5><img src="img/Imagenes/Sistema/estrella.png" width="20%" height="20%"></h5>
+                                            <h5><?php echo $lista['estrellas']; ?></h5>
+                                        </div>
+                                            
+                                            <textarea disabled style="overflow:auto;resize:none" class="form-control" id="textComentario" name="textComentario" rows="3" cols="70" class="pane"><?php echo $lista['comentario']; ?></textarea>
+ 
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <!-- TERMINO LLENADO DE COMENTARIOS -->
                     </div>
 
                 </div>
