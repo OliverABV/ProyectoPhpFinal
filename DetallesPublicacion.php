@@ -285,7 +285,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                             ?></h5>
                                         </div>
                                             
-                                            <textarea style="overflow:auto;resize:none" class="form-control" id="textPregunta" name="textPregunta" rows="3" cols="70" class="pane"><?php echo $lista['pregunta_publicacion']; ?></textarea>
+                                            <textarea disabled style="overflow:auto;resize:none" class="form-control" id="textPregunta" name="textPregunta" rows="3" cols="70" class="pane"><?php echo $lista['pregunta_publicacion']; ?></textarea>
                                         <div class="header-comentario">
                                             <h4></h4>
                                             <h5>Respuesta: <?php if(!is_null($lista['fecha_respuesta_publicacion'])){
@@ -296,7 +296,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                             }?></h5>
 
                                         </div>
-                                        <textarea style="overflow:auto;resize:none" class="form-control" id="textRespuesta" name="textRespuesta" rows="3" cols="70" class="pane"><?php echo $lista['respuesta_publicacion']; ?></textarea>
+                                        <textarea disabled style="overflow:auto;resize:none" class="form-control" id="textRespuesta" name="textRespuesta" rows="3" cols="70" class="pane"><?php echo $lista['respuesta_publicacion']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
