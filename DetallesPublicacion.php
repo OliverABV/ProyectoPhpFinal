@@ -7,6 +7,14 @@ include_once './PostgreSQL/ConexionBD.php';
 $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 
+ if(isset($_GET['MasPreguntas'])){
+    $cargarMasPreguntas = $_GET['cantidad'];
+    $cargarMasPreguntas+=2;
+  }else{
+      $cargarMasPreguntas = 2;
+  }
+
+
 //<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PUS.titulo, PU.id_usuario_pregunta, PU.fecha_pregunta_publicacion, PU.id_usuario_dueno_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
@@ -15,7 +23,7 @@ INNER JOIN usuario2 AS U ON PU.id_usuario_pregunta = U.id_usuario
 NATURAL JOIN publicacion_usuario AS PUS
 WHERE PU.id_publicacion_usuario = ?
 ORDER BY fecha_pregunta_publicacion DESC
-LIMIT 5");
+LIMIT {$cargarMasPreguntas}");
 
 $consultaSQL->bindParam(1, $idPublicacion);
 $consultaSQL->execute();
@@ -47,14 +55,6 @@ NATURAL JOIN ciudad
 NATURAL JOIN comuna
 WHERE id_publicacion_usuario = ?;");
 
-/*
-  SELECT * FROM publicacion_usuario
-  INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario
-  INNER JOIN region ON publicacion_usuario.id_region = region.id_region
-  INNER JOIN ciudad ON publicacion_usuario.id_ciudad = ciudad.id_ciudad
-  INNER JOIN comuna ON publicacion_usuario.id_comuna = comuna.id_comuna
-  WHERE id_publicacion_usuario = ?;
- */
 
 $detallesPublicacion->bindParam(1, $idPublicacion);
 $detallesPublicacion->execute();
@@ -66,6 +66,10 @@ $idDueñoPublicacion = $datosPublicacion['id_usuario_dueno_publicacion'];
 $nacimiento = $datosPublicacion['fechanac_usuario'];
 ?>
 
+<!-- JAVASCRIPT -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<!-- SIN JAVASCRIPT -->
 <!DOCTYPE html>
 <html class="no-js">
     <head>
@@ -256,36 +260,14 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>" method="POST" enctype="multipart/form-data">
                             <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
                                    border-radius: 4px;" required>
-                                   <?php /*
-                                   if (!empty($pregunta)) {
-                                       //echo "<script>alert('ENTRO EN SI');</script>";
-                                       $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-                                       //$fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-                                       $fechaSubida = date_format($fechaCompleta, "d-m-Y");
-                                       $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO Preguntas_publicacion (id_publicacion_usuario, id_usuario, fecha_pregunta_publicacion, pregunta_publicacion) VALUES (?, ?, ?, ?)");
-                                       $consultaSQL->bindParam(1, $idPublicacion);
-                                       $consultaSQL->bindParam(2, $_SESSION['inicioSesion']['id_usuario']);
-                                       $consultaSQL->bindParam(3, $fechaSubida);
-                                       $consultaSQL->bindParam(4, $pregunta);
-                                       //echo '<script>alert ("Fecha '.$idPublicacion.' ");</script>';
-                                       if ($consultaSQL->execute()) {
 
-                                           echo "<script>alert('PREGUNTA REALIZADA');</script>";
-                                           isset($pregunta);
-                                           //header('Location: ./DetallesPublicacion.php?id=' .$fechaSubida);
-                                       } else {
-
-                                           echo "<script>alert('ERROR AL CREAR LA PREGUNTA');</script>";
-                                       }
-                                       ConexionBD::cerrarConexion();
-                                   }
-                                   */?>
                             <button class="btn btn-default" type="submit" name="" >Preguntar</button>
                         </form>
                         <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
 
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
                         <h3>Preguntas de otros usuarios:</h3>
+                        
                         <?php foreach ($listaPreguntas as $lista) { ?>
                             <hr class="line">
                             <div class="contenedor-comentarios">
@@ -318,6 +300,9 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                 </div>
                             </div>
                         <?php } ?>
+                        <!-- MOSTRAR MAS RESULTADOS -->
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasPreguntas=1&cantidad=<?php echo $cargarMasPreguntas; ?>" class="btn">Cargar 2 Preguntas mas</a>
+
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
 
 
