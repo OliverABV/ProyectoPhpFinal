@@ -8,10 +8,17 @@ $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 
  if(isset($_GET['MasPreguntas'])){
-    $cargarMasPreguntas = $_GET['cantidad'];
+    $cargarMasPreguntas = $_GET['cantidadP'];
     $cargarMasPreguntas+=2;
   }else{
       $cargarMasPreguntas = 2;
+  }
+
+  if(isset($_GET['MasComentarios'])){
+    $cargarMasComentarios = $_GET['cantidadC'];
+    $cargarMasComentarios+=2;
+  }else{
+      $cargarMasComentarios = 2;
   }
 
 
@@ -39,7 +46,7 @@ FROM calificacion_publicacion_usuario AS PU
 INNER JOIN usuario2 AS U ON PU.id_dueno_comentario_usuario = U.id_usuario
 WHERE PU.id_publicacion_usuario = ?
 ORDER BY fecha_comentario DESC
-LIMIT 5");
+LIMIT {$cargarMasComentarios}");
 
 $consultaSQL->bindParam(1, $idPublicacion);
 $consultaSQL->execute();
@@ -301,7 +308,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             </div>
                         <?php } ?>
                         <!-- MOSTRAR MAS RESULTADOS -->
-                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasPreguntas=1&cantidad=<?php echo $cargarMasPreguntas; ?>" class="btn">Cargar 2 Preguntas mas</a>
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasPreguntas=1&cantidadP=<?php echo $cargarMasPreguntas; ?>" class="btn">Cargar 2 Preguntas mas</a>
 
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
 
@@ -342,6 +349,10 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                 </div>
                             </div>
                         <?php } ?>
+
+                         <!-- MOSTRAR MAS RESULTADOS -->
+                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasComentarios=1&cantidadC=<?php echo $cargarMasComentarios; ?>" class="btn">Cargar 2 comentarios mas</a>
+
                         <!-- TERMINO LLENADO DE COMENTARIOS -->
                     </div>
 
