@@ -9,7 +9,7 @@ include_once './PostgreSQL/ConexionBD.php';
 $publicacionesDatosSQL = ConexionBD::abrirConexion()->prepare("(SELECT publicacion_usuario.*, usuario2.foto_usuario, usuario2.certificado_usuario
 FROM publicacion_usuario 
 INNER JOIN usuario2
-ON publicacion_usuario.id_usuario = usuario2.id_usuario)
+ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario)
 UNION
 (SELECT publicacion_entidad.*, entidad.foto_entidad, entidad.nombre_comercial_entidad
 FROM publicacion_entidad 
@@ -19,10 +19,10 @@ ORDER BY fecha_registro");
 $publicacionesDatosSQL->execute();
 ConexionBD::cerrarConexion();
 
-$publicacionesTutoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario WHERE categoria_publicacion = 'tutoria'");
+$publicacionesTutoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario WHERE categoria_publicacion = 'tutoria'");
 $publicacionesTutoriaSQL->execute();
 ConexionBD::cerrarConexion();
-$publicacionesAsesoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario WHERE categoria_publicacion = 'asesoria'");
+$publicacionesAsesoriaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario INNER JOIN usuario2 ON publicacion_usuario.id_usuario_dueno_publicacion = usuario2.id_usuario WHERE categoria_publicacion = 'asesoria'");
 $publicacionesAsesoriaSQL->execute();
 ConexionBD::cerrarConexion();
 $publicacionesOportunidadSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_entidad INNER JOIN entidad ON publicacion_entidad.id_entidad = entidad.id_entidad WHERE categoria_publicacion = 'oportunidad'");
@@ -239,8 +239,8 @@ if (!empty($_GET['filtro'])) {
                                                 <?php
                                                 if (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "tutoria")) {
 
-                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;
@@ -259,8 +259,8 @@ if (!empty($_GET['filtro'])) {
                                                     ConexionBD::cerrarConexion();
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "asesoria")) {
 
-                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;
@@ -280,7 +280,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
 
                                                     $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_entidad WHERE id_entidad = ? AND id_publicacion_entidad = ?");
-                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario']);
+                                                    $calificacionSQL->bindParam(1, $publicacion['id_usuario_dueno_publicacion']);
                                                     $calificacionSQL->bindParam(2, $publicacion['id_publicacion_usuario']);
                                                     $calificacionSQL->execute();
                                                     $sumaCalificacionUsuario = 0;
@@ -325,7 +325,7 @@ if (!empty($_GET['filtro'])) {
                                                 if ($publicacion['categoria_publicacion'] == "tutoria") {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -333,7 +333,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif ($publicacion['categoria_publicacion'] == "asesoria") {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -341,7 +341,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif (!empty($publicacion['id_publicacion_usuario']) && ($publicacion['categoria_publicacion'] == "oportunidad")) {
                                                     if ($contadorCalificacionUsuario != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php
@@ -349,7 +349,7 @@ if (!empty($_GET['filtro'])) {
                                                 } elseif ($publicacion['categoria_publicacion'] == "oportunidad") {
                                                     if ($contadorCalificacionEntidad != 0) {
                                                         ?>
-                                                        <b><?php echo $resultadoCalificacionEntidad; ?></b>
+                                                        <b><?php echo round($resultadoCalificacionEntidad, 1); ?></b>
                                                     <?php } else { ?>
                                                         <b> SIN CLASIFICACION</b>
                                                         <?php

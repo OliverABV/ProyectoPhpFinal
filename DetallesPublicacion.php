@@ -7,19 +7,59 @@ include_once './PostgreSQL/ConexionBD.php';
 $idPublicacion = $_GET['id'];
 $categoriaPublicacion = "tutoria";
 
+ if(isset($_GET['MasPreguntas'])){
+    $cargarMasPreguntas = $_GET['cantidadP'];
+    $cargarMasPreguntas+=2;
+  }else{
+      $cargarMasPreguntas = 2;
+  }
+
+  if(isset($_GET['OcultarPreguntas'])){
+    $cargarMasPreguntas = 2;
+  }
+
+  if(isset($_GET['MasComentarios'])){
+    $cargarMasComentarios = $_GET['cantidadC'];
+    $cargarMasComentarios+=2;
+  }else{
+      $cargarMasComentarios = 2;
+  }
+
+  if(isset($_GET['OcultarComentario'])){
+    $cargarMasComentarios = 2;
+  }
 //<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
-$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.fecha_pregunta_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PUS.titulo, PU.id_usuario_pregunta, PU.fecha_pregunta_publicacion, PU.id_usuario_dueno_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
 FROM preguntas_publicacion AS PU 
-NATURAL JOIN usuario2 AS U
-WHERE id_publicacion_usuario = ?
-ORDER BY fecha_pregunta_publicacion DESC;");
+INNER JOIN usuario2 AS U ON PU.id_usuario_pregunta = U.id_usuario
+NATURAL JOIN publicacion_usuario AS PUS
+WHERE PU.id_publicacion_usuario = ?
+ORDER BY fecha_pregunta_publicacion DESC
+LIMIT {$cargarMasPreguntas}");
+
 $consultaSQL->bindParam(1, $idPublicacion);
 $consultaSQL->execute();
 $listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
 //<!-- TERMINO OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
+
+//<!-- OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_dueno_comentario_usuario, PU.id_publicacion_usuario, PU.fecha_comentario, PU.titulo, PU.comentario, PU.estrellas, PU.id_usuario_dueno_publicacion,
+U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
+FROM calificacion_publicacion_usuario AS PU 
+INNER JOIN usuario2 AS U ON PU.id_dueno_comentario_usuario = U.id_usuario
+WHERE PU.id_publicacion_usuario = ?
+ORDER BY fecha_comentario DESC
+LIMIT {$cargarMasComentarios}");
+
+$consultaSQL->bindParam(1, $idPublicacion);
+$consultaSQL->execute();
+$listaComentarios = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
+ConexionBD::cerrarConexion();
+
+//<!-- TERMINO OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
 
 $detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario 
 NATURAL JOIN usuario2
@@ -28,14 +68,6 @@ NATURAL JOIN ciudad
 NATURAL JOIN comuna
 WHERE id_publicacion_usuario = ?;");
 
-/*
-  SELECT * FROM publicacion_usuario
-  INNER JOIN usuario2 ON publicacion_usuario.id_usuario = usuario2.id_usuario
-  INNER JOIN region ON publicacion_usuario.id_region = region.id_region
-  INNER JOIN ciudad ON publicacion_usuario.id_ciudad = ciudad.id_ciudad
-  INNER JOIN comuna ON publicacion_usuario.id_comuna = comuna.id_comuna
-  WHERE id_publicacion_usuario = ?;
- */
 
 $detallesPublicacion->bindParam(1, $idPublicacion);
 $detallesPublicacion->execute();
@@ -43,9 +75,8 @@ $datosPublicacion = $detallesPublicacion->fetch(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
 //variables que se ocupan mas abajo
-$idDueñoPublicacion = $datosPublicacion['id_usuario'];
+$idDueñoPublicacion = $datosPublicacion['id_usuario_dueno_publicacion'];
 $nacimiento = $datosPublicacion['fechanac_usuario'];
-
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +123,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         width: 90%;
                          float: rigth;
                         margin: auto;
-                        " > >
+                        " >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
@@ -101,7 +132,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
           <nav class="navbar navbar-default">
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header">
+              <div class="navbar-header" style="float: left;">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">EduWeb</span>
                 <span class="icon-bar"></span>
@@ -186,7 +217,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                         <!-- CALIFICACION -->
                         <?php
-                        $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario = ? AND id_publicacion_usuario = ?");
+                        $calificacionSQL = ConexionBD::abrirConexion()->prepare("SELECT estrellas FROM calificacion_publicacion_usuario WHERE id_usuario_dueno_publicacion = ? AND id_publicacion_usuario = ?");
                         $calificacionSQL->bindParam(1, $idDueñoPublicacion);
                         $calificacionSQL->bindParam(2, $idPublicacion);
                         $calificacionSQL->execute();
@@ -203,25 +234,22 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         } else {
                             //  echo 'Sin Calificaciones';
                         }
-
                         ConexionBD::cerrarConexion();
                         ?>
                         <br>
-                        <label >Calificación:  <img src="img/Imagenes/Sistema/estrella.png"  width="5%" height="5%" alt="Puntuacion.img" class="img-responsive">
+                        <label for="">Calificación:</label>
+                        <img src="img/Imagenes/Sistema/estrella.png"  width="3%" height="3%" alt="Puntuacion.img" class="img-responsive">
                         <?php if ($contadorCalificacionUsuario != 0) { ?>
-                            <b><?php echo $resultadoCalificacionUsuario; ?></b>
+                            <b><?php echo round($resultadoCalificacionUsuario, 1); ?></b>
                         <?php } else { ?>
                             <b> SIN CLASIFICACION</b>
-                        <?php } ?> </label>
-                       
+                        <?php } ?>
                         <!-- TERMINO CALIFICACION -->
                         <br><br><br>
                         <h2>Descripción</h2> <label for=""><?php echo $datosPublicacion['descripcion'] ?></label>
-
                     </div>
                     <div  class="column2" >
                         <h2><?php echo $datosPublicacion['titulo'] ?></h2>
-
                         <label for="">Tipo de Clases Ofrecidas:</label>&nbsp;<?php echo $datosPublicacion['categoria_publicacion']; ?> <label for=""></label> <br>
                         <label for="">Incluye:</label> <?php echo $datosPublicacion['si_incluye'] ?> <label for=""></label> <br>
                         <label for="">Excluye:</label> <?php echo $datosPublicacion['no_incluye'] ?> <label for=""></label> <br>
@@ -229,95 +257,84 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <br><br>
                         <button class="btn btn-default" type="submit" name="" style="margin-left:15%">Solicitar</button>
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
-                    </div>
-                    
-                </div>
-                   
-                <div class="row">
-                    
-                <div  class="column4">
-                    
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:5%"><a href="MaquetaPublicaciones.php">Volver a Publicaciones</a> </button>
+                    </div>                  
+                </div>               
+                <div  class="column3">                  
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
                         <h3>Comentarios de otros usuarios:</h3>
-                        <?php foreach ($listaPreguntas as $lista) { ?>
-                            <hr class="line">
+                        <?php foreach ($listaComentarios as $lista) { ?>
                             <div class="contenedor-comentarios">
                                 <div class="comentarios">
+                                <div class="expandMoreContent" id="showMoreContent1" > 
+
                                     <div class="photo-perfil">
-                                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
+                                    <img src="<?php echo $lista['foto_usuario']; ?>" alt="">
                                     </div>
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
-                                            <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
-                                            <h5><?php 
-                                            $date = date_create($lista['fecha_pregunta_publicacion']);
-                                            echo date_format($date, 'd-m-Y');
-                                            ?></h5>
+                                            <h4><?php echo $lista['nombre_usuario']; ?><?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
+                                            <h4 style="margin-right: 20% ;"> <?php echo $lista['titulo']; ?></h5> 
+                                            <img src="img/Imagenes/Sistema/estrella.png" width="3%" height="3%" style="margin-right: -18%;" > 
+                                            <h4><?php echo $lista['estrellas']; ?></h4>
+
                                         </div>
+                                   
                                         <p>
-                                            <?php echo $lista['pregunta_publicacion']." ";  ?>
+                                       
+                                        <?php echo $lista['comentario']; ?>
                                     
                                             
                                         </p>
+                                        
                                         <div class="footer-comentario">
-                                            <h5 class="request">Responder</h5>
-                                            <label class=""></label>   
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         <?php } ?>
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
+                        <br><br>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:35%  ">         
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasComentarios=1&cantidadC=<?php echo $cargarMasComentarios; ?>" class="btn">Cargar Más Comentarios</a>
+                        </button>
+
+                        <button class="btn btn-default" type="submit" name="">         
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarComentarios=1" class="btn">Ocultar Preguntas</a>
+                        </button>
+
+
                     </div>
                 </div>
-                <hr class="line2">
+              
+               <br>
+                    <div  class="column4" >
+                        <center>
+                        <h4>Deseas Preguntar algo?</h4>
+ 
+                        <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
+                        <form action="guardarPregunta.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>" method="POST" enctype="multipart/form-data">
+                            <input type="text" id="txtPregunta" name="txtPregunta" size="250" maxlength="250"  style="width: 30%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
+                                   border-radius: 4px;" required>
 
-                <div class="row">
-
-                    <div  class="column3" >
-                        <h2>Deseas Preguntar algo?</h2>
-                        <form action="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>" method="POST" enctype="multipart/form-data">
-                            <input type="text" id="txtPregunta" name="txtPregunta" style="width: 60%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid red; 
-                                   border-radius: 4px;">
-                                   <?php
-                                   if (!empty($_POST['txtPregunta'])) {
-                                       //echo "<script>alert('ENTRO EN SI');</script>";
-                                       $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-                                       //$fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-                                       $fechaSubida = date_format($fechaCompleta, "d-m-Y");
-                                       $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO Preguntas_publicacion (id_publicacion_usuario, id_usuario, fecha_pregunta_publicacion, pregunta_publicacion) VALUES (?, ?, ?, ?)");
-                                       $consultaSQL->bindParam(1, $idPublicacion);
-                                       $consultaSQL->bindParam(2, $_SESSION['inicioSesion']['id_usuario']);
-                                       $consultaSQL->bindParam(3, $fechaSubida);
-                                       $consultaSQL->bindParam(4, $_POST['txtPregunta']);
-                                       //echo '<script>alert ("Fecha '.$idPublicacion.' ");</script>';
-                                       if ($consultaSQL->execute()) {
-
-                                           echo "<script>alert('PREGUNTA REALIZADA');</script>";
-                                       } else {
-
-                                           echo "<script>alert('ERROR AL CREAR LA PREGUNTA');</script>";
-                                       }
-                                       ConexionBD::cerrarConexion();
-                                   }
-                                   ?>
                             <button class="btn btn-default" type="submit" name="" >Preguntar</button>
                         </form>
-                        <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
-
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
+                        </center>
                         <h3>Preguntas de otros usuarios:</h3>
+                        
                         <?php foreach ($listaPreguntas as $lista) { ?>
-                            <hr class="line">
                             <div class="contenedor-comentarios">
                                 <div class="comentarios" >
-                                    <div class="expandMoreContent" id="showMoreContent1" >
+                                   <div class="expandMoreContent" id="showMoreContent1" > 
                                     <div class="photo-perfil">
-                                        <img src="<?php echo $datosPublicacion['foto_usuario']; ?>" alt="">
+                                    <img src="<?php echo $lista['foto_usuario']; ?>" alt="">
                                     </div>
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
-                                            <h4><?php echo $datosPublicacion['nombre_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidopat_usuario']; ?>&nbsp;<?php echo $datosPublicacion['apellidomat_usuario']; ?></h4>
+                                            <h4><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
                                             <h5><?php 
                                             $date = date_create($lista['fecha_pregunta_publicacion']);
                                             echo date_format($date, 'd-m-Y');
@@ -328,29 +345,51 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                             <?php
                                             echo $lista['pregunta_publicacion']; ?>
                                             
-                                        </p>
+                                          </p>
+                                          <?php if(!is_null($lista['fecha_respuesta_publicacion'])){?>
+                                          <hr class="line">
+                                          <label>Respuesta: <?php if(!is_null($lista['fecha_respuesta_publicacion'])){
+                                            $date = date_create($lista['fecha_respuesta_publicacion']);
+                                            echo date_format($date, 'd-m-Y');
+                                            }else{
+                                                echo 'aun sin respuesta';
+                                            }?></label>
                                       
+                                         <p>
+                                            <?php echo $lista['respuesta_publicacion']; ?>
+                                            </p> 
+                                        <?php } ?>
                                         <div class="footer-comentario">
-                                            <h5 class="request">Responder</h5>
-                                            <label class=""></label>   
+
                                         </div>
                                     </div>
                                 </div>
+
                                 </div>
                             </div>
                             
                         <?php } ?>
+
+                        <br><br>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:35%  ">         
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasPreguntas=1&cantidadP=<?php echo $cargarMasPreguntas; ?>" class="btn">Cargar Más Preguntas</a>
+                        </button>
+
+                        <button class="btn btn-default" type="submit" name="">         
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarPreguntas=1" class="btn">Ocultar Preguntas</a>
+                        </button>
+
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
-                        <div class="expandMoreHolder" >
+                     <!--   <div class="expandMoreHolder" >
                                         <span expand-more data-hidentext="Mostrar Menos" data-showtext="Mostrar Mas" data-target="showMoreContent1"
                                         class="btn-expand-more"> Mostrar Mas</span>
                                   </div>
-
+                             --?
                     </div>
-
+                                        -->
 
                 </div>
-  
+    
 
                 <style>
                     .conetenedor{
@@ -361,14 +400,15 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     .row {
                         display: -webkit-flex;
                         display: flex;
+                        
                     }
                     .column1 {
                         -webkit-flex: 1;
                         -ms-flex: 1;
                         flex: 0.8;
                         padding: 10px;
-                        height: 550px;
-                        width:50%;
+                        height: auto;
+                        width:auto;
 
                     }
 
@@ -377,23 +417,38 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         -ms-flex: 1;
                         flex: 0.7;
                         padding: 10px;
-                        height: 550px;
-                        width:50%;
+                        height: auto;
+                        width:auto;
                     }
 
                     .column3 {
-                        -webkit-flex: 1;
-                        -ms-flex: 1;
-                        flex: 1.4;
+                        -webkit-flex: 2;
+                        -ms-flex: 2;
+                        flex: 2;
                         padding: 10px;
-                        height: 1700px;
-                        width: 100%;
+                        height:auto;
+                        width: auto;  
+
+                                    
                     }
 
+
+                    .column4 {
+                        -webkit-flex: 1;
+                        -ms-flex: 1;
+                        flex: 1;
+                        padding: 10px;
+                        height: auto;
+                        width: auto;
+                 
+                    }
+
+
                     .line{
-                        width: 80%;
-                        height: 2px;
+                        width: 100%;
+                        height: 1px;
                         border-style: none;
+                        box-shadow: 5px black;
                         background: #c21919;
                         margin-top: 10px;
                     }
@@ -411,15 +466,18 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     .comentarios{
                         display: flex;
                         margin-left: 180px;
-                     
-                    }   
+                    }  
+                   /*
+                       
+                       //css expand more
+
                     .expandMoreContent{
-                        height: 250px;
+                        height: 150px; 
                         overflow: hidden;
                         transition: height 0.5s ease-in-out;
                         position: relative;
                     }
-
+                  
                     .expandMoreContent.expand-active{
                         height: auto;
                         transition: height 0.5s ease-in-out;
@@ -436,6 +494,9 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         border: 1px solid rgba(0, 0, 0, 0.2)
                     }
 
+                    */
+
+                     
                     .photo-perfil{
                         width: 100px;
                         height: 82px;
@@ -449,13 +510,14 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
 
                     .info-comentarios{
                         margin-left: 20px;
-                        background: #e6e6e6;
                         transition:  all 300ms;
                         margin-top: 10px;
+                        border-left: 1.5px solid #019CDE;
+                        border-right: 1.5px solid #019CDE;
+                        box-shadow: 3px 3px 8px red                    
                     }
 
                     .info-comentarios:hover{
-
                         border-bottom: 2px solid black; 
                     }
 
@@ -465,47 +527,32 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         padding: 10px;
                         background: #019CDE;
                         color: white;
-                        width: 800px;
+                        width: 900px;
                     }
 
                     .info-comentarios p{
-                        padding: 20px;
-                        width: 580px;
-                        height: 125px;
+                        padding: 10px;
+                        width: 900px;
+                        height: auto;
+                        
+                    }
+                    
+                    .info-comentarios label{
+                      float: right;
+                        
                     }
 
                     .footer-comentario{
-                        width: 100%;
-                        background: white;
-                        padding: 10px;
+                        width: auto;
+                        height: auto;
+                        background: #019CDE;
+                        padding: 2px;
                         color: #5f5f5f;
                         display: flex;
                         justify-content: space-between;
+                        font-size: 15px;               
                     }
-                    .footer-comentario{
-                        font-size: 15px;
-                        cursor: pointer;
-                    }
-
-                  
-
-                    .column4 {
-                        -webkit-flex: 1;
-                        -ms-flex: 1;
-                        flex: 1;
-                        padding: 10px;
-                        height: 1700px;
-                        width:100%;
-                    }
-
-
-
-
-
                 </style>
-
-            </div>
-        </div>
     </section>
     <!-- Call to action Start -->
     <section id="call-to-action">
