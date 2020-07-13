@@ -24,6 +24,10 @@ $categoriaPublicacion = "tutoria";
   }else{
       $cargarMasComentarios = 2;
   }
+
+  if(isset($_GET['OcultarComentario'])){
+    $cargarMasComentarios = 2;
+  }
 //<!-- OBTENER TODAS LAS PREGUNTAS DE LA PUBLICACION -->
 $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT  PU.id_pregunta_publicacion, PU.id_publicacion_usuario, PUS.titulo, PU.id_usuario_pregunta, PU.fecha_pregunta_publicacion, PU.id_usuario_dueno_publicacion, PU.pregunta_publicacion, PU.fecha_respuesta_publicacion, PU.respuesta_publicacion,
 U.foto_usuario, U.nombre_usuario, U.apellidopat_usuario, U.apellidomat_usuario
@@ -299,7 +303,15 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             
                         <?php } ?>
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
+                        <br><br>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:35%  ">         
                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasComentarios=1&cantidadC=<?php echo $cargarMasComentarios; ?>" class="btn">Cargar Más Comentarios</a>
+                        </button>
+
+                        <button class="btn btn-default" type="submit" name="">         
+                        <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarComentarios=1" class="btn">Ocultar Preguntas</a>
+                        </button>
+
 
                     </div>
                 </div>
@@ -361,8 +373,15 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             </div>
                             
                         <?php } ?>
+
+                        <br><br>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:35%  ">         
                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&MasPreguntas=1&cantidadP=<?php echo $cargarMasPreguntas; ?>" class="btn">Cargar Más Preguntas</a>
+                        </button>
+
+                        <button class="btn btn-default" type="submit" name="">         
                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarPreguntas=1" class="btn">Ocultar Preguntas</a>
+                        </button>
 
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
                      <!--   <div class="expandMoreHolder" >
