@@ -372,7 +372,7 @@ ConexionBD::cerrarConexion();
                     </div>
 
                     <div class="form-group">                 
-                       <select id="sexo" name="sexo"  class="form-control"  required />
+                       <select id="sexo" name="sexo"  class="form-control"  required>
                           <option value="0">Seleccione su Sexo</option> 
                                 <option value="masculino">Masculino</option>
                                 <option value="femenino">Femenino</option>
@@ -383,7 +383,7 @@ ConexionBD::cerrarConexion();
                       
                       
                     <div class="form-group">                
-                       <select id="paisUsuario" name="pais" class="form-control" required />
+                       <select id="paisUsuario" name="pais" class="form-control" required>
                         <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
@@ -393,7 +393,7 @@ ConexionBD::cerrarConexion();
                       
                       
                     <div class="form-group">                         
-                      <select id="regionUsuario" name="regionUsuario" class="form-control" required />
+                      <select id="regionUsuario" name="regionUsuario" class="form-control" required>
                             <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegionUsuario as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
@@ -402,7 +402,7 @@ ConexionBD::cerrarConexion();
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudadUsuario" name="ciudadUsuario" class="form-control" required />
+                             <select id="ciudadUsuario" name="ciudadUsuario" class="form-control" required>
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -410,7 +410,7 @@ ConexionBD::cerrarConexion();
                       
                       
                     <div class="form-group">                         
-                            <select id="comunaUsuario" name="comunaUsuario" class="form-control" required />
+                            <select id="comunaUsuario" name="comunaUsuario" class="form-control" required>
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
@@ -495,14 +495,14 @@ ConexionBD::cerrarConexion();
                     </div> 
 
                     <div class="form-group">                        
-                        <select id="paisEntidad" name="pais" class="form-control" required />
+                        <select id="paisEntidad" name="pais" class="form-control" required>
                            <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                         </select>
                     </div>                                                                
                       
                     <div class="form-group">                         
-                      <select id="regionEntidad" name="regionEntidad" class="form-control" required />
+                      <select id="regionEntidad" name="regionEntidad" class="form-control" required>
                             <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegionEntidad as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
@@ -511,7 +511,7 @@ ConexionBD::cerrarConexion();
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudadEntidad" name="ciudadEntidad" class="form-control" required />
+                             <select id="ciudadEntidad" name="ciudadEntidad" class="form-control" required>
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -519,27 +519,27 @@ ConexionBD::cerrarConexion();
                       
                       
                     <div class="form-group">                         
-                            <select id="comunaEntidad" name="comunaEntidad" class="form-control" required />
+                            <select id="comunaEntidad" name="comunaEntidad" class="form-control" required>
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
                                        
                     <div class="form-group">                                            
-                      <input type="text" name="calle" class="form-control" placeholder="Calle" onkeypress="return soloLetras(event)" required />
+                      <input type="text" name="calle" class="form-control" placeholder="Calle" onkeypress="return soloLetras(event)" required>
                       <script src="./JavaScript/SoloLetras.js"></script>
                     </div>
                                                                    
                     <div class="form-group">                                           
-                      <input type="text" name="numero" class="form-control" placeholder="Numero" onkeypress="return soloNumeros(event)" required />
+                      <input type="text" name="numero" class="form-control" placeholder="Numero" onkeypress="return soloNumeros(event)" required>
                        <script src="./JavaScript/SoloNumeros.js"></script>
                     </div>
                                                
                     <div class="form-group">                        
-                      <input type="text" name="piso" class="form-control" placeholder="Piso"  />
+                      <input type="text" name="piso" class="form-control" placeholder="Piso"  >
                     </div>
 
                     <div class="form-group">                        
-                      <input type="text" name="telefono" class="form-control" placeholder="Telefono"  />
+                      <input type="text" name="telefono" class="form-control" placeholder="Telefono"  >
                     </div>
                       
                     <div class="form-group">                       

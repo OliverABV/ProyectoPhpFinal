@@ -253,14 +253,25 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     </div>
                     <div  class="column2" >
                         <h2><?php echo $datosPublicacion['titulo'] ?></h2>
-
                         <label for="">Tipo de Clases Ofrecidas:</label>&nbsp;<?php echo $datosPublicacion['categoria_publicacion']; ?> <label for=""></label> <br>
                         <label for="">Incluye:</label> <?php echo $datosPublicacion['si_incluye'] ?> <label for=""></label> <br>
                         <label for="">Excluye:</label> <?php echo $datosPublicacion['no_incluye'] ?> <label for=""></label> <br>
-                        <label for="">Valor Hora:</label> <?php echo $datosPublicacion['precio'] ?> <label for=""></label> <br>
+                        <label for="">Valor Hora:</label> <?php echo round($datosPublicacion['precio']) ?>  <label for=""></label> <br>
                         <br><br>
-                        <button class="btn btn-default" type="submit" name="" style="margin-left:15%">Solicitar</button>
+
+                        <!-- CONTRATAR SERVICIOS -->
+                        <form action="WebPay.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>&titulo=<?php echo $datosPublicacion['titulo'] ?>&valorHora=<?php echo round($datosPublicacion['precio']) ?>" method="POST" enctype="multipart/form-data">
+                             <h5>Ingrese el numero de Horas que desea Solicitar</h5>
+                            <input type="text" id="txtCantidadHoras" name="txtCantidadHoras" size="20" maxlength="20" onkeypress="return soloNumeros(event)" style="width: 50%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid black; 
+                                   border-radius: 4px;" required>
+                                   <script src="./JavaScript/SoloNumeros.js"></script>
+                           <br><br>
+                         <button class="btn btn-default" type="submit" name="" style="margin-left:18%">Solicitar</button>
+                        </form>
+                        <!-- TERMINO CONTRATAR SERVICIOS -->
+
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
+                        <button class="btn btn-default" type="submit" name="" style="margin-left:5%"><a href="MaquetaPublicaciones.php">Volver a Publicaciones</a> </button>
                     </div>
                     
                 </div>

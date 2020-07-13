@@ -5,11 +5,20 @@ require_once ('./transbank-sdk-php-1.7.1/init.php');
 use Transbank\Webpay\Webpay;
 use Transbank\Webpay\Configuration;
 
+$idPublicacion = $_GET['id'];
+$idDueñoPublicacion = $_GET['dueño'];
+$tituloPublicacion = $_GET['titulo'];
+$valorHora = $_GET['valorHora'];
+$cantidadHoras = $_POST['txtCantidadHoras'];
+
+$total = $valorHora * $cantidadHoras;
+
 $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 
-$amount = 10000;
+$amount = round($total);
 $sessionId = 'sessionId';
-$buyOrder = strval(round(10000,9999999));
+//$buyOrder = strval(round(10000,9999999));
+$buyOrder = $tituloPublicacion;
 $returnUrl = 'http://localhost/ProyectoPhpFinal/return.php';
 $finalUrl = 'http://localhost/ProyectoPhpFinal/final.php';
 
