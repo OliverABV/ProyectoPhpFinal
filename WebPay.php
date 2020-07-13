@@ -1,4 +1,5 @@
 <?php
+
 //require_once './vendor/autoload.php';
 require_once ('./transbank-sdk-php-1.7.1/init.php');
 
@@ -10,17 +11,21 @@ $idDueñoPublicacion = $_GET['dueño'];
 $tituloPublicacion = $_GET['titulo'];
 $valorHora = $_GET['valorHora'];
 $cantidadHoras = $_POST['txtCantidadHoras'];
+$idContratante = $_GET['idContratante'];
 
 $total = $valorHora * $cantidadHoras;
 
 $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 
 $amount = round($total);
-$sessionId = 'sessionId';
+//$sessionId = 'sessionId';
+$sessionId = $tituloPublicacion;
 //$buyOrder = strval(round(10000,9999999));
 $buyOrder = $tituloPublicacion;
-$returnUrl = 'http://localhost/ProyectoPhpFinal/return.php';
-$finalUrl = 'http://localhost/ProyectoPhpFinal/final.php';
+//$returnUrl = 'http://localhost/ProyectoPhpFinal/return.php';
+$returnUrl = 'http://localhost/ProyectoPhpFinal/return.php'.'?id='.$idPublicacion.'&dueño='.$idDueñoPublicacion.'&titulo='.$tituloPublicacion.'&valorHora='.$valorHora.'&cantidadHoras='.$cantidadHoras.'&idContratante='.$idContratante;
+//$finalUrl = 'http://localhost/ProyectoPhpFinal/final.php';
+$finalUrl = 'http://localhost/ProyectoPhpFinal/final.php'.'?id='.$idPublicacion.'&dueño='.$idDueñoPublicacion.'&titulo='.$tituloPublicacion.'&valorHora='.$valorHora.'&cantidadHoras='.$cantidadHoras.'&idContratante='.$idContratante;
 
 $initResult = $transaction->initTransaction(
     $amount, $sessionId, $buyOrder, $returnUrl, $finalUrl
@@ -53,5 +58,6 @@ $tokenWs = $initResult->token;
 
     </div>
 </div>
+<a href="http://localhost/ProyectoPhpFinal/MaquetaPublicaciones.php">Volver a las publicaciones</a>
 </body>
 </html>

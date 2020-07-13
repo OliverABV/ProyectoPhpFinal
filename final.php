@@ -1,3 +1,33 @@
+<?php
+include_once './PostgreSQL/ConexionBD.php';
+$idPublicacion = $_GET['id'];
+$idDueñoPublicacion = $_GET['dueño'];
+$tituloPublicacion = $_GET['titulo'];
+$valorHora = $_GET['valorHora'];
+$valorHora = $_GET['valorHora'];
+$cantidadHoras = $_GET['cantidadHoras'];
+$idContratante = $_GET['idContratante'];
+
+$consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO contratacion_servicio (id_contratante, id_publicacion, id_dueno, valor_hora, horas_contratadas) VALUES (?, ?, ?, ?, ?)");
+
+$consultaSQL->bindParam(1, $idContratante);
+$consultaSQL->bindParam(2, $idPublicacion);
+$consultaSQL->bindParam(3, $idDueñoPublicacion);
+$consultaSQL->bindParam(4, $valorHora);
+$consultaSQL->bindParam(5, $cantidadHoras);
+
+
+
+if ($consultaSQL->execute()) {
+
+    echo "<script>alert('Pago Guardado');</script>";
+} else {
+
+    echo "<script>alert('error SQL en Pago Guardado');</script>";
+}
+ConexionBD::cerrarConexion();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -32,5 +62,6 @@
         document.getElementById('authorizationCode').innerHTML = window.localStorage.getItem('authorizationCode');
         document.getElementById('responseCode').innerHTML = window.localStorage.getItem('responseCode');
     </script>
+    <a href="http://localhost/ProyectoPhpFinal/MaquetaPublicaciones.php">Volver a las publicaciones</a>
     </body>
     </html>

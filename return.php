@@ -6,6 +6,13 @@ require_once ('./transbank-sdk-php-1.7.1/init.php');
 use Transbank\Webpay\Webpay;
 use Transbank\Webpay\Configuration;
 
+$idPublicacion = $_GET['id'];
+$idDueñoPublicacion = $_GET['dueño'];
+$tituloPublicacion = $_GET['titulo'];
+$valorHora = $_GET['valorHora'];
+$cantidadHoras = $_GET['cantidadHoras'];
+$idContratante = $_GET['idContratante'];
+
 $transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
 
 $tokenWs = filter_input(INPUT_POST, 'token_ws');

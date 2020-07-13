@@ -25,7 +25,7 @@ try {
 
     //Recipients
     $mail->setFrom('noreply@eduWeb.com', 'EdduWeb');
-    $mail->addAddress($correoUsuario); // Name is optional
+    $mail->addAddress('prueba.php.inacap@gmail.com'); // Name is optional
     $mail->addReplyTo('noreply@eduWeb.com', 'EdduWeb');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');

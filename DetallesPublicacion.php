@@ -61,18 +61,20 @@ ConexionBD::cerrarConexion();
 
 //<!-- TERMINO OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
 
-$detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario 
-NATURAL JOIN usuario2
+//<!-- OBTENER TODOS LOS DETALLES DE LA PUBLICACION -->
+$detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario AS PU
 NATURAL JOIN region
 NATURAL JOIN ciudad
 NATURAL JOIN comuna
-WHERE id_publicacion_usuario = ?;");
+INNER JOIN usuario2 AS U ON PU.id_usuario_dueno_publicacion = U.id_usuario
+WHERE id_publicacion_usuario = ?");
 
 
 $detallesPublicacion->bindParam(1, $idPublicacion);
 $detallesPublicacion->execute();
 $datosPublicacion = $detallesPublicacion->fetch(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
+//<!-- TERMINO OBTENER TODOS LOS DETALLES DE LA PUBLICACION -->
 
 //variables que se ocupan mas abajo
 $idDueñoPublicacion = $datosPublicacion['id_usuario_dueno_publicacion'];
@@ -260,7 +262,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <br><br>
 
                         <!-- CONTRATAR SERVICIOS -->
-                        <form action="WebPay.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>&titulo=<?php echo $datosPublicacion['titulo'] ?>&valorHora=<?php echo round($datosPublicacion['precio']) ?>" method="POST" enctype="multipart/form-data">
+                        <form action="WebPay.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>&titulo=<?php echo $datosPublicacion['titulo'] ?>&valorHora=<?php echo round($datosPublicacion['precio']) ?>&idContratante=<?php echo $_SESSION['inicioSesion']['id_usuario'] ?>" method="POST" enctype="multipart/form-data">
                              <h5>Ingrese el numero de Horas que desea Solicitar</h5>
                             <input type="text" id="txtCantidadHoras" name="txtCantidadHoras" size="20" maxlength="20" onkeypress="return soloNumeros(event)" style="width: 50%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid black; 
                                    border-radius: 4px;" required>
