@@ -4,7 +4,11 @@ include_once './PostgreSQL/ConexionBD.php'; // llamamos la clase conexion
 //verifica que los campos este vacios
 if (!empty($_POST['user']) && !empty($_POST['pass'])) {
     //preparamos la consulta a la vez que llamamos la conexion
-    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2 WHERE rut_usuario = ?");
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2
+    NATURAL JOIN region
+    NATURAL JOIN ciudad
+    NATURAL JOIN comuna
+    WHERE rut_usuario = ?");
     $consultaSQL->bindParam(1, $_POST['user']);
     $consultaSQL->execute();
     $total = $consultaSQL->rowCount();
@@ -18,7 +22,11 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         echo "ESTE ES UN USUARIO";
         header('Location: ./indexUsuario.php');
     } else {
-        $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM entidad WHERE rut_entidad = ?");
+        $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2
+        NATURAL JOIN region
+        NATURAL JOIN ciudad
+        NATURAL JOIN comuna
+        WHERE rut_usuario = ?");
         $consultaSQL->bindParam(1, $_POST['user']);
         $consultaSQL->execute();
         $total = $consultaSQL->rowCount();

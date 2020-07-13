@@ -45,70 +45,61 @@ if (!isset($_SESSION['inicioSesion'])) {
 
   </head>
   <body>
-     <!-- Header Start -->
-  <header>
-            <div class="container">
-                  
-                         <div class="row">
-               
-                         </div>
-                     <div class="row">
-                     
-                       <div class="col-md-12">
-                           
-                         <!-- header Nav Start -->
-                         <nav class="navbar navbar-default">
-                             
-                           <div class="container-fluid">
-                             <!-- Brand and toggle get grouped for better mobile display -->
-                             <div class="navbar-header" style="float: left;">
-                               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                               <span class="sr-only">EduWeb</span>
-                               <span class="icon-bar"></span>
-                               <span class="icon-bar"></span>
-                               <span class="icon-bar"></span>
-                               </button>       
-                                 <span></span>
-                               </a>
-                             </div>
-                               <!-- Collect the nav links, forms, and other content for toggling -->
-                               
-                               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                 <div class="row">
-                                     
-                                   <ul class="nav navbar-nav navbar-right" >
-                                     <li><a href="indexUsuario.php">Inicio</a></li>
-                                     <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
-                                     <li><a href="PublicacionTutoria.php">Crear Publicación</a></li>
-               
-                                     <li>                     <?php
-                                               if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
-                                                   $avatar = $_SESSION['inicioSesion']['foto_usuario'];
-                                                   echo $_SESSION['inicioSesion']['nombre_usuario'];
-                                                   echo' ';
-                                                   echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                               } else {
-                                                   $avatar = $_SESSION['inicioSesion']['foto_entidad'];
-                                                   echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
-                                                   echo ' ';
-                                                   echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                               }
-                                               ?>  <a href=""></a>
-                  
-                                       </li>
-                                      <li><a href="MiPerfil.php">Mi Cuenta</a></li>
-                                       <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
-               
-                                
-                                  </ul>
-                                 </div>
-                               </div><!-- /.navbar-collapse -->
-                             </div><!-- /.container-fluid -->
-                           </nav>
-                         </div>
-                       </div>
-                     </div>
-                   </header><!-- header close -->
+      <!-- Header Start -->
+ <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " >
+    <div class="container" style="
+    margin-left: 0; margin-right: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- header Nav Start -->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header" style="float: left;">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">EduWeb</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>       
+                  <span></span>
+                </a>
+              </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <div class="row">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
+                      <li><a href="indexUsuario.php">Inicio</a></li>
+                      <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
+                      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Crear Publicación
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="PublicacionTutoria.php"> Tutoria</a>
+          <hr>
+          <a class="dropdown-item" href="PublicacionAsesoria.php"> Asesoria</a>
+        </div>
+      </li>
+                        
+                       <li><a href="MiPerfil.php">Mi Cuenta</a></li>
+                        <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
+
+                 
+                   </ul>
+                  </div>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header><!-- header close -->
         
         <!-- Slider Start -->
         <section id="global-header">
@@ -136,12 +127,34 @@ if (!isset($_SESSION['inicioSesion'])) {
                     </div>
                 <div class="row">
                     <div  class="column1" >
-                          <h4>Bienvenido:</h4> 
-                          <h4>Nombre Usuario:</h4>                          
-                          <h4>Edad:</h4> 
-                          <h4>Residencia:</h4>
-                          <h4>Calificación:</h4>
-                    </div>
+                          <h4>Bienvenido:       
+                             <?php
+                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
+                                    $avatar = $_SESSION['inicioSesion']['foto_usuario'];
+                                    echo $_SESSION['inicioSesion']['nombre_usuario'];
+                                    echo' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                } else {
+                                    $avatar = $_SESSION['inicioSesion']['foto_entidad'];
+                                    echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
+                                    echo ' ';
+                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
+                                }
+                                ?> 
+                          </h4> 
+                          <h4>Nombre Usuario: <?php echo $_SESSION['inicioSesion']['nombre_usuario']; ?>&nbsp;<?php echo $_SESSION['inicioSesion']['apellidopat_usuario']; ?>&nbsp;<?php echo $_SESSION['inicioSesion']['apellidomat_usuario']; ?></h4>                          
+                          <?php
+                          $nacimiento = $_SESSION['inicioSesion']['fechanac_usuario'];
+                        $fecha = time() - strtotime($nacimiento);
+
+                        $edad = floor($fecha / 31556926);
+                        ?>
+                        
+                          <h4>Edad: <?php echo $edad; ?></h4> 
+                          <h4>Región: <?php echo $_SESSION['inicioSesion']['nombre_region'] ?></h4>
+                          <h4>Ciudad: <?php echo $_SESSION['inicioSesion']['nombre_ciudad'] ?> </h4>
+                          <h4>Comuna: <?php echo $_SESSION['inicioSesion']['nombre_comuna'] ?> </h4>
+                        </div>
                 </div>
                            <center>
                          <br>     
@@ -160,8 +173,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                 </div>
                 <br>
                 <div class="row">
-                    <div  class="column4" >
-                   
+                    <div  class="column4" >          
                        <h4> <a href="" style="color: white;">Realizar Comentarios</a> </h4>
                        </div>     
                     </div>
@@ -205,7 +217,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                     .column1 {
                         -webkit-flex: 1;
                         -ms-flex: 1;
-                        flex: 0.4;
+                        flex: 0.45;
                         padding: 10px;
                         height: auto;
                         width:auto;

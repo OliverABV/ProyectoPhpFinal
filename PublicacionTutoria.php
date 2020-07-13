@@ -117,12 +117,12 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
         </script>
   </head>
   <body>
-  <!-- Header Start -->
-  <header style="
+ <!-- Header Start -->
+ <header style="
                         width: 90%;
                          float: rigth;
                         margin: auto;
-                        " > >
+                        " >
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
       <div class="row">
@@ -131,7 +131,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
           <nav class="navbar navbar-default">
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header">
+              <div class="navbar-header" style="float: left;">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">EduWeb</span>
                 <span class="icon-bar"></span>
@@ -148,24 +148,18 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="indexUsuario.php">Inicio</a></li>
                       <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
-                      <li><a href="CrearPublicacion.php">Crear Publicación</a></li>
-
-                      <li>
-                            <a href="#"> <?php
-                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
-                                    $avatar = $_SESSION['inicioSesion']['foto_usuario'];
-                                    echo $_SESSION['inicioSesion']['nombre_usuario'];
-                                    echo' ';
-                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                } else {
-                                    $avatar = $_SESSION['inicioSesion']['foto_entidad'];
-                                    echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
-                                    echo ' ';
-                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                }
-                                ?>  </a>
-                        </li>
-                       <li><a href="#">Mi Cuenta</a></li>
+                      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Crear Publicación
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="PublicacionTutoria.php"> Tutoria</a>
+          <hr>
+          <a class="dropdown-item" href="PublicacionAsesoria.php"> Asesoria</a>
+        </div>
+      </li>
+                        
+                       <li><a href="MiPerfil.php">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
                  
@@ -219,23 +213,23 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
 
                     <h3>Tu Ubicación</h3>
                     <div class="form-group">                
-                       <select id="pais" name="pais" class="form-control">
+                       <select id="pais" name="pais" class="form-control" required>
                         <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
                     </div>                    
                       
                     <div class="form-group">                         
-                      <select id="region" name="region" class="form-control">
+                      <select id="region" name="region" class="form-control" required>
                             <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
-                                </select>
+                                </select >
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudad" name="ciudad" class="form-control">
+                             <select id="ciudad" name="ciudad" class="form-control" required>
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -243,7 +237,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                       
                       
                     <div class="form-group">                         
-                            <select id="comuna" name="comuna" class="form-control">
+                            <select id="comuna" name="comuna" class="form-control" required>
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
@@ -269,9 +263,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                           <input id="txtPrecio" name="txtPrecio" type="text" class="form-control" placeholder="Precio Por Hora">
                        </div>
 
-                       <div class="form-group">                                          
-                          <input id="txtNumClases" name="txtNumClases" type="text" class="form-control" placeholder="Numero De Clases">
-                       </div>
+                    
                       
                        <div class="row">
                             <div class="col-sm-12">
