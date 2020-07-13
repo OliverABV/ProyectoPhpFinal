@@ -119,17 +119,21 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
     </head>
     <body>
         <!-- Header Start -->
-  <header style="
-                        width: 90%;
-                         float: rigth;
-                        margin: auto;
-                        " >
-    <div class="container" style="
-    margin-left: 0; margin-right: 0;">
+  <header>
+                   
+                          
+    <div class="container">
+   
+          <div class="row">
+
+          </div>
       <div class="row">
+      
         <div class="col-md-12">
+            
           <!-- header Nav Start -->
           <nav class="navbar navbar-default">
+              
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header" style="float: left;">
@@ -143,16 +147,16 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 </a>
               </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
+                
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <div class="row">
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
+                      
+                    <ul class="nav navbar-nav navbar-right" >
                       <li><a href="indexUsuario.php">Inicio</a></li>
                       <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
                       <li><a href="PublicacionTutoria.php">Crear Publicación</a></li>
 
-                      <li>
-                            <a href="#"> <?php
+                      <li>                     <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
@@ -164,7 +168,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                     echo ' ';
                                     echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
                                 }
-                                ?>  </a>
+                                ?>  <a href=""></a>
+   
                         </li>
                        <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
@@ -253,9 +258,15 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <label for="">Tipo de Clases Ofrecidas:</label>&nbsp;<?php echo $datosPublicacion['categoria_publicacion']; ?> <label for=""></label> <br>
                         <label for="">Incluye:</label> <?php echo $datosPublicacion['si_incluye'] ?> <label for=""></label> <br>
                         <label for="">Excluye:</label> <?php echo $datosPublicacion['no_incluye'] ?> <label for=""></label> <br>
-                        <label for="">Valor Hora:</label> <?php echo $datosPublicacion['precio'] ?> <label for=""></label> <br>
+                        <label for="">Valor Hora:</label> <?php echo round($datosPublicacion['precio']) ?>  <label for=""></label> <br>
                         <br><br>
-                        <button class="btn btn-default" type="submit" name="" style="margin-left:15%">Solicitar</button>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                             <h5>Ingrese el numero de Horas que desea Solicitar</h5>
+                            <input type="text" id="txtSolicitar" name="txtSolicitar" size="20" maxlength=""  style="width: 50%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid black; 
+                                   border-radius: 4px;" required>
+                           <br><br>
+                         <button class="btn btn-default" type="submit" name="" style="margin-left:18%">Solicitar</button>
+                        </form>
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
                         <button class="btn btn-default" type="submit" name="" style="margin-left:5%"><a href="MaquetaPublicaciones.php">Volver a Publicaciones</a> </button>
                     </div>                  
@@ -378,6 +389,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <button class="btn btn-default" type="submit" name="">         
                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarPreguntas=1" class="btn">Ocultar Preguntas</a>
                         </button>
+                        
 
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
                      <!--   <div class="expandMoreHolder" >
