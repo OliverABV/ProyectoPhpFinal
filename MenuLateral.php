@@ -41,9 +41,11 @@ and open the template in the editor.
             <a href="MaquetaPublicaciones.php?filtro=asesoria">
             <button type="button" class="btn btn-secondary">Asesoria</button>
             </a>
+            <!--  Oportunidad
             <a href="MaquetaPublicaciones.php?filtro=oportunidad">
             <button type="button" class="btn btn-secondary">Oportunidad</button>
-            </a>       
+            </a>   
+              -->    
         </div>
         </center>
 

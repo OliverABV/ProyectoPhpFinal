@@ -19,6 +19,18 @@ $consultaSQL->execute();
 $listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(*)
+FROM preguntas_publicacion AS PU 
+INNER JOIN usuario2 AS U ON PU.id_usuario_pregunta = U.id_usuario
+NATURAL JOIN publicacion_usuario AS PUS
+WHERE PU.id_usuario_dueno_publicacion =  ?");
+
+$consultaSQL->bindParam(1, $_SESSION['inicioSesion']['id_usuario']);
+$consultaSQL->execute();
+$contadorPreguntas = $consultaSQL->fetch();
+ConexionBD::cerrarConexion();
+
+if ($contadorPreguntas['count'] != 0) {
 foreach ($listaPreguntas as $lista) { ?>
     <hr class="line">
                             <div class="contenedor-comentarios">
@@ -57,4 +69,9 @@ foreach ($listaPreguntas as $lista) { ?>
                                     </div>
                                 </div>
                             </div>
+<?php } ?>
+<?php }else{ ?>
+<!-- SI NO TIENE PREGUNTAS HAS ESTO-->
+<h2>No Tiene Preguntas</h2>
+<a href="http://localhost/ProyectoPhpFinal/MiPerfil.php">Volver a Mi Perfil</a> 
 <?php } ?>

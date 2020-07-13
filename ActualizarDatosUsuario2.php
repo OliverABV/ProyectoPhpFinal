@@ -114,7 +114,7 @@ if ($region == "5") {
             $consultaSQL->execute();
             $resultadoSQL = $consultaSQL->fetch(PDO::FETCH_ASSOC);
             $_SESSION['inicioSesion'] = $resultadoSQL; //recreamos la seccion con los datos actualizados
-            header('Location: ./CerrarSesion.php');
+            header('Location: ./ActualizarDatosUsuario2.php');
             ConexionBD::cerrarConexion();
         } else {
 

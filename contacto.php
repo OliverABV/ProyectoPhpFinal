@@ -51,7 +51,7 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
 
   </head>
   <body>
-    <!-- Header Start -->
+     <!-- Header Start -->
   <header>
     <div class="container" style="
     margin-left: 0; margin-right: 0;">
@@ -77,10 +77,8 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
                     <ul class="nav navbar-nav navbar-right">
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
-                      <li><a href="Registro.php">Publicaciones</a></li>
-                      <li><a href="RegistroUsuario.php">Empezar</a></li>
-                      <li><a href="#">Registro Entidad</a></li>
-                      <li><a href="contacto.html">Contacto</a></li>
+                      <li><a href="RegistroUsuario.php">Registrar Usuario</a></li>
+                      <li><a href="contacto.php">Contacto</a></li>
                       <li><a href="Login.php">Iniciar Sesion</a></li>
 
                   </div>
@@ -92,7 +90,6 @@ if (!empty($_POST['nombre']) && !empty($_POST['correo']) && !empty($_POST['asunt
         </div>
       </div>
     </header><!-- header close -->
-        
         <!-- Slider Start -->
         <section id="global-header">
           <div class="container">

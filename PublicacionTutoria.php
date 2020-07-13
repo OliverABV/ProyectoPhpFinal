@@ -24,7 +24,7 @@ ConexionBD::cerrarConexion();
 // CAMBIOS
 if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!empty($_POST['txtIncluye'])) && (!empty($_POST['txtNoIncluye'])) && (!empty($_POST['txtPrecio'])) ) {
   //  echo "<script>alert('ENTRO EN IF');</script>";
-    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO publicacion_usuario (titulo, descripcion, si_incluye, no_incluye, categoria_publicacion, precio, telefono_opcional, sitio_web, tipo_publicacion, id_usuario_dueno_publicacion, id_region, id_ciudad, id_comuna) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $consultaSQL->bindParam(1, $_POST['txtNamePost']);
     $consultaSQL->bindParam(2, $_POST['txtDescripcion']);
@@ -74,6 +74,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
     <link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/alertify.css">
         <link rel="stylesheet" type="text/css" href="librerias/alertifyjs/css/themes/default.css">
+        <link rel="stylesheet" href="css/textarea.css">
 
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -84,6 +85,8 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
     <script src="js/plugins.js"></script>
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
+    <script src="./JavaScript/SoloLetras.js"></script>
+    <script src="./JavaScript/SoloNumeros.js"></script>
 
     <script src="js/main.js"></script>
 
@@ -117,8 +120,8 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
         </script>
   </head>
   <body>
- <!-- Header Start -->
- <header style="
+  <!-- Header Start -->
+  <header style="
                         width: 90%;
                          float: rigth;
                         margin: auto;
@@ -196,40 +199,40 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                   <h3>Publicaci&oacute;n</h3> 
 
                     <div class="form-group">
-                        <input type="text" id="txtnamePost" name="txtNamePost" class="form-control" placeholder="Nombre De La Publicaci&oacute;n" required>
+                        <input type="text" id="txtnamePost" name="txtNamePost" class="form-control" placeholder="Nombre De La Publicaci&oacute;n" onkeypress="return soloLetras(event)" required>
                     </div>
                       
                     <div class="form-group">
-                           <input type="text" id="txtIncluye" name="txtIncluye" class="form-control" placeholder="Que Incluye La Publicaci&oacute;n" required>
+                           <input type="text" id="txtIncluye" name="txtIncluye" class="form-control" placeholder="Que Incluye La Publicaci&oacute;n" onkeypress="return soloLetras(event)" required>
                     </div> 
                       
                     <div class="form-group">
-                        <input type="text" id="txtNoIncluye" name="txtNoIncluye" class="form-control" placeholder="Que No Incluye La Publicaci&oacute;n" required>
+                        <input type="text" id="txtNoIncluye" name="txtNoIncluye" class="form-control" placeholder="Que No Incluye La Publicaci&oacute;n" onkeypress="return soloLetras(event)" required>
                     </div> 
                       
                     <div class="form-group-2">
-                      <textarea name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
+                      <textarea style="overflow:auto;resize:none" name="txtDescripcion" class="form-control" rows="3" placeholder="Ingrese su Mensaje"></textarea>
                     </div>
 
                     <h3>Tu Ubicación</h3>
                     <div class="form-group">                
-                       <select id="pais" name="pais" class="form-control" required>
+                       <select id="pais" name="pais" class="form-control">
                         <option value="0">Seleccione Pais...</option> 
                                 <option value="Chile">Chile</option>
                                 </select>
                     </div>                    
                       
                     <div class="form-group">                         
-                      <select id="region" name="region" class="form-control" required>
+                      <select id="region" name="region" class="form-control">
                             <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
                                 <?php } ?>
-                                </select >
+                                </select>
                     </div>
                       
                     <div class="form-group">                        
-                             <select id="ciudad" name="ciudad" class="form-control" required>
+                             <select id="ciudad" name="ciudad" class="form-control">
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
                     </div>
@@ -237,7 +240,7 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                       
                       
                     <div class="form-group">                         
-                            <select id="comuna" name="comuna" class="form-control" required>
+                            <select id="comuna" name="comuna" class="form-control">
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
                     </div>
@@ -248,11 +251,11 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                       </div>   
                     
                       <div class="form-group">                                               
-                        <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" name="txtTelefono" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" >
+                        <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" name="txtTelefono" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" onkeypress="return soloNumeros(event)" required>
                       </div>
                                                                                                                               
                       <div class="form-group">                          
-                      <label for="">Correo: </label>  <input type="text" id="txtEmail" name="txtEmail"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>" >
+                      <label for="">Correo: </label>  <input type="email" id="txtEmail" name="txtEmail"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>" required>
                     </div> 
                           
                       <div class="form-group">                                          
@@ -260,10 +263,8 @@ if (!empty($_POST['txtNamePost']) && (!empty($_POST['txtDescripcion'])) && (!emp
                        </div>
                       
                        <div class="form-group">                                          
-                          <input id="txtPrecio" name="txtPrecio" type="text" class="form-control" placeholder="Precio Por Hora">
+                          <input id="txtPrecio" name="txtPrecio" type="text" class="form-control" placeholder="Precio Por Hora" onkeypress="return soloNumeros(event)" required>
                        </div>
-
-                    
                       
                        <div class="row">
                             <div class="col-sm-12">

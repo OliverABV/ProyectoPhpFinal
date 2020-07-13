@@ -74,13 +74,13 @@ ConexionBD::cerrarConexion();
 
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
+
+    <script src="./JavaScript/SoloLetras.js"></script>
+    <script src="./JavaScript/SoloNumeros.js"></script>
 
     <script src="js/main.js"></script>
 
@@ -193,15 +193,15 @@ ConexionBD::cerrarConexion();
                   <h3>Publicaci&oacute;n</h3> 
 
                     <div class="form-group">
-                        <input type="text" id="txtnamePost" name="txtNamePost" class="form-control" placeholder="Nombre De La Publicaci&oacute;n" required>
+                        <input type="text" id="txtnamePost" name="txtNamePost" class="form-control" size="70" maxlength="70" placeholder="Nombre De La Publicaci&oacute;n" required>
                     </div>
                       
                     <div class="form-group">
-                           <input type="text" id="txtIncluye" name="txtIncluye" class="form-control" placeholder="Que Incluye La Publicaci&oacute;n" required>
+                           <input type="text" id="txtIncluye" name="txtIncluye" class="form-control" size="70" maxlength="70" placeholder="Que Incluye La Publicaci&oacute;n" required>
                     </div> 
                       
                     <div class="form-group">
-                        <input type="text" id="txtNoIncluye" name="txtNoIncluye" class="form-control" placeholder="Que No Incluye La Publicaci&oacute;n" required>
+                        <input type="text" id="txtNoIncluye" name="txtNoIncluye" class="form-control" size="70" maxlength="70" placeholder="Que No Incluye La Publicaci&oacute;n" required>
                     </div> 
                       
                     <div class="form-group-2">
@@ -240,29 +240,24 @@ ConexionBD::cerrarConexion();
                     </div>
                       
                     <h3>Datos de Contacto</h3> 
-                    <div class="form-group">                                               
-                       <input type="text" class="form-control" id="txtFelefonoOpc" name="txtTelefonoOpc" placeholder="Ingrese Telefono Opcional">
-                      </div>   
+                    
                     
                       <div class="form-group">                                               
-                        <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" name="txtTelefono" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" readonly="readonly">
+                      <label for="">Telefono: </label> <input type="text" class="form-control" id="txtFelefono" size="15" maxlength="15" name="txtTelefono" onkeypress="return soloNumeros(event)" value="<?php echo $_SESSION['inicioSesion']['telefono_usuario'] ?>" >
                       </div>
                                                                                                                               
                       <div class="form-group">                          
-                      <label for="">Correo: </label>  <input type="text" id="txtEmail" name="txtEmail"  class="form-control" value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>" readonly="readonly">
+                      <label for="">Correo: </label>  <input type="email" id="txtEmail" name="txtEmail"  class="form-control"  size="70" maxlength="70"value="<?php echo $_SESSION['inicioSesion']['email_usuario'] ?>">
                     </div> 
                           
                       <div class="form-group">                                          
-                          <input id="txtSitioWeb" name="txtSitioWeb" type="text" class="form-control" placeholder="Sitio Web">
+                          <input id="txtSitioWeb" name="txtSitioWeb" type="text" class="form-control" size="50" maxlength="50" placeholder="Sitio Web">
                        </div>
                       
                        <div class="form-group">                                          
-                          <input id="txtPrecio" name="txtPrecio" type="text" class="form-control" placeholder="Precio Por Hora">
+                       <input id="txtPrecio" name="txtPrecio" type="text" size="20" maxlength="20" class="form-control" placeholder="Precio Por Hora" onkeypress="return soloNumeros(event)" required>
                        </div>
 
-                       <div class="form-group">                                          
-                          <input id="txtNumClases" name="txtNumClases" type="text" class="form-control" placeholder="Numero De Clases">
-                       </div>
                       
                        <div class="row">
                             <div class="col-sm-12">

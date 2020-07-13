@@ -98,20 +98,8 @@ if (!empty($_GET['filtro'])) {
                             <a href="indexUsuario.php">Inicio</a>
                             <a href="MaquetaPublicaciones.php">Publicaciones</a>
                             <a href="PublicacionTutoria.php">Crear Publicación</a>
-                            <a href="#">Bienvenido <span class="glyphicon glyphicon-user"></span> <?php
-                                if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
-                                    $avatar = $_SESSION['inicioSesion']['foto_usuario'];
-                                    echo $_SESSION['inicioSesion']['nombre_usuario'];
-                                    echo' ';
-                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                } else {
-                                    $avatar = $_SESSION['inicioSesion']['foto_entidad'];
-                                    echo $_SESSION['inicioSesion']['nombre_comercial_entidad'];
-                                    echo ' ';
-                                    echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
-                                }
-                                ?>  </a>
-                            <a href="#">Mi Cuenta </a>
+                        
+                            <a href="MiPerfil.php">Mi Cuenta </a>
                             <a href="CerrarSesion.php">Cerrar Sesion</a>
                         </nav>
 
@@ -187,8 +175,6 @@ if (!empty($_GET['filtro'])) {
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="col-6 bg">
                                     <div class="row row-cols-1">
                                         <div class="col bg">

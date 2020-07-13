@@ -22,11 +22,11 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         echo "ESTE ES UN USUARIO";
         header('Location: ./indexUsuario.php');
     } else {
-        $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM usuario2
+        $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT * FROM entidad
         NATURAL JOIN region
         NATURAL JOIN ciudad
         NATURAL JOIN comuna
-        WHERE rut_usuario = ?");
+        WHERE rut_entidad = ?");
         $consultaSQL->bindParam(1, $_POST['user']);
         $consultaSQL->execute();
         $total = $consultaSQL->rowCount();

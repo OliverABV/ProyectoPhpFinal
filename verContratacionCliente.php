@@ -20,6 +20,18 @@ $consultaSQL->execute();
 $listaPreguntas = $consultaSQL->fetchAll(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
 
+$consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(*)
+FROM contratacion_servicio CS
+INNER JOIN usuario2 AS U ON CS.id_dueno = U.id_usuario
+INNER JOIN publicacion_usuario AS PU ON CS.id_publicacion = PU.id_publicacion_usuario
+WHERE id_contratante = ?");
+
+$consultaSQL->bindParam(1, $_SESSION['inicioSesion']['id_usuario']);
+$consultaSQL->execute();
+$contadorSolicitudes = $consultaSQL->fetch();
+ConexionBD::cerrarConexion();
+
+if ($contadorSolicitudes['count'] != 0) {
 foreach ($listaPreguntas as $lista) { ?>
     <hr class="line">
                             <div class="contenedor-comentarios">
@@ -60,4 +72,9 @@ foreach ($listaPreguntas as $lista) { ?>
                                     </div>
                                 </div>
                             </div>
+<?php } ?>
+<?php }else{ ?>
+<!-- SI NO TIENE SERVICIOS CONTRATADOS HAS ESTO-->
+<h2>No Tiene Ningun Servicio Contratadado</h2>
+<a href="http://localhost/ProyectoPhpFinal/MiPerfil.php">Volver a Mi Perfil</a> 
 <?php } ?>

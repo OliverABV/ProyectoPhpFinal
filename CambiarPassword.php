@@ -104,46 +104,60 @@ if (!empty($_POST['claveAntigua']) && !empty($_POST['claveNueva']) && !empty($_P
     </head>
     <body>
         <!-- Header Start -->
-        <header>
-            <div class="container" style="
-                 margin-left: 0; margin-right: 0;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- header Nav Start -->
-                        <nav class="navbar navbar-default">
-                            <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                        <span class="sr-only">EduWeb</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>       
-                                    <span></span>
-                                    </a>
-                                </div>
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <div class="row">
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
-                                            <li><a href="index.html">Inicio</a></li>
-                                            <li><a href="Registro.php">Publicaciones</a></li>
-                                            <li><a href="RegistroUsuario.php">Empezar</a></li>
-                                            <li><a href="#">Registro Entidad</a></li>
-                                            <li><a href="contacto.html">Contacto</a></li>
-                                            <li><a href="#">Iniciar Sesion</a></li>
+ <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " >
+    <div class="container" style="
+    margin-left: 0; margin-right: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- header Nav Start -->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header" style="float: left;">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">EduWeb</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>       
+                  <span></span>
+                </a>
+              </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <div class="row">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
+                      <li><a href="indexUsuario.php">Inicio</a></li>
+                      <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
+                      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Crear Publicación
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="PublicacionTutoria.php"> Tutoria</a>
+          <hr>
+          <a class="dropdown-item" href="PublicacionAsesoria.php"> Asesoria</a>
+        </div>
+      </li>
+                        
+                       <li><a href="MiPerfil.php">Mi Cuenta</a></li>
+                        <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
 
-                                    </div>
-                                    </ul>
-                                </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header><!-- header close -->
+                 
+                   </ul>
+                  </div>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header><!-- header close -->
 
         <!-- Slider Start -->
         <section id="global-header">

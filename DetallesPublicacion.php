@@ -287,7 +287,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                     </div>
                                     <div class="info-comentarios" >
                                         <div class="header-comentario">
-                                            <h4><?php echo $lista['nombre_usuario']; ?><?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
+                                            <h4><?php echo $lista['nombre_usuario']; ?>&nbsp;<?php echo $lista['apellidopat_usuario']; ?>&nbsp;<?php echo $lista['apellidomat_usuario']; ?></h4>
                                             <h4 style="margin-right: 20% ;"> <?php echo $lista['titulo']; ?></h5> 
                                             <img src="img/Imagenes/Sistema/estrella.png" width="3%" height="3%" style="margin-right: -18%;" > 
                                             <h4><?php echo $lista['estrellas']; ?></h4>

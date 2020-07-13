@@ -174,7 +174,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                 <br>
                 <div class="row">
                     <div  class="column4" >          
-                       <h4> <a href="" style="color: white;">Realizar Comentarios</a> </h4>
+                       <h4> <a href="" style="color: white;">Realizar Comentarios (En Desarrollo)</a> </h4>
                        </div>     
                     </div>
                     <br>

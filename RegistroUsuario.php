@@ -11,82 +11,82 @@ $message = '';
 //comrpobar que campos tengan datos
 if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['nombre']) && !empty($_POST['apellidopat']) && !empty($_POST['apellidomat']) && !empty($_POST['sexo']) && !empty($_POST['pais']) && !empty($_POST['region']) && !empty($_POST['ciudad']) && !empty($_POST['comuna']) && !empty($_POST['fecha_nac']) && !empty($_POST['email']) && !empty($_POST['telefono'])) {
 
-    //verificar que ya no exista el RUT en la BD
-    $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
-    $consultaSQL->bindParam(1, $_POST['rut']);
-    $consultaSQL->execute();
+  //verificar que ya no exista el RUT en la BD
+  $consultaSQL = ConexionBD::abrirConexion()->prepare("SELECT COUNT(rut_usuario) FROM usuario2 WHERE rut_usuario = ?");
+  $consultaSQL->bindParam(1, $_POST['rut']);
+  $consultaSQL->execute();
+  $total = $consultaSQL->fetch();
+  if ($total['count'] == 0) {
+      ConexionBD::cerrarConexion();
+      //echo "<script>alert('ENTRO EN SI');</script>";
+      //echo '<script>alert (" Ha respondido '.$acumulador.' respuestas afirmativas");</script>';
+      //verifica si se incluye o no avatar
+      if (!empty($_FILES['imgAvatar']['name'])) {
+          $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
+          $nom_archivo = $_POST['rut'] . "." . $extencion;
 
-    if ($consultaSQL->fetchColumn() == 0) {
-        ConexionBD::cerrarConexion();
-        //echo "<script>alert('ENTRO EN SI');</script>";
-        //echo '<script>alert (" Ha respondido '.$acumulador.' respuestas afirmativas");</script>';
-        //verifica si se incluye o no avatar
-        if (!empty($_FILES['imgAvatar']['name'])) {
-            $extencion = pathinfo($_FILES['imgAvatar']['name'], PATHINFO_EXTENSION);
-            $nom_archivo = $_POST['rut'] . "." . $extencion;
-
-            //date_default_timezone_set("America/Santiago");
-            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
-            $archivo = $_FILES['imgAvatar']['tmp_name'];
-            move_uploaded_file($archivo, $rutaAvatar);
-        } else {
-            if ($_POST['sexo'] == "masculino") {
-                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
-            } else {
-                $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
-            }
-        }
+          //date_default_timezone_set("America/Santiago");
+          $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+          $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+          $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/" . $fechaSubida . " " . $nom_archivo;
+          $archivo = $_FILES['imgAvatar']['tmp_name'];
+          move_uploaded_file($archivo, $rutaAvatar);
+      } else {
+          if ($_POST['sexo'] == "masculino") {
+              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoHombre.jpg";
+          } else {
+              $rutaAvatar = "img/Imagenes/FotosPerfiles/Usuarios/SinFotoMujer.jpg";
+          }
+      }
 
 //verifica si se incluye o no certificado
-        if (!empty($_FILES['imgCertificado']['name'])) {
-            $extencion = pathinfo($_FILES['imgCertificado']['name'], PATHINFO_EXTENSION);
-            $nom_archivo = $_POST['rut'] . "." . $extencion;
+      if (!empty($_FILES['imgCertificado']['name'])) {
+          $extencion = pathinfo($_FILES['imgCertificado']['name'], PATHINFO_EXTENSION);
+          $nom_archivo = $_POST['rut'] . "." . $extencion;
 
-            //date_default_timezone_set("America/Santiago");
-            $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
-            $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
-            $rutaCertificado = "img/Imagenes/Certificados/" . $fechaSubida . " " . $nom_archivo;
-            $archivo = $_FILES['imgCertificado']['tmp_name'];
-            move_uploaded_file($archivo, $rutaCertificado);
-        } else {
-            $rutaCertificado = "Sin Certificado";
-        }
-        //crear la query para almacenar los datos
-        $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO usuario2 (rut_usuario, password_usuario, nombre_usuario, apellidopat_usuario, apellidomat_usuario, sexo_usuario, pais_usuario, id_region, id_ciudad, id_comuna, fechanac_usuario, email_usuario, telefono_usuario, Foto_usuario, certificado_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          //date_default_timezone_set("America/Santiago");
+          $fechaCompleta = date_create(null, timezone_open("America/Santiago"));
+          $fechaSubida = date_format($fechaCompleta, "d-m-Y H-i-s");
+          $rutaCertificado = "img/Imagenes/Certificados/" . $fechaSubida . " " . $nom_archivo;
+          $archivo = $_FILES['imgCertificado']['tmp_name'];
+          move_uploaded_file($archivo, $rutaCertificado);
+      } else {
+          $rutaCertificado = "Sin Certificado";
+      }
+      //crear la query para almacenar los datos
+      $consultaSQL = ConexionBD::abrirConexion()->prepare("INSERT INTO usuario2 (rut_usuario, password_usuario, nombre_usuario, apellidopat_usuario, apellidomat_usuario, sexo_usuario, pais_usuario, id_region, id_ciudad, id_comuna, fechanac_usuario, email_usuario, telefono_usuario, Foto_usuario, certificado_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $consultaSQL->bindParam(1, $_POST['rut']);
-        $password = password_hash($_POST['passwordNuevo'], PASSWORD_BCRYPT);
-        $consultaSQL->bindParam(2, $password);
-        $consultaSQL->bindParam(3, $_POST['nombre']);
-        $consultaSQL->bindParam(4, $_POST['apellidopat']);
-        $consultaSQL->bindParam(5, $_POST['apellidomat']);
-        $consultaSQL->bindParam(6, $_POST['sexo']);
-        $consultaSQL->bindParam(7, $_POST['pais']);
-        $consultaSQL->bindParam(8, $_POST['region']);
-        $consultaSQL->bindParam(9, $_POST['ciudad']);
-        $consultaSQL->bindParam(10, $_POST['comuna']);
-        $consultaSQL->bindParam(11, $_POST['fecha_nac']);
-        $consultaSQL->bindParam(12, $_POST['email']);
-        $consultaSQL->bindParam(13, $_POST['telefono']);
-        $consultaSQL->bindParam(14, $rutaAvatar);
-        $consultaSQL->bindParam(15, $rutaCertificado);
+      $consultaSQL->bindParam(1, $_POST['rut']);
+      $password = password_hash($_POST['passwordNuevo'], PASSWORD_BCRYPT);
+      $consultaSQL->bindParam(2, $password);
+      $consultaSQL->bindParam(3, $_POST['nombre']);
+      $consultaSQL->bindParam(4, $_POST['apellidopat']);
+      $consultaSQL->bindParam(5, $_POST['apellidomat']);
+      $consultaSQL->bindParam(6, $_POST['sexo']);
+      $consultaSQL->bindParam(7, $_POST['pais']);
+      $consultaSQL->bindParam(8, $_POST['region']);
+      $consultaSQL->bindParam(9, $_POST['ciudad']);
+      $consultaSQL->bindParam(10, $_POST['comuna']);
+      $consultaSQL->bindParam(11, $_POST['fecha_nac']);
+      $consultaSQL->bindParam(12, $_POST['email']);
+      $consultaSQL->bindParam(13, $_POST['telefono']);
+      $consultaSQL->bindParam(14, $rutaAvatar);
+      $consultaSQL->bindParam(15, $rutaCertificado);
 
 
-        if ($consultaSQL->execute()) {
+      if ($consultaSQL->execute()) {
 
-            echo "<script>alert('USUARIO REGISTRADO');</script>";
-        } else {
+          echo "<script>alert('USUARIO REGISTRADO');</script>";
+      } else {
 
-            echo "<script>alert('ERROR EN REGISTRO');</script>";
-        }
-        ConexionBD::cerrarConexion();
-    } else {
-        // si el rut ya existe ejecutar esto
-        ConexionBD::cerrarConexion();
-        echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
-    }
+          echo "<script>alert('ERROR EN REGISTRO');</script>";
+      }
+      ConexionBD::cerrarConexion();
+  } else {
+      // si el rut ya existe ejecutar esto
+      ConexionBD::cerrarConexion();
+      echo "<script>alert('EL RUT INGRESADO YA EXISTE');</script>";
+  }
 }
 //ConexionBD::cerrarConexion();
 ?>
@@ -112,13 +112,16 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
     
     <!-- Js -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/min/waypoints.min.js"></script>
     <script src="js/jquery.counterup.js"></script>
+    <script src="js/jquery.counterup.js"></script>
+
+    <script src="./JavaScript/SoloLetras.js"></script>
+    <script src="./JavaScript/SoloNumeros.js"></script>
 
     <script src="js/main.js"></script>
 
@@ -183,8 +186,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                       <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="index.html">Inicio</a></li>
                       <li><a href="RegistroUsuario.php">Registrar Usuario</a></li>
-                      <li><a href="RegistroEntidad.php">Registrar Empresa</a></li>
-                      <li><a href="contacto.html">Contacto</a></li>
+                      <li><a href="contacto.php">Contacto</a></li>
                       <li><a href="Login.php">Iniciar Sesion</a></li>
 
                   </div>
@@ -218,7 +220,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                 <div class="block">
                   <form action="RegistroUsuario.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" required oninput="checkRut(this)"  required>
+                        <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese Rut" oninput="checkRut(this)"   required>
                                                         <script src="./JavaScript/FormatoValidaRut.js"></script>
                   </div>
                       
@@ -227,20 +229,20 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                     </div> 
                       
                       <div class="form-group">
-                          <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese Nombre" required>
+                          <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese Nombre" onkeypress="return soloLetras(event)" required>
                     </div> 
                       
                       <div class="form-group">
-                          <input id="apellidopat" name="apellidopat" type="text" class="form-control" placeholder="Ingrese Apellido Paterno" required>
+                          <input id="apellidopat" name="apellidopat" type="text" class="form-control" placeholder="Ingrese Apellido Paterno" onkeypress="return soloLetras(event)" required>
                     </div>
                       
                       
                     <div class="form-group">
-                        <input id="apellidomat" name="apellidomat" type="text" class="form-control" placeholder="Ingrese Apellido Materno" required>
+                        <input id="apellidomat" name="apellidomat" type="text" class="form-control" placeholder="Ingrese Apellido Materno" onkeypress="return soloLetras(event)" required>
                     </div>
                     <div class="form-group">
                     
-                       <select id="sexo" name="sexo"  class="form-control"  required />
+                       <select id="sexo" name="sexo"  class="form-control"  required>
                               
 
                           <option value="0">Seleccione su Sexo</option> 
@@ -249,13 +251,12 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                                 </select>
                     </div>
                       
-                      
-                      
+             
                       
                         <div class="form-group">
                          
 
-                             <select id="pais" name="pais" class="form-control" required />
+                             <select id="pais" name="pais" class="form-control" required>
 
 
                            <option value="0">Seleccione Pais...</option> 
@@ -270,7 +271,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                         <div class="form-group">
                          
 
-                             <select id="region" name="region" class="form-control" required />
+                             <select id="region" name="region" class="form-control" required>
                                 <option value="0">Seleccione una región...</option> 
                                 <?php foreach ($cboRegion as $dato) { ?>
                                     <option value="<?php echo $dato['id_region']; ?>"><?php echo $dato['nombre_region']; ?></option>
@@ -282,7 +283,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                         <div class="form-group">
                          
 
-                             <select id="ciudad" name="ciudad" class="form-control" required />
+                             <select id="ciudad" name="ciudad" class="form-control" required>
                                 <option value="0">Seleccione una region primero...</option> 
                                 </select>
 
@@ -293,7 +294,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                       <div class="form-group">
                          
 
-                            <select id="comuna" name="comuna" class="form-control" required />
+                            <select id="comuna" name="comuna" class="form-control" required>
                                 <option value="0">Seleccione una ciudad primero...</option> 
                                 </select>
 
@@ -304,7 +305,7 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                          
                       
 
-                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required />
+                                <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" placeholder="Ingrese su Fecha_nac" required>
 
                     </div>
                       
@@ -314,14 +315,14 @@ if (!empty($_POST['rut']) && !empty($_POST['passwordNuevo']) && !empty($_POST['n
                       
                       <div class="form-group">
                           
-                          <input id="email" name="email" type="text" class="form-control" placeholder="Ingrese Email" required>
+                          <input id="email" name="email" type="email" class="form-control" placeholder="Ingrese Email" required>
                     </div> 
                           
                       <div class="form-group">
                          
                    
 
-                          <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Ingrese Telefono" required>
+                          <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Ingrese Telefono" onkeypress=" return soloNumeros(event)" required>
 
                     </div>
                       
