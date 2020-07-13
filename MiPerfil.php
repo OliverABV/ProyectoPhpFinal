@@ -47,9 +47,7 @@ if (!isset($_SESSION['inicioSesion'])) {
   <body>
      <!-- Header Start -->
   <header>
-                   
-                          
-                   <div class="container">
+            <div class="container">
                   
                          <div class="row">
                
@@ -98,7 +96,7 @@ if (!isset($_SESSION['inicioSesion'])) {
                                                ?>  <a href=""></a>
                   
                                        </li>
-                                      <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
+                                      <li><a href="MiPerfil.php">Mi Cuenta</a></li>
                                        <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
                
                                 
@@ -150,7 +148,8 @@ if (!isset($_SESSION['inicioSesion'])) {
                 <div class="row">
                     <div  class="column2" >
 
-                    <h4> <a href="ActualizarDatosUsuario.php" style="color: white;">  Actualizar Datos</a></h4>
+                    <h4> <a href="ActualizarDatosUsuario.php" style="color: white;">  Actualizar Datos </a> </h4>
+                    
                     </div> 
                 </div>
                 <br>
@@ -169,9 +168,23 @@ if (!isset($_SESSION['inicioSesion'])) {
                     <br>
                     <div class="row">
                        <div  class="column5">
-                       <h4> <a href="" style="color: white;"> Solicitud de Servicios</a></h4>
+                       <h4> <a href="verContratacionCliente.php" style="color: white;"> Solicitud de Servicios</a></h4>
                        </div>  
                     </div> 
+                     <br>
+                    <div class="row">
+                       <div  class="column6">
+                       <h4> <a href="verContratacionesPendientes.php" style="color: white;"> Contrataciones Pendientes</a></h4>
+                       </div>  
+                    </div> 
+                       <br>
+                  
+                    <div class="row">
+                       <div  class="column7">
+                       <h4> <a href="CambiarPassword.php" style="color: white;"> Cambiar Contraseña</a></h4>
+                       </div>  
+                    </div> 
+                 
                  
                            </center>
           </div>
@@ -253,6 +266,30 @@ if (!isset($_SESSION['inicioSesion'])) {
                         box-shadow: 1px 1px 4px black; 
                     }
 
+
+                    .column6 {
+                        -webkit-flex: 1;
+                        -ms-flex: 1;
+                        flex: 0.4;
+                        padding: 10px;
+                        height: auto;
+                        width: auto;
+                        background:#019CDE;
+                        border: 2px solid black;
+                        box-shadow: 1px 1px 4px black; 
+                    }
+                    .column7 {
+                        -webkit-flex: 1;
+                        -ms-flex: 1;
+                        flex: 0.4;
+                        padding: 10px;
+                        height: auto;
+                        width: auto;
+                        background:#019CDE;
+                        border: 2px solid black;
+                        box-shadow: 1px 1px 4px black; 
+                    }
+             
 
                      
                     .photo-perfil{

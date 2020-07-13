@@ -61,18 +61,20 @@ ConexionBD::cerrarConexion();
 
 //<!-- TERMINO OBTENER TODOS LOS COMENTARIOS DE LA PUBLICACION -->
 
-$detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario 
-NATURAL JOIN usuario2
+//<!-- OBTENER TODOS LOS DETALLES DE LA PUBLICACION -->
+$detallesPublicacion = ConexionBD::abrirConexion()->prepare("SELECT * FROM publicacion_usuario AS PU
 NATURAL JOIN region
 NATURAL JOIN ciudad
 NATURAL JOIN comuna
-WHERE id_publicacion_usuario = ?;");
+INNER JOIN usuario2 AS U ON PU.id_usuario_dueno_publicacion = U.id_usuario
+WHERE id_publicacion_usuario = ?");
 
 
 $detallesPublicacion->bindParam(1, $idPublicacion);
 $detallesPublicacion->execute();
 $datosPublicacion = $detallesPublicacion->fetch(PDO::FETCH_ASSOC);
 ConexionBD::cerrarConexion();
+//<!-- TERMINO OBTENER TODOS LOS DETALLES DE LA PUBLICACION -->
 
 //variables que se ocupan mas abajo
 $idDueñoPublicacion = $datosPublicacion['id_usuario_dueno_publicacion'];
@@ -119,21 +121,17 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
     </head>
     <body>
         <!-- Header Start -->
-  <header>
-                   
-                          
-    <div class="container">
-   
-          <div class="row">
-
-          </div>
+  <header style="
+                        width: 90%;
+                         float: rigth;
+                        margin: auto;
+                        " >
+    <div class="container" style="
+    margin-left: 0; margin-right: 0;">
       <div class="row">
-      
         <div class="col-md-12">
-            
           <!-- header Nav Start -->
           <nav class="navbar navbar-default">
-              
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header" style="float: left;">
@@ -147,16 +145,16 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                 </a>
               </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <div class="row">
-                      
-                    <ul class="nav navbar-nav navbar-right" >
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><img src="img/logo.png" alt="Logo" height="50px" height="50px" style="margin-right: 50px;"></li>
                       <li><a href="indexUsuario.php">Inicio</a></li>
                       <li><a href="MaquetaPublicaciones.php">Publicaciones</a></li>
                       <li><a href="PublicacionTutoria.php">Crear Publicación</a></li>
 
-                      <li>                     <?php
+                      <li>
+                            <a href="#"> <?php
                                 if (!empty($_SESSION['inicioSesion']['nombre_usuario'])) {
                                     $avatar = $_SESSION['inicioSesion']['foto_usuario'];
                                     echo $_SESSION['inicioSesion']['nombre_usuario'];
@@ -168,8 +166,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                                     echo ' ';
                                     echo '<img class="rounded-circle" src="' . $avatar . '" width="50" height="50">';
                                 }
-                                ?>  <a href=""></a>
-   
+                                ?>  </a>
                         </li>
                        <li><a href="ActualizarDatosUsuario2.php">Mi Cuenta</a></li>
                         <li><a href="CerrarSesion.php">Cerrar Sesion</a></li>
@@ -239,6 +236,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         } else {
                             //  echo 'Sin Calificaciones';
                         }
+
                         ConexionBD::cerrarConexion();
                         ?>
                         <br>
@@ -250,8 +248,10 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             <b> SIN CLASIFICACION</b>
                         <?php } ?>
                         <!-- TERMINO CALIFICACION -->
+
                         <br><br><br>
                         <h2>Descripción</h2> <label for=""><?php echo $datosPublicacion['descripcion'] ?></label>
+
                     </div>
                     <div  class="column2" >
                         <h2><?php echo $datosPublicacion['titulo'] ?></h2>
@@ -260,18 +260,27 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <label for="">Excluye:</label> <?php echo $datosPublicacion['no_incluye'] ?> <label for=""></label> <br>
                         <label for="">Valor Hora:</label> <?php echo round($datosPublicacion['precio']) ?>  <label for=""></label> <br>
                         <br><br>
-                        <form action="" method="POST" enctype="multipart/form-data">
+
+                        <!-- CONTRATAR SERVICIOS -->
+                        <form action="WebPay.php?id=<?php echo $idPublicacion ?>&dueño=<?php echo $idDueñoPublicacion ?>&titulo=<?php echo $datosPublicacion['titulo'] ?>&valorHora=<?php echo round($datosPublicacion['precio']) ?>&idContratante=<?php echo $_SESSION['inicioSesion']['id_usuario'] ?>" method="POST" enctype="multipart/form-data">
                              <h5>Ingrese el numero de Horas que desea Solicitar</h5>
-                            <input type="text" id="txtSolicitar" name="txtSolicitar" size="20" maxlength=""  style="width: 50%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid black; 
+                            <input type="text" id="txtCantidadHoras" name="txtCantidadHoras" size="20" maxlength="20" onkeypress="return soloNumeros(event)" style="width: 50%; padding: 5px 5px; margin: 2px 5px; box-sizing: border-box;border: 2px solid black; 
                                    border-radius: 4px;" required>
+                                   <script src="./JavaScript/SoloNumeros.js"></script>
                            <br><br>
                          <button class="btn btn-default" type="submit" name="" style="margin-left:18%">Solicitar</button>
                         </form>
+                        <!-- TERMINO CONTRATAR SERVICIOS -->
+
                         <h4 style="margin-top:240px">Problemas con esta persona? <a href="">Reportala aqui</a></h4>
                         <button class="btn btn-default" type="submit" name="" style="margin-left:5%"><a href="MaquetaPublicaciones.php">Volver a Publicaciones</a> </button>
-                    </div>                  
-                </div>               
-                <div  class="column3">                  
+                    </div>
+                    
+                </div>
+                   
+                    
+                <div  class="column3">
+                    
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
                         <h3>Comentarios de otros usuarios:</h3>
                         <?php foreach ($listaComentarios as $lista) { ?>
@@ -320,9 +329,8 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                     </div>
                 </div>
               
-               <br>
+               
                     <div  class="column4" >
-                        <center>
                         <h4>Deseas Preguntar algo?</h4>
  
                         <!-- TERMINO FORMULARIO PARA CREAR LA PREGUNTA -->
@@ -333,9 +341,7 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                             <button class="btn btn-default" type="submit" name="" >Preguntar</button>
                         </form>
                         <!-- LLENADO DE OTRAS PREGUNTAS -->
-                        </center>
-                        <h3>Preguntas de otros usuarios:</h3>
-                        
+                        <h4>Preguntas de otros usuarios:</h4>
                         <?php foreach ($listaPreguntas as $lista) { ?>
                             <div class="contenedor-comentarios">
                                 <div class="comentarios" >
@@ -389,7 +395,6 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         <button class="btn btn-default" type="submit" name="">         
                         <a href="DetallesPublicacion.php?id=<?php echo $idPublicacion ?>&OcultarPreguntas=1" class="btn">Ocultar Preguntas</a>
                         </button>
-                        
 
                         <!-- TERMINO LLENADO DE OTRAS PREGUNTAS -->
                      <!--   <div class="expandMoreHolder" >
@@ -526,7 +531,11 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         margin-top: 10px;
                         border-left: 1.5px solid #019CDE;
                         border-right: 1.5px solid #019CDE;
-                        box-shadow: 3px 3px 8px red                    
+                        box-shadow: 3px 3px 8px red
+
+
+   
+                       
                     }
 
                     .info-comentarios:hover{
@@ -564,7 +573,16 @@ $nacimiento = $datosPublicacion['fechanac_usuario'];
                         justify-content: space-between;
                         font-size: 15px;               
                     }
+                
+                  
+
+            
+
+
+
+
                 </style>
+
     </section>
     <!-- Call to action Start -->
     <section id="call-to-action">
